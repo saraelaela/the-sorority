@@ -42,10 +42,11 @@ export async function POST(
 ): Promise<NextResponse<UserResponseBodyPost>> {
   const requestBody = await request.json();
   const result = userSchema.safeParse(requestBody);
+
   if (!result.success) {
     return NextResponse.json(
       {
-        error: 'You need to send an Object',
+        error: 'You need to send an Object or',
       },
       { status: 400 },
     );

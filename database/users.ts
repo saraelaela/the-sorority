@@ -23,6 +23,19 @@ export const getUsersInsecure = cache(async () => {
   return users;
 });
 
+export const getUserInsecure = cache(async (id:number) => {
+  const users = await sql<User[]>`
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+    id = ${id}
+  `;
+
+  return users;
+});
+
 export const createUserInsecure = cache(async (newUser: Omit<User, 'id'>) => {
   const [user] = await sql<User[]>`
     INSERT INTO
