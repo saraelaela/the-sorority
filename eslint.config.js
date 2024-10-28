@@ -1,1 +1,11 @@
-export { default } from 'eslint-config-upleveled';
+import { config } from 'dotenv-safe';
+import postgres from 'postgres';
+
+config();
+
+export const postgresConfig = {
+  transform: {
+    ...postgres.camel,
+    undefined: null,
+  },
+};
