@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { getUsersInsecure } from '../database/users';
+import HomeComponent from './HomeComponent';
 import styles from './page.module.css';
 
 export default async function Home() {
@@ -19,7 +19,10 @@ export default async function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        hey
+        <div className={styles.logoArea}></div>
+        <h1 className={styles.h1}>The: </h1>
+        <h1 className={styles.h1}>Sorority </h1>
+        <HomeComponent />
         {/* <h1>New User Inserted: {insertedUser.username}</h1> */}
       </main>
     </div>

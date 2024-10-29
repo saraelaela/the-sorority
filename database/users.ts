@@ -40,6 +40,8 @@ export const getMembersInsecure = cache(async (id: number) => {
   const members = await sql`
   SELECT members.id, members.membership_id
   FROM
+  members
+  LEFT JOIN animal_foods ON animals.id = animal_foods.animal_id
 
   `;
 });
