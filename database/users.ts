@@ -23,7 +23,7 @@ export const getUsersInsecure = cache(async () => {
   return users;
 });
 
-export const getUserInsecure = cache(async (id:number) => {
+export const getUserInsecure = cache(async (id: number) => {
   const users = await sql<User[]>`
     SELECT
       *
@@ -36,31 +36,39 @@ export const getUserInsecure = cache(async (id:number) => {
   return users;
 });
 
-export const createUserInsecure = cache(async (newUser: Omit<User, 'id'>) => {
-  const [user] = await sql<User[]>`
-    INSERT INTO
-      users (
-        username,
-        password,
-        email,
-        role,
-        intro_text,
-        profile_picture,
-        created_at
-      )
-    VALUES
-      (
-        ${newUser.username},
-        ${newUser.password},
-        ${newUser.email},
-        ${newUser.role},
-        ${newUser.introText},
-        ${newUser.profilePicture},
-        ${newUser.createdAt}
-      )
-    RETURNING
-      users.*
-  `;
+export const getMembersInsecure = cache(async (id: number) => {
+  const members = await sql`
+  SELECT members.id, members.membership_id
+  FROM
 
-  return user;
+  `;
 });
+
+// export const createUserInsecure = cache(async (newUser: Omit<User, 'id'>) => {
+//   const [user] = await sql<User[]>`
+//     INSERT INTO
+//       users (
+//         username,
+//         password,
+//         email,
+//         role,
+//         intro_text,
+//         profile_picture,
+//         created_at
+//       )
+//     VALUES
+//       (
+//         ${newUser.username},
+//         ${newUser.password},
+//         ${newUser.email},
+//         ${newUser.role},
+//         ${newUser.introText},
+//         ${newUser.profilePicture},
+//         ${newUser.createdAt}
+//       )
+//     RETURNING
+//       users.*
+//   `;
+
+//   return user;
+// });
