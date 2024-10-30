@@ -3,12 +3,15 @@ import { sql } from './connect';
 
 export type User = {
   id?: number;
-  username: string;
-  password: string;
-  email: string | null;
-  role?: string;
+  password_hash: string;
+  first_name: string;
+  surname: string;
+  occupation?: string;
   intro_text?: string;
   profile_picture?: string;
+  email?: string;
+  linkedin?: string;
+  isAdmin: boolean;
   created_at?: Date;
 };
 
@@ -36,15 +39,15 @@ export const getUserInsecure = cache(async (id: number) => {
   return users;
 });
 
-export const getMembersInsecure = cache(async (id: number) => {
-  const members = await sql`
-  SELECT members.id, members.membership_id
-  FROM
-  members
-  LEFT JOIN animal_foods ON animals.id = animal_foods.animal_id
+// export const getMembersInsecure = cache(async (id: number) => {
+//   const members = await sql`
+//   SELECT members.id, members.membership_id
+//   FROM
+//   members
+//   LEFT JOIN animal_foods ON animals.id = animal_foods.animal_id
 
-  `;
-});
+//   `;
+// });
 
 // export const createUserInsecure = cache(async (newUser: Omit<User, 'id'>) => {
 //   const [user] = await sql<User[]>`

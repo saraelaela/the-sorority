@@ -4,8 +4,6 @@ import localFont from 'next/font/local';
 import Link from 'next/link';
 import styles from './page.module.css';
 
-// import styles from './style.module.scss';
-
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -24,13 +22,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  footerStyle,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <header>
+        <header className={styles.header}>
           <nav className={styles.navClass}>
             <Link href="/">Events</Link>
             <Link href="/">About</Link>
@@ -38,11 +37,24 @@ export default function RootLayout({
             <Link href="/">Blog</Link>
             <Link href="/">Press</Link>
             <Link href="/">Join Us</Link>
-            <Link href="/">Log-in</Link>
+            <Link href="/login">Log-in</Link>
           </nav>
         </header>
-        <main>{children}</main>
-        <footer>Footer</footer>
+        <main className={styles.main}>{children}</main>
+        <footer className={styles.footerDynamicContainer} style={footerStyle}>
+          <div className={styles.footerWrapper}>
+            <div className={styles.socialMedia}>
+              <div>Icon1</div>
+              <div>Icon2</div>
+              <div>Icon3</div>
+            </div>
+            <div className={styles.footerEssentials}>
+              <div>Newsletter</div>
+              <div>Imprint</div>
+              <div>Data</div>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   );

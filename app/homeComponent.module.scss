@@ -1,8 +1,13 @@
 .main {
   position: absolute;
+  overflow-y: scroll;
   right: 0;
   z-index: 1;
   background-color: #e7e7e7;
-  height: 100vh;
-  width: 45vw;
+  height: 100%;
+  width: 50vw;
+}
+
+.h2 {
+  font-size: 30vw;
 }
