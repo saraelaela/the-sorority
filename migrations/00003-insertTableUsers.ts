@@ -3,21 +3,8 @@ import { sql } from '../database/connect';
 
 const users = [
   {
-    id: 1234567,
     password_hash: '1234567',
     first_name: 'Sara',
-    surname: 'Ela',
-    occupation: 'designer',
-    intro_text: 'Hey this is my Intro',
-    profile_picture: 'xxx',
-    email: 'sara@email.com',
-    linkedin: 'linkedin.de',
-    isAdmin: true,
-  },
-  {
-    id: 23456789,
-    password_hash: 'xx1234567',
-    first_name: 'para',
     surname: 'Ela',
     occupation: 'designer',
     intro_text: 'Hey this is my Intro',
@@ -32,7 +19,6 @@ export async function up(sql: Sql) {
     await sql`
     INSERT INTO
     users(
-      id,
       password_hash,
       first_name,
       surname,
@@ -45,7 +31,7 @@ export async function up(sql: Sql) {
     )
     VALUES
     (
-        ${user.id},
+
         ${user.password_hash},
         ${user.first_name},
         ${user.surname},

@@ -2,22 +2,23 @@ import type { Sql } from 'postgres';
 
 export async function up(sql: Sql) {
   await sql`
-   CREATE TABLE users (
-      id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-      password_hash varchar(255) NOT NULL,
-      first_name varchar(80) NOT NULL,
-      surname varchar(80) NOT NULL,
+    CREATE TABLE users (
+      id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+      password_hash varchar(100) NOT NULL,
+      first_name varchar(100) NOT NULL,
+      surname varchar(100)  NOT NULL,
       occupation varchar(100),
-      intro_text varchar(255),
+      intro_text varchar(500),
       profile_picture varchar(200),
-      email varchar(200),
+      email varchar(200) UNIQUE NOT NULL,
       linkedin varchar(200),
-      isAdmin boolean
-
+      isAdmin BOOLEAN DEFAULT false
     )
   `;
-} //perform operation
+}
 
 export async function down(sql: Sql) {
-  await sql` DROP TABLE users `;
-} // reverse operation
+  await sql`
+    DROP TABLE users
+  `;
+}

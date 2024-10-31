@@ -58,12 +58,36 @@
 }
 
 .logoArea {
+  display: flex;
+  flex-direction: column;
   padding: 2rem 0 2rem 2rem;
 }
 
 .h1 {
+  display: inline-block;
+  white-space: nowrap;
   font-family: 'Thunder-BoldLC', Helvetica, Arial, Verdana, Tahoma, sans-serif;
   font-size: 17.5rem;
   text-transform: uppercase;
+  max-width: 100%;
   color: #bfff50;
+}
+
+.animation {
+  display: flex;
+  flex-direction: column;
+  animation: 45s linear 1s infinite running slidein;
+  /* margin: 0 auto; */
+}
+
+/* reverse both */
+
+@keyframes slidein {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
 }

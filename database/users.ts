@@ -26,18 +26,18 @@ export const getUsersInsecure = cache(async () => {
   return users;
 });
 
-export const getUserInsecure = cache(async (id: number) => {
-  const users = await sql<User[]>`
-    SELECT
-      *
-    FROM
-      users
-    WHERE
-    id = ${id}
-  `;
+// export const getUserInsecure = cache(async (id: number) => {
+//   const users = await sql<User[]>`
+//     SELECT
+//       *
+//     FROM
+//       users
+//     WHERE
+//     id = ${id}
+//   `;
 
-  return users;
-});
+//   return users;
+// });
 
 // export const getMembersInsecure = cache(async (id: number) => {
 //   const members = await sql`

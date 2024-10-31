@@ -10,7 +10,9 @@ export default async function Home() {
       <div className={styles.main}>
         <div className={styles.logoArea}>
           <h1 className={styles.h1}>The: </h1>
-          <h1 className={styles.h1}>Sorority </h1>
+          <div className={styles.animation}>
+            <h1 className={styles.h1}>Sorority Sorority Sorority Sorority</h1>
+          </div>
         </div>
         <HomeComponent />
       </div>
