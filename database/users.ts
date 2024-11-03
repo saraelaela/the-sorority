@@ -5,7 +5,7 @@ export type User = {
   id?: number;
   password_hash: string;
   first_name: string;
-  surname: string;
+  last_name: string;
   occupation?: string;
   intro_text?: string;
   profile_picture?: string;
@@ -13,6 +13,10 @@ export type User = {
   linkedin?: string;
   isAdmin: boolean;
   created_at?: Date;
+};
+
+export type UserWithPasswordHash = User & {
+  passwordHash: string;
 };
 
 export const getUsersInsecure = cache(async () => {
@@ -26,54 +30,47 @@ export const getUsersInsecure = cache(async () => {
   return users;
 });
 
-// export const getUserInsecure = cache(async (id: number) => {
-//   const users = await sql<User[]>`
-//     SELECT
-//       *
-//     FROM
-//       users
-//     WHERE
-//     id = ${id}
-//   `;
+// checking if user exists already in database
+export const getUserInsecure = cache(async (id: number) => {
+  const users = await sql<User[]>`
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+    id = ${id}
+  `;
 
-//   return users;
-// });
+  return users;
+});
 
-// export const getMembersInsecure = cache(async (id: number) => {
-//   const members = await sql`
-//   SELECT members.id, members.membership_id
-//   FROM
-//   members
-//   LEFT JOIN animal_foods ON animals.id = animal_foods.animal_id
+export const createUserInsecure = cache(
+  async (
+    first_name: User['first_name'],
+    last_name: User['last_name'],
+    passwordHash: UserWithPasswordHash['passwordHash'],
+  ) => {
+    const [user] = await sql<User[]>`
+    INSERT INTO
+      users (
+        first_name,
+        last_name,
+        passwordHash
 
-//   `;
-// });
 
-// export const createUserInsecure = cache(async (newUser: Omit<User, 'id'>) => {
-//   const [user] = await sql<User[]>`
-//     INSERT INTO
-//       users (
-//         username,
-//         password,
-//         email,
-//         role,
-//         intro_text,
-//         profile_picture,
-//         created_at
-//       )
-//     VALUES
-//       (
-//         ${newUser.username},
-//         ${newUser.password},
-//         ${newUser.email},
-//         ${newUser.role},
-//         ${newUser.introText},
-//         ${newUser.profilePicture},
-//         ${newUser.createdAt}
-//       )
-//     RETURNING
-//       users.*
-//   `;
+      )
+    VALUES
+      (
+        ${first_name},
+        ${last_name},
+        ${passwordHash},
+      )
+    RETURNING
+      users.id,
+      users.first_name,
+      users.last_name
+  `;
 
-//   return user;
-// });
+    return user;
+  },
+);

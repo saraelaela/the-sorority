@@ -1,4 +1,17 @@
 import type { Sql } from 'postgres';
+import { z } from 'zod';
+
+export const userSchema = z.object({
+  first_name: z.string().min(3),
+  last_name: z.string().min(3),
+  password: z.string().min(3),
+});
+
+export type User = {
+  id: number;
+  first_name: string;
+  last_name: string;
+};
 
 export async function up(sql: Sql) {
   await sql`
@@ -6,7 +19,7 @@ export async function up(sql: Sql) {
       id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       password_hash varchar(100) NOT NULL,
       first_name varchar(100) NOT NULL,
-      surname varchar(100)  NOT NULL,
+      last_name varchar(100)  NOT NULL,
       occupation varchar(100),
       intro_text varchar(500),
       profile_picture varchar(200),
