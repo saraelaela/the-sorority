@@ -4,13 +4,22 @@ import { z } from 'zod';
 export const userSchema = z.object({
   first_name: z.string().min(3),
   last_name: z.string().min(3),
+  email: z.string().min(3),
   password: z.string().min(3),
 });
 
 export type User = {
-  id: number;
+  id?: number;
+  password_hash: string;
   first_name: string;
   last_name: string;
+  occupation?: string;
+  intro_text?: string;
+  profile_picture?: string;
+  email: string;
+  linkedin?: string;
+  isAdmin: boolean;
+  created_at?: Date;
 };
 
 export async function up(sql: Sql) {

@@ -9,7 +9,7 @@ export type User = {
   occupation?: string;
   intro_text?: string;
   profile_picture?: string;
-  email?: string;
+  email: string;
   linkedin?: string;
   isAdmin: boolean;
   created_at?: Date;
@@ -30,45 +30,48 @@ export const getUsersInsecure = cache(async () => {
   return users;
 });
 
-// checking if user exists already in database
-export const getUserInsecure = cache(async (id: number) => {
-  const users = await sql<User[]>`
+//check if user with email already exists
+export const getUserInsecure = cache(async (email: User['email']) => {
+  const [user] = await sql<User[]>`
     SELECT
-      *
+      id,
+      email
     FROM
       users
     WHERE
-    id = ${id}
+      email = ${email}
   `;
 
-  return users;
+  return user;
 });
 
 export const createUserInsecure = cache(
   async (
+    email: User['email'],
+    password_hash: UserWithPasswordHash['password_hash'],
     first_name: User['first_name'],
     last_name: User['last_name'],
-    passwordHash: UserWithPasswordHash['passwordHash'],
   ) => {
     const [user] = await sql<User[]>`
     INSERT INTO
       users (
+        email,
+        password_hash,
         first_name,
-        last_name,
-        passwordHash
+        last_name
 
 
       )
     VALUES
       (
+        ${email},
+        ${password_hash},
         ${first_name},
-        ${last_name},
-        ${passwordHash},
+        ${last_name}
       )
     RETURNING
       users.id,
-      users.first_name,
-      users.last_name
+      users.email
   `;
 
     return user;

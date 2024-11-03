@@ -4,13 +4,14 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ErrorMessage from '../../(errormessage)/ErrorMessage';
 import { getSafeReturnToPath } from '../../../util/validation';
-import type { RegisterResponseBody } from '../api/';
+import type { RegisterResponseBody } from '../api/register/route';
 
 type Props = { returnTo?: string | string[] };
 
 export default function RegisterForm(props: Props) {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
@@ -22,8 +23,9 @@ export default function RegisterForm(props: Props) {
     const response = await fetch('api/register', {
       method: 'POST',
       body: JSON.stringify({
-        firstName,
-        lastName,
+        first_name,
+        last_name,
+        email,
         password,
       }),
     });
@@ -50,15 +52,23 @@ export default function RegisterForm(props: Props) {
         <label>
           First Name
           <input
-            value={firstName}
+            value={first_name}
             onChange={(event) => setFirstName(event.currentTarget.value)}
           />
         </label>
         <label>
           Last Name
           <input
-            value={lastName}
+            value={last_name}
             onChange={(event) => setLastName(event.currentTarget.value)}
+          />
+        </label>
+        <label>
+          email
+          <input
+            type={email}
+            value={email}
+            onChange={(event) => setEmail(event.currentTarget.value)}
           />
         </label>
 

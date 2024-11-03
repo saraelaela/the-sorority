@@ -13,9 +13,13 @@ import {
 } from '../../../../migrations/00002-createTableUsers';
 import { secureCookieOptions } from '../../../../util/cookies';
 
-export type RegisterResponseBody = {
-  user: User;
-};
+export type RegisterResponseBody =
+  | {
+      user: User;
+    }
+  | {
+      errors: { message: string }[];
+    };
 
 export async function POST(
   request: Request,
@@ -25,6 +29,52 @@ export async function POST(
   // 1. Get the user data from the request
   const requestBody = await request.json();
   console.log('requestBody', requestBody);
+
+  // 2. Validate User Data w zod
+  const result = userSchema.safeParse(requestBody);
+  console.log('result', result);
+
+  if (!result.success) {
+    return NextResponse.json(
+      { errors: result.error.issues },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  //3. Check if user exists
+  const user = await getUserInsecure(result.data.email);
+  if (user) {
+    return NextResponse.json(
+      {
+        errors: [
+          {
+            message: 'Email is already in use',
+          },
+        ],
+      },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  console.log('user:', result.data);
+
+  //4. Hash the password
+  const password_hash = await bcrypt.hash(result.data.password, 12);
+  console.log('passwordHash', password_hash);
+
+  // 5. Save user info w/ passwordhash
+  const newUser = await createUserInsecure(
+    result.data.email,
+    password_hash,
+    result.data.first_name,
+    result.data.last_name,
+  );
+
+  console.log('newUser', newUser);
 
   return NextResponse.json({ animals: '/api/animals' });
 }
