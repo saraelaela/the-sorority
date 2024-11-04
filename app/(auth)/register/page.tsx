@@ -2,6 +2,9 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getValidSessionToken } from '../../../database/sessions';
 import { getSafeReturnToPath } from '../../../util/validation';
+import HomeComponent from '../../HomeComponent';
+import RootLayout from '../../layout';
+import styles from './page.module.scss';
 import RegisterForm from './RegisterForm';
 
 type Props = {
@@ -31,7 +34,15 @@ export default async function RegisterPage(props: Props) {
   // 4. If the sessionToken cookie is invalid or doesn't exist, show the register form
 
   return (
-    <div>
+    <div className={styles.main}>
+      <div className={styles.logoArea}>
+        <h1 className={styles.h1}>The: </h1>
+        <div className={styles.animation}>
+          <h1 className={styles.h1}>
+            Sisterhood Sisterhood Sisterhood Sisterhood
+          </h1>
+        </div>
+      </div>
       <RegisterForm returnTo={returnTo} />
     </div>
   );

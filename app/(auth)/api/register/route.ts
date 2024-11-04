@@ -75,6 +75,20 @@ export async function POST(
   );
 
   console.log('newUser', newUser);
+  if (!newUser) {
+    return NextResponse.json(
+      {
+        errors: [
+          {
+            message: 'Registration failed',
+          },
+        ],
+      },
+      {
+        status: 400,
+      },
+    );
+  }
 
-  return NextResponse.json({ animals: '/api/animals' });
+  return NextResponse.json({ user: newUser });
 }
