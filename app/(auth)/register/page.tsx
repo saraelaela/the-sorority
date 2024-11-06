@@ -2,8 +2,6 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getValidSessionToken } from '../../../database/sessions';
 import { getSafeReturnToPath } from '../../../util/validation';
-import HomeComponent from '../../HomeComponent';
-import RootLayout from '../../layout';
 import styles from './page.module.scss';
 import RegisterForm from './RegisterForm';
 

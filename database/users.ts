@@ -3,19 +3,20 @@ import { sql } from './connect';
 
 export type User = {
   id?: number;
-  password_hash: string;
-  first_name: string;
-  last_name: string;
+  passwordHash: string;
+  firstName: string;
+  lastName: string;
   occupation?: string;
-  intro_text?: string;
-  profile_picture?: string;
+  introText?: string;
+  profilePicture?: string;
   email: string;
   linkedin?: string;
   isAdmin: boolean;
-  created_at?: Date;
+  createdAt?: Date;
 };
 
-export type UserWithPasswordHash = User & {
+type UserWithPasswordHash = User & {
+  email: string;
   passwordHash: string;
 };
 
@@ -35,13 +36,15 @@ export const getUserInsecure = cache(async (email: User['email']) => {
   const [user] = await sql<User[]>`
     SELECT
       id,
-      email
+      email,
+      password_hash
     FROM
       users
     WHERE
       email = ${email}
   `;
 
+  console.log('Raw user object:', user); // Log before returning
   return user;
 });
 
@@ -74,6 +77,22 @@ export const createUserInsecure = cache(
       users.email
   `;
 
+    return user;
+  },
+);
+
+export const getUserWithPasswordHashInsecure = cache(
+  async (email: User['email']) => {
+    // Retrieve the user with password_hash explicitly aliased
+    const [user] = await sql<UserWithPasswordHash[]>`
+      SELECT
+        email,
+        password_hash
+      FROM
+        users
+      WHERE
+        email = ${email}
+    `;
     return user;
   },
 );

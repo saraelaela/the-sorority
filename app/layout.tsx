@@ -31,6 +31,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <header className={styles.header}>
           <nav className={styles.navClass}>
+            <Link href="/">Home</Link>
             <Link href="/">Events</Link>
             <Link href="/">About</Link>
             <Link href="/">Team</Link>
