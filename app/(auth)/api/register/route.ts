@@ -15,6 +15,7 @@ import { secureCookieOptions } from '../../../../util/cookies';
 
 export type RegisterResponseBody =
   | {
+      firstName: User['firstName'];
       user: User;
     }
   | {

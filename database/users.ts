@@ -75,7 +75,8 @@ export const createUserInsecure = cache(
       )
     RETURNING
       users.id,
-      users.email
+      users.email,
+      users.first_name
   `;
 
     return user;
