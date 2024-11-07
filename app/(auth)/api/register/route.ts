@@ -10,7 +10,7 @@ import {
 import {
   type User,
   userSchema,
-} from '../../../../migrations/00002-createTableUsers';
+} from '../../../../migrations/00000-createTableUsers';
 import { secureCookieOptions } from '../../../../util/cookies';
 
 export type RegisterResponseBody =
@@ -63,15 +63,15 @@ export async function POST(
   console.log('user:', result.data);
 
   //4. Hash the password
-  const password_hash = await bcrypt.hash(result.data.password, 12);
-  console.log('passwordHash', password_hash);
+  const passwordHash = await bcrypt.hash(result.data.password, 12);
+  console.log('passwordHash', passwordHash);
 
   // 5. Save user info w/ passwordhash
   const newUser = await createUserInsecure(
     result.data.email,
-    password_hash,
-    result.data.first_name,
-    result.data.last_name,
+    passwordHash,
+    result.data.firstName,
+    result.data.lastName,
   );
 
   console.log('newUser', newUser);

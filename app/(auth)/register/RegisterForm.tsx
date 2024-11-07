@@ -12,8 +12,8 @@ import styles from './register.module.scss';
 type Props = { returnTo?: string | string[] };
 
 export default function RegisterForm(props: Props) {
-  const [first_name, setFirstName] = useState('');
-  const [last_name, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
@@ -26,8 +26,8 @@ export default function RegisterForm(props: Props) {
     const response = await fetch('/api/register', {
       method: 'POST',
       body: JSON.stringify({
-        first_name,
-        last_name,
+        firstName,
+        lastName,
         email,
         password,
       }),
@@ -40,7 +40,8 @@ export default function RegisterForm(props: Props) {
       return;
     }
 
-    router.push(getSafeReturnToPath(props.returnTo) || '/');
+    router.push(`/profile/${data.user.firstName}`);
+
     router.refresh();
   }
 
@@ -67,7 +68,7 @@ export default function RegisterForm(props: Props) {
               First Name
               <input
                 className={styles.inputLabel}
-                value={first_name}
+                value={firstName}
                 onChange={(event) => setFirstName(event.currentTarget.value)}
               />
             </label>
@@ -75,7 +76,7 @@ export default function RegisterForm(props: Props) {
               Last Name
               <input
                 className={styles.inputLabel}
-                value={last_name}
+                value={lastName}
                 onChange={(event) => setLastName(event.currentTarget.value)}
               />
             </label>

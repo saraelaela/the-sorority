@@ -36,6 +36,7 @@ export const getUserInsecure = cache(async (email: User['email']) => {
   const [user] = await sql<User[]>`
     SELECT
       id,
+      first_name,
       email,
       password_hash
     FROM
@@ -51,9 +52,9 @@ export const getUserInsecure = cache(async (email: User['email']) => {
 export const createUserInsecure = cache(
   async (
     email: User['email'],
-    password_hash: UserWithPasswordHash['password_hash'],
-    first_name: User['first_name'],
-    last_name: User['last_name'],
+    passwordHash: UserWithPasswordHash['passwordHash'],
+    firstName: User['firstName'],
+    lastName: User['lastName'],
   ) => {
     const [user] = await sql<User[]>`
     INSERT INTO
@@ -68,9 +69,9 @@ export const createUserInsecure = cache(
     VALUES
       (
         ${email},
-        ${password_hash},
-        ${first_name},
-        ${last_name}
+        ${passwordHash},
+        ${firstName},
+        ${lastName}
       )
     RETURNING
       users.id,
@@ -83,9 +84,10 @@ export const createUserInsecure = cache(
 
 export const getUserWithPasswordHashInsecure = cache(
   async (email: User['email']) => {
-    // Retrieve the user with password_hash explicitly aliased
+    // Retrieve the user with passwordHash explicitly aliased
     const [user] = await sql<UserWithPasswordHash[]>`
       SELECT
+        first_name,
         email,
         password_hash
       FROM

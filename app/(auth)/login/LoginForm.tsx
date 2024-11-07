@@ -28,15 +28,17 @@ export default function LoginForm(props: Props) {
         password,
       }),
     });
-
+    console.log('Response status:', response.status);
     const data: LoginResponseBody = await response.json();
+    console.log('Data Check', data);
 
     if ('errors' in data) {
       setErrors(data.errors);
       return;
     }
 
-    router.push(getSafeReturnToPath(props.returnTo) || '/');
+    router.push(`/profile/${data.user.firstName}`);
+    // router.push(`/profile/${data.user.firstName}`);
     router.refresh();
   }
 

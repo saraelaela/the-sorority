@@ -5,11 +5,14 @@ import { getUserWithPasswordHashInsecure } from '../../../../database/users';
 import {
   loginSchema,
   type User,
-} from '../../../../migrations/00002-createTableUsers';
+} from '../../../../migrations/00000-createTableUsers';
 
 export type LoginResponseBody =
   | {
-      user: { email: User['email'] };
+      user: {
+        firstName: User['firstName'];
+        email: User['email'];
+      };
     }
   | {
       errors: { message: string }[];
@@ -57,7 +60,7 @@ export async function POST(
     );
   }
   console.log('result data', result.data.password);
-  console.log('Fetched password hash:', userWithPasswordHash.password_hash);
+  console.log('Fetched password hash:', userWithPasswordHash.passwordHash);
 
   //4. Hash the password
   const isPasswordValid = await bcrypt.compare(
@@ -84,6 +87,7 @@ export async function POST(
 
   return NextResponse.json({
     user: {
+      firstName: userWithPasswordHash.firstName,
       email: userWithPasswordHash.email,
     },
   });

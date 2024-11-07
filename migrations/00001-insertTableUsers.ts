@@ -3,12 +3,12 @@ import { sql } from '../database/connect';
 
 const users = [
   {
-    password_hash: '1234567',
-    first_name: 'Sara',
-    surname: 'Ela',
+    passwordHash: '1234567',
+    firstName: 'Sara',
+    lastName: 'Ela',
     occupation: 'designer',
-    intro_text: 'Hey this is my Intro',
-    profile_picture: 'xxx',
+    introText: 'Hey this is my Intro',
+    profilePicture: 'xxx',
     email: 'sara@email.com',
     linkedin: 'linkedin.de',
     isAdmin: true,
@@ -21,23 +21,23 @@ export async function up(sql: Sql) {
     users(
       password_hash,
       first_name,
-      surname,
+      last_name,
       occupation,
       intro_text,
       profile_picture,
       email,
       linkedin,
-      isAdmin
+      is_admin
     )
     VALUES
     (
 
-        ${user.password_hash},
-        ${user.first_name},
-        ${user.surname},
+        ${user.passwordHash},
+        ${user.firstName},
+        ${user.lastName},
         ${user.occupation},
-        ${user.intro_text},
-        ${user.profile_picture},
+        ${user.introText},
+        ${user.profilePicture},
         ${user.email},
         ${user.linkedin},
         ${user.isAdmin}

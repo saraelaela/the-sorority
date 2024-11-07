@@ -2,8 +2,8 @@ import type { Sql } from 'postgres';
 import { z } from 'zod';
 
 export const userSchema = z.object({
-  first_name: z.string().min(3),
-  last_name: z.string().min(3),
+  firstName: z.string().min(3),
+  lastName: z.string().min(3),
   email: z.string().min(3),
   password: z.string().min(3),
 });
@@ -14,16 +14,16 @@ export const loginSchema = z.object({
 
 export type User = {
   id?: number;
-  password_hash: string;
-  first_name: string;
-  last_name: string;
+  passwordHash: string;
+  firstName: string;
+  lastName: string;
   occupation?: string;
-  intro_text?: string;
-  profile_picture?: string;
+  introText?: string;
+  profilePicture?: string;
   email: string;
   linkedin?: string;
   isAdmin: boolean;
-  created_at?: Date;
+  createdAt?: Date;
 };
 
 export async function up(sql: Sql) {
@@ -38,7 +38,7 @@ export async function up(sql: Sql) {
       profile_picture varchar(200),
       email varchar(200) UNIQUE NOT NULL,
       linkedin varchar(200),
-      isAdmin BOOLEAN DEFAULT false
+      is_admin BOOLEAN DEFAULT false
     )
   `;
 }
