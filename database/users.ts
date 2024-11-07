@@ -2,7 +2,7 @@ import { cache } from 'react';
 import { sql } from './connect';
 
 export type User = {
-  id?: number;
+  id: number;
   passwordHash: string;
   firstName: string;
   lastName: string;
@@ -27,7 +27,6 @@ export const getUsersInsecure = cache(async () => {
     FROM
       users
   `;
-
   return users;
 });
 
@@ -44,8 +43,9 @@ export const getUserInsecure = cache(async (email: User['email']) => {
     WHERE
       email = ${email}
   `;
+  console.log('Email passed to getUserInsecure:', email);
+  console.log('Retrieved user:', user); // Log after the query to see what the database returns
 
-  console.log('Raw user object:', user); // Log before returning
   return user;
 });
 
@@ -57,27 +57,25 @@ export const createUserInsecure = cache(
     lastName: User['lastName'],
   ) => {
     const [user] = await sql<User[]>`
-    INSERT INTO
-      users (
-        email,
-        password_hash,
-        first_name,
-        last_name
-
-
-      )
-    VALUES
-      (
-        ${email},
-        ${passwordHash},
-        ${firstName},
-        ${lastName}
-      )
-    RETURNING
-      users.id,
-      users.email,
-      users.first_name
-  `;
+      INSERT INTO
+        users (
+          email,
+          password_hash,
+          first_name,
+          last_name
+        )
+      VALUES
+        (
+          ${email},
+          ${passwordHash},
+          ${firstName},
+          ${lastName}
+        )
+      RETURNING
+        users.id,
+        users.email,
+        users.first_name
+    `;
 
     return user;
   },
@@ -88,6 +86,7 @@ export const getUserWithPasswordHashInsecure = cache(
     // Retrieve the user with passwordHash explicitly aliased
     const [user] = await sql<UserWithPasswordHash[]>`
       SELECT
+        id,
         first_name,
         email,
         password_hash
@@ -96,6 +95,8 @@ export const getUserWithPasswordHashInsecure = cache(
       WHERE
         email = ${email}
     `;
+    console.log('Retrieved user with ID:', user);
+
     return user;
   },
 );

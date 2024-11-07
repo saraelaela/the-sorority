@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
+import { createSessionInsecure } from '../../../../database/sessions';
 import { getUserWithPasswordHashInsecure } from '../../../../database/users';
 import {
   loginSchema,
@@ -59,8 +60,12 @@ export async function POST(
       },
     );
   }
+  console.log('userWithPasswordHash:', userWithPasswordHash);
   console.log('result data', result.data.password);
-  console.log('Fetched password hash:', userWithPasswordHash.passwordHash);
+  console.log(
+    'User ID before calling createSessionInsecure:',
+    userWithPasswordHash.id,
+  );
 
   //4. Hash the password
   const isPasswordValid = await bcrypt.compare(
@@ -84,6 +89,11 @@ export async function POST(
       },
     );
   }
+
+  const token = crypto.randomBytes(100).toString('base64');
+
+  const session = await createSessionInsecure(userWithPasswordHash.id, token);
+  console.log('Sessions', session);
 
   return NextResponse.json({
     user: {
