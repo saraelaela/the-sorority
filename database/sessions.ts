@@ -23,3 +23,15 @@ export const createSessionInsecure = cache(
     return session;
   },
 );
+export const deleteSession = cache(async (sessionToken: Session['token']) => {
+  const [session] = await sql<Session[]>`
+    DELETE FROM sessions
+    WHERE
+      sessions.token = ${sessionToken}
+    RETURNING
+      sessions.token,
+      sessions.user_id
+  `;
+
+  return session;
+});

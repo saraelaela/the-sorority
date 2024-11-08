@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Link from 'next/link';
+import LogoutButton from './(auth)/logout/LogoutButton';
 import styles from './page.module.css';
 
 const geistSans = localFont({
@@ -35,10 +36,11 @@ export default function RootLayout({
             <Link href="/">Events</Link>
             <Link href="/">About</Link>
             <Link href="/">Team</Link>
-            <Link href="/">Blog</Link>
+            <Link href="/">Magazin</Link>
             <Link href="/">Press</Link>
             <Link href="/register">Join Us</Link>
             <Link href="/login">Log-in</Link>
+            <LogoutButton />
           </nav>
         </header>
         <main className={styles.main}>{children}</main>

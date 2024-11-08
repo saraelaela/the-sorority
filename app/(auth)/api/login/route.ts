@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createSessionInsecure } from '../../../../database/sessions';
 import { getUserWithPasswordHashInsecure } from '../../../../database/users';
@@ -7,6 +8,7 @@ import {
   loginSchema,
   type User,
 } from '../../../../migrations/00000-createTableUsers';
+import { secureCookieOptions } from '../../../../util/cookies';
 
 export type LoginResponseBody =
   | {
@@ -45,7 +47,6 @@ export async function POST(
   const userWithPasswordHash = await getUserWithPasswordHashInsecure(
     result.data.email,
   );
-  console.log('userwpw', userWithPasswordHash);
   if (!userWithPasswordHash) {
     return NextResponse.json(
       {
@@ -60,20 +61,12 @@ export async function POST(
       },
     );
   }
-  console.log('userWithPasswordHash:', userWithPasswordHash);
-  console.log('result data', result.data.password);
-  console.log(
-    'User ID before calling createSessionInsecure:',
-    userWithPasswordHash.id,
-  );
 
-  //4. Hash the password
+  // 4. Validate the user password by comparing with hashed password
   const isPasswordValid = await bcrypt.compare(
     result.data.password,
     userWithPasswordHash.passwordHash,
   );
-
-  // 5. Save user info w/ passwordhash
 
   if (!isPasswordValid) {
     return NextResponse.json(
@@ -90,10 +83,32 @@ export async function POST(
     );
   }
 
+  // 5. create a token
   const token = crypto.randomBytes(100).toString('base64');
 
+  // 6. create the session record
   const session = await createSessionInsecure(userWithPasswordHash.id, token);
-  console.log('Sessions', session);
+
+  if (!session) {
+    return NextResponse.json(
+      {
+        errors: [
+          {
+            message: 'Problem creating session',
+          },
+        ],
+      },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  (await cookies()).set({
+    name: 'sessionToken',
+    value: session.token,
+    ...secureCookieOptions,
+  });
 
   return NextResponse.json({
     user: {
