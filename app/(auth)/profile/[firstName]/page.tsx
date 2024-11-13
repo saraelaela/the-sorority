@@ -6,8 +6,7 @@ type Props = {
 
 export default async function UserProfilePage(props: Props) {
   const { firstName } = await props.params;
-  console.log('Resolved params:', await props.params);
-  console.log('test', firstName);
+
   return (
     <>
       <div>

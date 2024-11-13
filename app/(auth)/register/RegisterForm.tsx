@@ -34,14 +34,15 @@ export default function RegisterForm(props: Props) {
     });
 
     const data: RegisterResponseBody = await response.json();
-    console.log('Register Data Check', data);
 
     if ('errors' in data) {
       setErrors(data.errors);
       return;
     }
 
-    router.push(`/profile/${data.user.firstName}`);
+    router.push(
+      getSafeReturnToPath(props.returnTo) || `/profile/${data.user.firstName}`,
+    );
 
     router.refresh();
   }

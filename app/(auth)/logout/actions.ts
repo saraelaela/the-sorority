@@ -16,6 +16,8 @@ export async function logout() {
 
     // 3. Delete the session cookie from the browser
     cookieStore.delete(token.name);
+
+    // redirect('/');
   }
 
   return;

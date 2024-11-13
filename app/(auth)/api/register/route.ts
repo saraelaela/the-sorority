@@ -29,11 +29,9 @@ export async function POST(
 
   // 1. Get the user data from the request
   const requestBody = await request.json();
-  console.log('requestBody', requestBody);
 
   // 2. Validate User Data w zod
   const result = userSchema.safeParse(requestBody);
-  console.log('result', result);
 
   if (!result.success) {
     return NextResponse.json(
@@ -61,11 +59,8 @@ export async function POST(
     );
   }
 
-  console.log('user:', result.data);
-
   //4. Hash the password
   const passwordHash = await bcrypt.hash(result.data.password, 12);
-  console.log('passwordHash', passwordHash);
 
   // 5. Save user info w/ passwordhash
   const newUser = await createUserInsecure(
@@ -75,7 +70,6 @@ export async function POST(
     result.data.lastName,
   );
 
-  console.log('newUser', newUser);
   if (!newUser) {
     return NextResponse.json(
       {

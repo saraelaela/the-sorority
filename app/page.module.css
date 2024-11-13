@@ -1,16 +1,16 @@
-.main {
+/* .main {
   display: flex;
   flex-direction: column;
   column-gap: 3vw;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-}
+} */
 
 .logoArea {
   display: flex;
   flex-direction: column;
-  background-color: var(--sorority-orange);
+  background-color: var(--sorority-brown);
   padding: 2rem 0 2rem 2rem;
 }
 
@@ -21,7 +21,7 @@
   font-size: var(--h1-size);
   text-transform: uppercase;
   max-width: 100%;
-  color: var(--sorority-pink);
+  color: var(--sorority-grey);
 }
 
 .animation {
@@ -43,39 +43,23 @@
   }
 }
 
-.footerDynamicContainer {
-  padding: 0.7rem 0 0.5rem 0;
-  z-index: -1000000;
-  width: 60%;
-}
-
-.footerWrapper {
-  display: flex;
-  padding: 0 7rem 0 2rem;
-  gap: 1vw;
-  /* max-width: 60%; */
-}
-
-.socialMedia {
-  display: flex;
-  gap: 1vw;
-  /* justify-content: space-between; */
-  /* padding: 0 10rem 0 0; */
-  width: 100%;
-}
-
-.footerEssentials {
-  display: flex;
-  padding: 0 6rem 0 0;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .navClass {
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem 1rem 2rem;
-  background-color: #e7e7e7;
+  background-color: var(--sorority-grey);
   color: black;
   text-transform: uppercase;
+}
+
+.userArea {
+  display: flex;
+  gap: 6rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  border: 1px solid black;
+  border-radius: 30vw;
 }

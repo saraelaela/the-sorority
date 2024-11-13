@@ -5,7 +5,7 @@ import { logout } from './actions';
 
 export default function LogoutButton() {
   const router = useRouter();
-  console.log('component called');
+
   return (
     <form>
       <button

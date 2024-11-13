@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import type { Session } from '../migrations/00004-sessions';
 import { sql } from './connect';
 
 export type User = {
@@ -19,6 +20,24 @@ type UserWithPasswordHash = User & {
   email: string;
   passwordHash: string;
 };
+
+export const getUser = cache(async (sessionToken: Session['token']) => {
+  // Retrieve the user with passwordHash explicitly aliased
+  const [user] = await sql<UserWithPasswordHash[]>`
+    SELECT
+      users.id,
+      users.first_name,
+      users.email
+    FROM
+      users
+      INNER JOIN sessions ON (sessions.user_id = users.id)
+    WHERE
+      sessions.token = ${sessionToken}
+      AND sessions.expiry_timestamp > now()
+  `;
+
+  return user;
+});
 
 export const getUsersInsecure = cache(async () => {
   const users = await sql<User[]>`
@@ -43,8 +62,6 @@ export const getUserInsecure = cache(async (email: User['email']) => {
     WHERE
       email = ${email}
   `;
-  console.log('Email passed to getUserInsecure:', email);
-  console.log('Retrieved user:', user); // Log after the query to see what the database returns
 
   return user;
 });
@@ -95,7 +112,6 @@ export const getUserWithPasswordHashInsecure = cache(
       WHERE
         email = ${email}
     `;
-    console.log('Retrieved user with ID:', user);
 
     return user;
   },

@@ -28,11 +28,9 @@ export async function POST(
 
   // 1. Get the user data from the request
   const requestBody = await request.json();
-  console.log('requestBody', requestBody);
 
   // 2. Validate User Data w zod
   const result = loginSchema.safeParse(requestBody);
-  console.log('result', result);
 
   if (!result.success) {
     return NextResponse.json(
