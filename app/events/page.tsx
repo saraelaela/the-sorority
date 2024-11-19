@@ -17,7 +17,6 @@ type Props = {
 export default async function EventsPage(props: Props) {
   const events = await getEventsInsecure();
 
-  // console.log('Show data again:', events);
   return (
     <>
       <div>

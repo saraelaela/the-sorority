@@ -11,8 +11,6 @@ type Props = {
 };
 
 export default function EventOverview(props: Props) {
-  console.log('prop event', props.event);
-
   if (props.event) {
     return (
       <>
@@ -41,9 +39,10 @@ export default function EventOverview(props: Props) {
                 <div>{props.event.eventCosts}</div>
               </div>
             </div>
+            {/* {`${props.event.eventImage}`} */}
 
             <Image
-              src="/images/Register.png"
+              src={`${props.event.eventImage}`}
               width={350}
               height={200}
               alt="Mitglieder des Sorority-Vorstands"

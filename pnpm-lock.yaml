@@ -29,6 +29,9 @@ importers:
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1(encoding@0.1.13)
+      cloudinary:
+        specifier: ^2.5.1
+        version: 2.5.1
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -50,6 +53,9 @@ importers:
       next:
         specifier: 15.0.0-canary.171
         version: 15.0.0-canary.171(@babel/core@7.25.8)(react-dom@19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923))(react@19.0.0-rc-5d19e1c8-20240923)(sass@1.80.3)
+      next-cloudinary:
+        specifier: ^6.16.0
+        version: 6.16.0(next@15.0.0-canary.171(@babel/core@7.25.8)(react-dom@19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923))(react@19.0.0-rc-5d19e1c8-20240923)(sass@1.80.3))(react@19.0.0-rc-5d19e1c8-20240923)
       postgres:
         specifier: ^3.4.4
         version: 3.4.4
@@ -366,6 +372,24 @@ packages:
   '@babel/types@7.26.0':
     resolution: {integrity: sha512-Z/yiTPj+lDVnF7lWeKCIJzaIkI0vYO87dMpZ4bg4TDrFe4XXLFWL1TbXU27gBP3QccxV9mZICCrnjnYlJjXHOA==}
     engines: {node: '>=6.9.0'}
+
+  '@cloudinary-util/types@1.5.10':
+    resolution: {integrity: sha512-n5lrm7SdAXhgWEbkSJKHZGnaoO9G/g4WYS6HYnq/k4nLj79sYfQZOoKjyR8hF2iyLRdLkT+qlk68RNFFv5tKew==}
+
+  '@cloudinary-util/url-loader@5.10.4':
+    resolution: {integrity: sha512-gHkdvOaV+rlcwuIT7Vqd0ts/H5bsH4+bwFten/gIZ8oRjzdTBvgIY3R6F8bbJt0pFIEfpFEQLe4rPkl0NNqEWg==}
+
+  '@cloudinary-util/util@3.3.2':
+    resolution: {integrity: sha512-Cc0iFxzfl7fcOXuznpeZFGYC885Of/vDgccRDnhTe/8Rf8YKv2PjLtezyo0VgmdA/CpeZy29NCXAsf6liokbwg==}
+
+  '@cloudinary-util/util@4.0.0':
+    resolution: {integrity: sha512-S4xcou/3A7l5o+bcKlw2VHBNgwups7/0lbVDT/cO5YmtrcEYXgj6LGmwnjvpTm/x571VPVN8x5jWdT3rLZiKJQ==}
+
+  '@cloudinary/transformation-builder-sdk@1.15.2':
+    resolution: {integrity: sha512-oXYaW/whGaQVlR1O/ocp7vYcxaMAy3uGcQ8+8xjbfDCy/+c+zFIuP6JKI8L05kzqw7Wjh0cqzG+4u0X1UpPh+A==}
+
+  '@cloudinary/url-gen@1.15.0':
+    resolution: {integrity: sha512-bjU67eZxLUgoRy/Plli4TQio7q6P31OYqnEgXxeN9TKXrzr6h0DeEdIUhKI9gy3HkEBWXWWJIPh7j7gkOJPnyA==}
 
   '@csstools/css-parser-algorithms@3.0.2':
     resolution: {integrity: sha512-6tC/MnlEvs5suR4Ahef4YlBccJDHZuxGsAlxXmybWjZ5jPxlzLSMlRZ9mVHSRvlD+CmtE7+hJ+UQbfXrws/rUQ==}
@@ -1455,6 +1479,10 @@ packages:
 
   client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
+
+  cloudinary@2.5.1:
+    resolution: {integrity: sha512-CNg6uU53Hl4FEVynkTGpt5bQEAQWDHi3H+Sm62FzKf5uQHipSN2v7qVqS8GRVqeb0T1WNV+22+75DOJeRXYeSQ==}
+    engines: {node: '>=9'}
 
   color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -2546,6 +2574,9 @@ packages:
   lodash.truncate@4.4.2:
     resolution: {integrity: sha512-jttmRe7bRse52OsWIMDLaXxWqRAmtIUccAQ3garviCqJjafXOfNMO0yMfNpdD6zbGaTU0P5Nz7e7gAT6cKmJRw==}
 
+  lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
   loglevel@1.9.2:
     resolution: {integrity: sha512-HgMmCqIJSAKqo68l0rS2AanEWfkxaZ5wNiEFb5ggm08lDs9Xl2KxBlX3PTcaD2chBM1gXAYf491/M2Rv8Jwayg==}
     engines: {node: '>= 0.6.0'}
@@ -2715,6 +2746,12 @@ packages:
   negotiator@0.6.4:
     resolution: {integrity: sha512-myRT3DiWPHqho5PrJaIRyaMv2kgYf0mUVgBNOYMuCH5Ki1yEiQaf/ZJuQ62nvpc44wL5WDbTX7yGJi1Neevw8w==}
     engines: {node: '>= 0.6'}
+
+  next-cloudinary@6.16.0:
+    resolution: {integrity: sha512-gbw/A1aBHJBC2thm4/veI77IkmbAQXuRUj8kNEuxf1zgjGkUWkShho/cXS4VsFhnHuDieqb30gMjZnZdBDrQ/Q==}
+    peerDependencies:
+      next: ^12 || ^13 || ^14 || >=15.0.0-rc || ^15
+      react: ^17 || ^18 || >=19.0.0-beta || ^19
 
   next@15.0.0-canary.171:
     resolution: {integrity: sha512-Yic4FzN0CiJrCRI++FAkONZsen0vY5XYe9UkliEFGAmbO9oVx24opzC/JA0N36dTjYtsLFVxcRafoT1dTlJmwg==}
@@ -3000,6 +3037,14 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
+
+  q@1.5.1:
+    resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
+    engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
+    deprecated: |-
+      You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
+      (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qs@6.13.0:
     resolution: {integrity: sha512-+38qI9SOr8tfZ4QmJNplMUxqjbe7LKvvZgWdExBOmd+egZTtjLB67Gu0HRX3u/XOq7UU2Nx6nsjvS16Z9uwfpg==}
@@ -4030,6 +4075,27 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
+
+  '@cloudinary-util/types@1.5.10': {}
+
+  '@cloudinary-util/url-loader@5.10.4':
+    dependencies:
+      '@cloudinary-util/types': 1.5.10
+      '@cloudinary-util/util': 3.3.2
+      '@cloudinary/url-gen': 1.15.0
+      zod: 3.23.8
+
+  '@cloudinary-util/util@3.3.2': {}
+
+  '@cloudinary-util/util@4.0.0': {}
+
+  '@cloudinary/transformation-builder-sdk@1.15.2':
+    dependencies:
+      '@cloudinary/url-gen': 1.15.0
+
+  '@cloudinary/url-gen@1.15.0':
+    dependencies:
+      '@cloudinary/transformation-builder-sdk': 1.15.2
 
   '@csstools/css-parser-algorithms@3.0.2(@csstools/css-tokenizer@3.0.2)':
     dependencies:
@@ -5163,6 +5229,11 @@ snapshots:
   clean-stack@2.2.0: {}
 
   client-only@0.0.1: {}
+
+  cloudinary@2.5.1:
+    dependencies:
+      lodash: 4.17.21
+      q: 1.5.1
 
   color-convert@1.9.3:
     dependencies:
@@ -6418,6 +6489,8 @@ snapshots:
 
   lodash.truncate@4.4.2: {}
 
+  lodash@4.17.21: {}
+
   loglevel@1.9.2: {}
 
   long@4.0.0: {}
@@ -6563,6 +6636,14 @@ snapshots:
   negotiator@0.6.3: {}
 
   negotiator@0.6.4: {}
+
+  next-cloudinary@6.16.0(next@15.0.0-canary.171(@babel/core@7.25.8)(react-dom@19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923))(react@19.0.0-rc-5d19e1c8-20240923)(sass@1.80.3))(react@19.0.0-rc-5d19e1c8-20240923):
+    dependencies:
+      '@cloudinary-util/types': 1.5.10
+      '@cloudinary-util/url-loader': 5.10.4
+      '@cloudinary-util/util': 4.0.0
+      next: 15.0.0-canary.171(@babel/core@7.25.8)(react-dom@19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923))(react@19.0.0-rc-5d19e1c8-20240923)(sass@1.80.3)
+      react: 19.0.0-rc-5d19e1c8-20240923
 
   next@15.0.0-canary.171(@babel/core@7.25.8)(react-dom@19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923))(react@19.0.0-rc-5d19e1c8-20240923)(sass@1.80.3):
     dependencies:
@@ -6854,6 +6935,8 @@ snapshots:
       ipaddr.js: 1.9.1
 
   punycode@2.3.1: {}
+
+  q@1.5.1: {}
 
   qs@6.13.0:
     dependencies:

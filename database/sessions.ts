@@ -15,6 +15,7 @@ export const getValidSessionToken = cache(
         sessions.token = ${sessionToken}
         AND sessions.expiry_timestamp > now()
     `;
+
     return session;
   },
 );

@@ -1,11 +1,23 @@
-import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
   createEventInsecure,
+  deleteEventInsecure,
   type Event,
   getEventInsecure,
 } from '../../../../database/events';
 import { eventSchema } from '../../../../migrations/00002-createTableEvents';
+
+export type EventResponseBodyDelete =
+  | {
+      event: {
+        eventId: Event['id'];
+      };
+    }
+  | {
+      error: string;
+    };
 
 //1) defining typescript type:
 export type EventResponseBody =
@@ -18,7 +30,6 @@ export type EventResponseBody =
         hostedBy: Event['hostedBy'];
         eventImage: Event['eventImage'];
         eventCosts: Event['eventCosts'];
-        createdBy: Event['createdBy'];
       };
     }
   | {
@@ -33,6 +44,7 @@ export async function POST(
 
   // 2. validate w/zod
   const result = eventSchema.safeParse(requestBody);
+  console.log('eventSchemasafeParse', result);
   if (!result.success) {
     return NextResponse.json(
       { errors: result.error.issues },
@@ -50,9 +62,7 @@ export async function POST(
     result.data.hostedBy,
     result.data.eventImage,
     result.data.eventCosts,
-    result.data.createdBy,
   );
-  console.log('newEvent:', newEvent);
 
   return NextResponse.json({ events: newEvent });
 }
@@ -72,6 +82,37 @@ export async function GET(
 ): Promise<NextResponse<EventResponseBodyGet>> {
   const events = await getEventInsecure(id);
 
-  console.log('is logging events:', events);
   return NextResponse.json({ events });
+}
+
+//////////////////////////
+
+export async function DELETE(
+  request: NextRequest,
+): Promise<NextResponse<EventResponseBodyDelete>> {
+  const { id } = await request.json(); // Extract eventId from the body
+
+  if (!id) {
+    return NextResponse.json(
+      { error: 'Event ID is required' },
+      { status: 400 },
+    );
+  }
+
+  const sessionToken = (await cookies()).get('sessionToken')?.value;
+
+  const deletedEvent = await deleteEventInsecure(id);
+  console.log('deletedEvent', deletedEvent);
+  if (!deletedEvent) {
+    return NextResponse.json(
+      {
+        error: 'Event not found',
+      },
+      {
+        status: 404,
+      },
+    );
+  }
+
+  return NextResponse.json({ event: deletedEvent });
 }

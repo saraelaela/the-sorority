@@ -33,12 +33,15 @@ export default async function RootLayout({
             <Link href="/events">Events</Link>
             <Link href="/">About</Link>
             <Link href="/">Team</Link>
-            <Link href="/">Magazin</Link>
-            <Link href="/">Press</Link>
+            {/* <Link href="/">Magazin</Link> */}
+            {/* <Link href="/">Press</Link> */}
 
             <div>
               {user ? (
-                <LogoutButton />
+                <div className={styles.userArea}>
+                  <Link href={`/profile/${user.firstName}`}>my Account</Link>
+                  <LogoutButton />
+                </div>
               ) : (
                 <>
                   <div className={styles.userArea}>

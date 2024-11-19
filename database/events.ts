@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import type { Session } from '../migrations/00004-sessions';
 import { sql } from './connect';
 
 export type Event = {
@@ -8,7 +9,7 @@ export type Event = {
   eventLocation: string;
   eventDate: Date;
   hostedBy: string;
-  eventImage?: string;
+  eventImage: string;
   eventCosts: string;
   createdBy: number;
 };
@@ -30,7 +31,6 @@ export const getEventInsecure = cache(async (eventId: Event['id']) => {
     WHERE
       id = ${eventId}
   `;
-  console.log('is it returning?', event);
   return event;
 });
 
@@ -54,7 +54,6 @@ export const createEventInsecure = cache(
     hostedBy: Event['hostedBy'],
     eventImage: Event['eventImage'],
     eventCosts: Event['eventCosts'],
-    createdBy: Event['createdBy'],
   ) => {
     const [event] = await sql<Event[]>`
       INSERT INTO
@@ -65,8 +64,7 @@ export const createEventInsecure = cache(
           event_date,
           hosted_by,
           event_image,
-          event_costs,
-          created_by
+          event_costs
         )
       VALUES
         (
@@ -76,8 +74,7 @@ export const createEventInsecure = cache(
           ${eventDate},
           ${hostedBy},
           ${eventImage},
-          ${eventCosts},
-          ${createdBy}
+          ${eventCosts}
         )
       RETURNING
         event_title,
@@ -86,10 +83,27 @@ export const createEventInsecure = cache(
         event_date,
         hosted_by,
         event_image,
-        event_costs,
-        created_by
+        event_costs
     `;
 
     return event;
   },
 );
+
+export const deleteEventInsecure = cache(async (id: number) => {
+  const [event] = await sql<Event[]>`
+    DELETE FROM events
+    WHERE
+      events.id = ${id}
+    RETURNING
+      events.*
+  `;
+  console.log('is event transferred:', event);
+  if (!event) {
+    throw new Error('Event not found');
+  }
+
+  // returns only if event is deleted successfully
+  console.log('event successfully removed', event);
+  return event;
+});
