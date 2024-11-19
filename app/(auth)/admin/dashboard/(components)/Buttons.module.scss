@@ -1,0 +1,43 @@
+.deleteButton {
+  display: flex;
+  background-color: transparent;
+  border: none;
+  gap: -0.5rem;
+
+  > div {
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    border-radius: 10rem;
+    color: white;
+    background-color: rgb(41, 41, 41);
+    // border: 1px solid black;
+  }
+}
+.editButton {
+  display: flex;
+  background-color: transparent;
+  border: none;
+  gap: -0.5rem;
+
+  > div {
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    border-radius: 2rem;
+    color: black;
+    background-color: white;
+    // border: 1px solid black;
+  }
+}
+.createButton {
+  display: flex;
+  background-color: transparent;
+  border: none;
+  gap: -0.5rem;
+
+  > div {
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    border-radius: 2rem;
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+    // border: 1px solid black;
+  }
+}

@@ -90,8 +90,13 @@ export async function GET(
 export async function DELETE(
   request: NextRequest,
 ): Promise<NextResponse<EventResponseBodyDelete>> {
+  // deconstructing body // { id: props.eventId } ->  request.json()
+  // const body = await request.json();
+  // const id = body.id  /// werden in einem step vereint
+
   const { id } = await request.json(); // Extract eventId from the body
 
+  //ist ID vohanden
   if (!id) {
     return NextResponse.json(
       { error: 'Event ID is required' },
@@ -101,7 +106,8 @@ export async function DELETE(
 
   const sessionToken = (await cookies()).get('sessionToken')?.value;
 
-  const deletedEvent = await deleteEventInsecure(id);
+  //kreirt eine variable für returnvalue der Datenbankabfrage
+  const deletedEvent = await deleteEventInsecure(id); // geht zur Datenbank und löscht das event //nimm query und führe sie durch mit Value von ID
   console.log('deletedEvent', deletedEvent);
   if (!deletedEvent) {
     return NextResponse.json(

@@ -1,7 +1,5 @@
-import { v2 as cloudinary } from 'cloudinary';
 import { cookies } from 'next/headers';
-import { redirect, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { redirect } from 'next/navigation';
 import { getEventsInsecure } from '../../../../database/events';
 import { getValidSessionToken } from '../../../../database/sessions';
 import { getUser, getUsersInsecure } from '../../../../database/users';
@@ -9,6 +7,7 @@ import DisplayEvents from '../../../events/components/DisplayEvents';
 import eventStyles from '../../../events/page.module.scss';
 import AdminForm from './(components)/AdminForm';
 import DeleteEvents from './(components)/DeleteEvents';
+import EditEvents from './(components)/EditEvents';
 import styles from './AdminPage.module.scss';
 
 // import AdminForm from './AdminForm';
@@ -20,10 +19,6 @@ type Props = {
   }>;
 };
 
-// type DeleteEventsProps = {
-//   eventId: number;
-// };
-
 export const metadata = {
   title: 'Admin page',
   description: 'Solidarity Admin',
@@ -31,7 +26,6 @@ export const metadata = {
 
 export default async function AdminPage(props: Props) {
   const events = await getEventsInsecure();
-  console.log('the events should be: ', events);
 
   //1. Cookie exist
   const sessionTokenCookie = (await cookies()).get('sessionToken');
@@ -49,7 +43,15 @@ export default async function AdminPage(props: Props) {
   const user = sessionTokenCookie && (await getUser(sessionTokenCookie?.value));
   return (
     <div className={styles.main}>
-      <div>
+      <div className={styles.eventSummary}>
+        <div className={styles.info}>
+          <h3 className={styles.h3}>Dashboard</h3>
+          <p className={styles.p}>
+            {' '}
+            Welcome to your Dashboard! Please click to Edit or Delete an Event.
+            The events are sorted by newest Date.
+          </p>
+        </div>
         {events.map((event) => {
           const eventId = event.id;
           return (
@@ -67,7 +69,10 @@ export default async function AdminPage(props: Props) {
                 </div>
                 {/* </div> */}
               </div>
-              <DeleteEvents eventId={eventId} />
+              <div className={styles.editSection}>
+                <EditEvents />
+                <DeleteEvents eventId={eventId} />
+              </div>
             </div>
           );
         })}

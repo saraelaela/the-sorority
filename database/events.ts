@@ -40,6 +40,8 @@ export const getEventsInsecure = cache(async () => {
       *
     FROM
       events
+    ORDER BY
+      event_date ASC
   `;
 
   return events;

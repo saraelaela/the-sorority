@@ -1,26 +1,45 @@
 .main {
+  background-color: darkgrey;
   overflow: scroll;
   display: flex;
   justify-content: space-evenly;
-  // background-color: darkgrey;
-  padding: 0rem 0 2rem 2rem;
+  height: 100vh;
+  overflow: hidden;
   > div {
+    overflow: scroll;
     width: 50vw;
   }
 }
 
 .eventSummary {
-  background-color: darkgrey;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding: 2rem 0 2rem 2rem;
+}
+
+// .info {
+//   padding-left: 2rem;
+// }
+
+.h3 {
+  font-size: 11rem;
+  text-transform: uppercase;
+  font-family: var(--display-font);
+  color: var(--sorority-grey);
+}
+
+.p {
+  padding-right: 3rem;
+  color: var(--sorority-grey);
 }
 .eventCreation {
-  // position: fixed;
-  // display: inline-block;
-  padding: 2rem 2rem 2rem 2rem;
   height: 100%;
+  width: 100%;
   background-color: white;
+  filter: drop-shadow(-2px 10px 10px rgb(113, 113, 113));
 }
 .eventParcel {
-  // overflow: scroll;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -29,15 +48,88 @@
   color: var(--sorority-grey);
   width: 45vw;
   &:hover {
-    transform: scale(1.1);
+    color: black;
   }
 }
 
-.singleEventContainer {
-  display: fixed;
+.eventCard {
+  height: 100%;
+  padding: 2rem 2rem 2rem 2rem;
+  margin-bottom: 5rem;
+  width: 100%;
+  position: fixed;
+  overflow: scroll;
+  background-color: white;
 }
 
+.singleEventContainer {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  background-color: white;
+}
+
+.formContainer {
+  padding-bottom: 3vh;
+  margin-bottom: 6vh;
+}
 .form {
   display: flex;
   flex-direction: column;
+}
+
+.editSection {
+  display: flex;
+  justify-content: space-between;
+}
+.formItem {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid black;
+  margin: 0.5rem 0 0.5rem 0;
+}
+
+.label {
+  // position: absolute;
+  // border-bottom: 1px solid black;
+  padding: 1.5rem 0 0.5rem 0;
+  width: 100%;
+  height: 100%;
+  color: black;
+  opacity: 0.4;
+  // bottom: 0;
+}
+
+.input {
+  background-color: transparent;
+  padding: 0 0.1rem 0 0.5rem;
+  overflow-y: scroll;
+  left: 0;
+  bottom: 0.5rem;
+  height: 6.5vh;
+  width: 100%;
+  border: none;
+  &:focus {
+    background-color: var(--sorority-pink);
+    outline: none;
+  }
+}
+
+.inputDescription {
+  background-color: transparent;
+  overflow-y: scroll;
+  left: 0;
+  padding: 0 0.1rem 0 0.5rem;
+  bottom: 0.5rem;
+  height: 20vh;
+  width: 100%;
+  border: none;
+  &:focus {
+    background-color: var(--sorority-pink);
+    outline: none;
+  }
+}
+.h4 {
+  font-size: var(--h4-size);
 }
