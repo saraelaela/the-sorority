@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import type { Event } from '../../../database/events';
+import type { User } from '../../../database/users';
 import Footer from '../../components/Footer';
 import styles from '../page.module.scss';
 import EventOverview from './EventOverview';
 
 type Props = {
   events: Event[];
+  user: User;
 };
 
 export default function DisplayEvents(props: Props) {
@@ -46,7 +48,7 @@ export default function DisplayEvents(props: Props) {
           {/* <Footer customFooter="customFooterLogin" /> */}
         </div>
         <div>
-          <EventOverview event={selectedEvent} />
+          <EventOverview event={selectedEvent} user={props.user} />
         </div>
       </div>
     </>

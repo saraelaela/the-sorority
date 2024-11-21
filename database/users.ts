@@ -27,7 +27,8 @@ export const getUser = cache(async (sessionToken: Session['token']) => {
     SELECT
       users.id,
       users.first_name,
-      users.email
+      users.email,
+      users.is_admin
     FROM
       users
       INNER JOIN sessions ON (sessions.user_id = users.id)
@@ -46,6 +47,7 @@ export const getUsersInsecure = cache(async () => {
     FROM
       users
   `;
+  console.log('users setup', users);
   return users;
 });
 

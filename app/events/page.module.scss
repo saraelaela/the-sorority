@@ -70,7 +70,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 3rem;
+  padding: 3rem 3rem 5rem 3rem;
   gap: 3vh;
   background-color: var(--sorority-grey);
   overflow: scroll;
@@ -80,7 +80,6 @@
   display: flex;
   justify-content: space-between;
   gap: 3rem;
-  background-color: brown;
 }
 
 .eventTitle {
@@ -100,5 +99,4 @@
 
 .tagContainer {
   width: 8vw;
-  background-color: aqua;
 }

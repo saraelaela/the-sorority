@@ -38,17 +38,26 @@ export default async function RootLayout({
 
             <div>
               {user ? (
-                <div className={styles.userArea}>
-                  <Link href={`/profile/${user.firstName}`}>my Account</Link>
-                  <LogoutButton />
-                </div>
-              ) : (
-                <>
+                user.isAdmin ? (
                   <div className={styles.userArea}>
-                    <Link href="/register">Join Us</Link>
-                    <Link href="/login">Log-in</Link>
+                    <Link href="/admin/dashboard">Dashboard</Link>
+                    <Link href={`/profile/${user.firstName}`}>My Account</Link>
+                    <LogoutButton />
                   </div>
-                </>
+                ) : (
+                  <div className={styles.userArea}>
+                    <Link href={`/profile/${user.firstName}`}>
+                      My Account {`${user.isAdmin}`}
+                    </Link>
+
+                    <LogoutButton />
+                  </div>
+                )
+              ) : (
+                <div className={styles.userArea}>
+                  <Link href="/register">Join Us</Link>
+                  <Link href="/login">Log-in</Link>
+                </div>
               )}
             </div>
           </nav>

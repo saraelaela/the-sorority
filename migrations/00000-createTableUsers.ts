@@ -32,19 +32,17 @@ export async function up(sql: Sql) {
       id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       password_hash varchar(100) NOT NULL,
       first_name varchar(100) NOT NULL,
-      last_name varchar(100)  NOT NULL,
+      last_name varchar(100) NOT NULL,
       occupation varchar(100),
       intro_text varchar(500),
       profile_picture varchar(200),
       email varchar(200) UNIQUE NOT NULL,
       linkedin varchar(200),
-      is_admin BOOLEAN DEFAULT false
+      is_admin boolean DEFAULT TRUE
     )
   `;
 }
 
 export async function down(sql: Sql) {
-  await sql`
-    DROP TABLE users
-  `;
+  await sql` DROP TABLE users `;
 }

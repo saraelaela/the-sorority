@@ -14,6 +14,9 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
   overflow-y: scroll; /* Makes .content scrollable */
   background-color: var(--sorority-grey);
   padding: 3vw 3vw 5vw 3vw;

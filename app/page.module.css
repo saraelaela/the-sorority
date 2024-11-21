@@ -63,3 +63,19 @@
   border: 1px solid black;
   border-radius: 30vw;
 }
+
+.button {
+  display: flex;
+  gap: 1rem;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  border: 1px solid black;
+  border-radius: 30vw;
+}
+
+.sectionContainer {
+  padding: 1.2rem 0 1.2rem 0;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  text-transform: uppercase;
+  font-weight: 350;
+}

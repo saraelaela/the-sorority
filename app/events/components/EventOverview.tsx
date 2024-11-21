@@ -3,11 +3,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { type Event, getEventsInsecure } from '../../../database/events';
+import type { User } from '../../../database/users';
+import Button from '../../components/RsvpButton';
+import RsvpButton from '../../components/RsvpButton';
 import Tags from '../../components/Tag';
 import styles from '../page.module.scss';
 
 type Props = {
   event: Event | undefined;
+  user: User;
 };
 
 export default function EventOverview(props: Props) {
@@ -50,7 +54,13 @@ export default function EventOverview(props: Props) {
           </div>
           <div className={styles.eventTitle}>{props.event.eventTitle}</div>
           <div>
-            {props.event.eventDescription} <button>Anmelden</button>
+            {props.event.eventDescription}
+            <RsvpButton
+              icon={'➔'}
+              value={'Anmelden'}
+              eventDetails={props.event.id}
+              userId={props.user.id}
+            />
           </div>
         </div>
       </>

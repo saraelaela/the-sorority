@@ -31,7 +31,6 @@ export default function LoginForm(props: Props) {
 
     const data: LoginResponseBody = await response.json();
 
-
     if ('errors' in data) {
       setErrors(data.errors);
       return;

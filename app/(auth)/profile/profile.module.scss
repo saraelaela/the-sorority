@@ -1,0 +1,58 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+}
+.container {
+  display: flex;
+  // column-gap: 3vw;
+}
+
+.userDashboard {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sorority-grey);
+  padding: 2rem 0 2rem 2rem;
+  gap: 2rem;
+}
+
+.h3 {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: var(--display-font);
+  font-size: 7rem;
+  text-transform: uppercase;
+  max-width: 100%;
+  color: var(--sorority-orange);
+}
+.userArea {
+  display: flex;
+  width: 100%;
+  > div {
+    width: 50%;
+  }
+}
+.userCard {
+  display: flex;
+  background-color: var(--sorority-grey);
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 2rem 2rem 2rem 9rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.imageCard {
+  display: flex;
+  flex-direction: column;
+}
+.rsvpUser {
+  background-color: darkgrey;
+  height: 100vh;
+}

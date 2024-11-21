@@ -26,7 +26,8 @@ export const metadata = {
 
 export default async function AdminPage(props: Props) {
   const events = await getEventsInsecure();
-
+  const usersTest = await getUsersInsecure();
+  console.log('usersData', usersTest);
   //1. Cookie exist
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 
@@ -46,11 +47,11 @@ export default async function AdminPage(props: Props) {
       <div className={styles.eventSummary}>
         <div className={styles.info}>
           <h3 className={styles.h3}>Dashboard</h3>
-          <p className={styles.p}>
+          {/* <p className={styles.p}>
             {' '}
             Welcome to your Dashboard! Please click to Edit or Delete an Event.
             The events are sorted by newest Date.
-          </p>
+          </p> */}
         </div>
         {events.map((event) => {
           const eventId = event.id;
