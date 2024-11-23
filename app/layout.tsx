@@ -32,7 +32,7 @@ export default async function RootLayout({
             <Link href="/">Home</Link>
             <Link href="/events">Events</Link>
             <Link href="/">About</Link>
-            <Link href="/">Team</Link>
+            <Link href="/team">Team</Link>
             {/* <Link href="/">Magazin</Link> */}
             {/* <Link href="/">Press</Link> */}
 

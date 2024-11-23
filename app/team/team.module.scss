@@ -2,17 +2,77 @@
   display: flex;
   flex-direction: column;
   column-gap: 3vw;
-  /* height: 100vh; */
-  width: 100vw;
   overflow: hidden;
+  background-color: var(--sorority-grey);
+}
+.secondaryContainer {
+  position: absolute;
+  height: 100vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Optional: Adjusts spacing between items */
+  align-items: top; /* Optional: Aligns items vertically in the container */
+
+  width: 100%;
+  height: 100%;
+  > div {
+    width: 50vw;
+  }
 }
 
-.logoArea {
+.footer {
+  position: sticky;
+  bottom: 0;
+}
+.teamWrapper {
+  // position: absolute;
+  // top: 0;
+  background-color: var(--sorority-pink);
+  padding: 0 0 4rem 0;
+}
+
+.h2 {
+  font-size: var(--h4-size);
+  text-transform: uppercase;
+}
+.teamContainer {
   display: flex;
   flex-direction: column;
-  background-color: var(--sorority-brown);
-  padding: 2rem 0 0 2rem;
+  gap: 8vh;
+  padding: 2rem 2rem 0 3rem;
+  height: 100%;
 }
+
+.teamOverview {
+  display: flex;
+  flex-direction: column;
+  gap: 8vh;
+}
+
+.teamLine {
+  display: flex;
+  gap: 3vw;
+}
+
+.teamCard {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 2vh;
+}
+
+.contact {
+  display: flex;
+  gap: 3vw;
+}
+
+// .logoArea {
+//   display: flex;
+//   flex-direction: column;
+//   background-color: var(--sorority-brown);
+//   padding: 2rem 0 0 2rem;
+// }
 
 .h1 {
   display: inline-block;
@@ -21,9 +81,12 @@
   font-size: var(--h1-size);
   text-transform: uppercase;
   max-width: 100%;
-  color: var(--sorority-grey);
+  color: var(--sorority-occer);
 }
 
+.logoArea {
+  padding-top: 2rem;
+}
 .animation {
   display: flex;
   flex-direction: column;

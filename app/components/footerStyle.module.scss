@@ -1,6 +1,7 @@
 .footerContainer {
+  // position: absolute;
   padding: 0.7rem 0 0.5rem 0;
-  // z-index: -100000000;
+  z-index: 100000000;
   // width: 60%;
 }
 
@@ -14,6 +15,7 @@
 .socialMedia {
   display: flex;
   gap: 1vw;
+  height: 100%;
   /* justify-content: space-between; */
   /* padding: 0 10rem 0 0; */
   width: 100%;
@@ -48,6 +50,11 @@
 
 .customFooterProfile {
   background-color: white;
+  color: black;
+  padding: 20px;
+}
+.customFooterUser {
+  background-color: darkgray;
   color: black;
   padding: 20px;
 }

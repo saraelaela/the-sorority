@@ -1,12 +1,14 @@
 import type { Sql } from 'postgres';
 import { z } from 'zod';
+import type { User } from './00000-createTableUsers';
 
-export type Rsvp = {
-  // id: number;
-  userId: number;
-  eventId: number;
-  rsvpStatus: boolean;
-};
+export type Rsvp = User &
+  Event & {
+    // id: number;
+    userId: number;
+    eventId: number;
+    rsvpStatus: boolean;
+  };
 
 export const rsvpSchema = z.object({
   // id: z.number(),

@@ -56,7 +56,7 @@ a {
 
 footer {
   position: absolute;
-  bottom: 0;
+  bottom: 3vw;
   z-index: -1;
   width: 60%;
 }

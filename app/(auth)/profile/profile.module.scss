@@ -1,58 +1,63 @@
 .main {
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  column-gap: 3vw;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
-.container {
-  display: flex;
-  // column-gap: 3vw;
-}
-
-.userDashboard {
+.logoArea {
   display: flex;
   flex-direction: column;
-  background-color: var(--sorority-grey);
-  padding: 2rem 0 2rem 2rem;
-  gap: 2rem;
+  background-color: darkgrey;
+  padding: 2rem 0 0 2rem;
 }
 
-.h3 {
+.h1 {
   display: inline-block;
   white-space: nowrap;
   font-family: var(--display-font);
-  font-size: 7rem;
+  font-size: var(--h1-size);
   text-transform: uppercase;
   max-width: 100%;
-  color: var(--sorority-orange);
+  color: var(--sorority-grey);
 }
-.userArea {
+
+.animation {
   display: flex;
-  width: 100%;
-  > div {
-    width: 50%;
+  flex-direction: column;
+  animation: 45s linear 1s infinite running slidein;
+  /* margin: 0 auto; */
+}
+
+/* reverse both */
+
+@keyframes slidein {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
   }
 }
-.userCard {
-  display: flex;
-  background-color: var(--sorority-grey);
-}
 
-.contactDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  padding: 2rem 2rem 2rem 9rem;
-}
-.form {
-  display: flex;
-  flex-direction: column;
-}
+// .contactDetails {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 3rem;
+//   padding: 2rem 2rem 2rem 9rem;
+// }
+// .form {
+//   display: flex;
+//   flex-direction: column;
+// }
 
-.imageCard {
-  display: flex;
-  flex-direction: column;
-}
-.rsvpUser {
-  background-color: darkgrey;
-  height: 100vh;
-}
+// .imageCard {
+//   display: flex;
+//   flex-direction: column;
+// }
+// .rsvpUser {
+//   background-color: darkgrey;
+//   height: 100vh;
+// }
