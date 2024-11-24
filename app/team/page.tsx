@@ -14,7 +14,7 @@ export default function page() {
       </div>
       <div className={styles.secondaryContainer}>
         <div className={styles.footer}>
-          <Footer customFooter="customFooterHome" />
+          <Footer customFooter="customFooterTeam" />
         </div>
         <div>
           {' '}

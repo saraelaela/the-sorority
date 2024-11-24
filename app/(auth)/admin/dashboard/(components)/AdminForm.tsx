@@ -153,33 +153,34 @@ export default function AdminEventForm(props: Props) {
                 />
               </div>
 
-              <CreateEvent />
-
               {errors.map((error) => (
                 <div className="error" key={`error-${error.message}`}>
                   <ErrorMessage>{error.message}</ErrorMessage>
                 </div>
               ))}
+              <div>
+                <CldUploadWidget
+                  uploadPreset="sorority_event_upload"
+                  onSuccess={(results, options) => {
+                    if (results.info) {
+                      console.log(
+                        'results info secure_url',
+                        results.info.secure_url,
+                      );
+                      console.log('Upload info test NN:', results.info);
+                      setEventImage(results.info.secure_url);
+                    }
+                    console.log('Upload success:', results);
+                  }}
+                >
+                  {({ open }) => {
+                    return <button onClick={() => open()}>Upload Image</button>;
+                  }}
+                </CldUploadWidget>
+              </div>
             </form>
 
-            <CldUploadWidget
-              uploadPreset="sorority_event_upload"
-              onSuccess={(results, options) => {
-                if (results.info) {
-                  console.log(
-                    'results info secure_url',
-                    results.info.secure_url,
-                  );
-                  console.log('Upload info test NN:', results.info);
-                  setEventImage(results.info.secure_url);
-                }
-                console.log('Upload success:', results);
-              }}
-            >
-              {({ open }) => {
-                return <button onClick={() => open()}>Upload an Image</button>;
-              }}
-            </CldUploadWidget>
+            <CreateEvent />
           </div>
         </div>
       </div>

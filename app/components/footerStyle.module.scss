@@ -7,6 +7,7 @@
 
 .footerWrapper {
   display: flex;
+  align-items: center;
   padding: 0 7rem 0 2rem;
   gap: 1vw;
   /* max-width: 60%; */
@@ -34,7 +35,7 @@
 
 .customFooterHome {
   background-color: var(--sorority-brown) !important;
-  color: var(--sorority-grey);
+  color: var(--sorority-limeGreen);
   padding: 20px;
 }
 .customFooterRegister {
@@ -45,6 +46,11 @@
 .customFooterLogin {
   background-color: var(--sorority-occer);
   color: var(--sorority-grey);
+  padding: 20px;
+}
+.customFooterTeam {
+  background-color: var(--sorority-grey);
+  color: black;
   padding: 20px;
 }
 

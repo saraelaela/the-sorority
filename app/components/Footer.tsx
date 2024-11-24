@@ -11,15 +11,26 @@ export default function Footer(props) {
       <div className={styles.footerContainer}>
         <div className={styles.footerWrapper}>
           <div className={styles.socialMedia}>
-            <Link href={'https://www.facebook.com/sorority.at/'}>
-              {' '}
-              <Facebook />
-              {/* <a href="https://www.facebook.com/sorority.at/">
-              <Facebook />
-            </a> */}
-            </Link>
-            <Instagram />
-            <LinkedIn />
+            <Facebook
+              link={'https://www.facebook.com/sorority.at/'}
+              color={'black'}
+              height={'10%'}
+            />
+
+            <Instagram
+              link={
+                'https://www.linkedin.com/company/sorority/?originalSubdomain=at'
+              }
+              color={'black'}
+              height={'80%'}
+            />
+            <LinkedIn
+              link={
+                'https://www.linkedin.com/company/sorority/?originalSubdomain=at'
+              }
+              color={'black'}
+              height={'90%'}
+            />
           </div>
           <div className={styles.footerEssentials}>
             <div>Newsletter</div>

@@ -30,6 +30,7 @@
     "postgres": "^3.4.4",
     "react": "19.0.0-rc-5d19e1c8-20240923",
     "react-dom": "19.0.0-rc-5d19e1c8-20240923",
+    "react-hot-toast": "^2.4.1",
     "sass": "^1.80.3",
     "server-only": "^0.0.1",
     "tsx": "^4.19.1",
