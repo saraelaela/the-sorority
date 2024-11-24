@@ -21,14 +21,30 @@
   gap: 15vh;
 }
 
+.userOverview {
+  display: flex;
+  gap: 5rem;
+}
 .userCard {
   display: flex;
-  width: 100%;
-  gap: 7rem;
-  padding: 0 2rem 0 0;
-  background-color: pink;
+  flex-direction: column;
+  width: 17.5rem;
+  gap: 1rem;
+  padding: 0 1rem 0 0;
 }
 
+.userName {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+.contact {
+  display: flex;
+  gap: 3vw;
+}
+
+.userIntro {
+  font-size: 1rem;
+}
 .connect {
   display: flex;
   justify-content: space-between;
@@ -37,7 +53,7 @@
 .userDetails {
   display: flex;
   flex-direction: column;
-  gap: 5vh;
+  gap: 2vh;
 }
 
 .eventOverview {
@@ -46,7 +62,8 @@
   // margin-right: 2rem;
   display: flex;
   flex-direction: column;
-  background-color: blue;
+  padding-right: 2rem;
+
   // margin: 2rem 0 2rem 2rem;
   height: 100%;
   // z-index: 200;

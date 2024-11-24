@@ -25,41 +25,43 @@ export default function RsvpButton(props: Props) {
   console.log('user id successfully passed on ', userId);
 
   return (
-    <button
-      className={styles.button}
-      onClick={async () => {
-        console.log('Button clicked');
+    <div className={styles.buttonContainer}>
+      <button
+        className={styles.button}
+        onClick={async () => {
+          console.log('Button clicked');
 
-        // Update RsvpStatus
-        setInitialRsvpStatus(true);
+          // Update RsvpStatus
+          setInitialRsvpStatus(true);
 
-        // Fetch request
-        const response = await fetch(`/api/rsvp`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId,
-            eventId,
-            rsvpStatus,
-          }),
-        });
+          // Fetch request
+          const response = await fetch(`/api/rsvp`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId,
+              eventId,
+              rsvpStatus,
+            }),
+          });
 
-        console.log('Response status:', response.status);
+          console.log('Response status:', response.status);
 
-        // Parse response
-        const data: RsvpResponseBody = await response.json();
-        console.log('RsvpResponseBody', data);
+          // Parse response
+          const data: RsvpResponseBody = await response.json();
+          console.log('RsvpResponseBody', data);
 
-        // Check for errors in response
-        if ('errors' in data) {
-          setErrors(data.errors);
-        }
-      }}
-    >
-      <div>{props.icon}</div>
-      <div>{props.value}</div>
-    </button>
+          // Check for errors in response
+          if ('errors' in data) {
+            setErrors(data.errors);
+          }
+        }}
+      >
+        <div></div>
+        <div>{props.value}</div>
+      </button>
+    </div>
   );
 }

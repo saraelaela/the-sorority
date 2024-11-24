@@ -41,3 +41,30 @@
     // border: 1px solid black;
   }
 }
+
+.logoutButton {
+  display: flex;
+  background-color: transparent;
+
+  border: none;
+  gap: -0.5rem;
+}
+
+.logoutButtonItem {
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  border-radius: 2rem;
+  border: 1px solid black;
+  color: black;
+  background-color: transparent;
+}
+
+.logoutButtonItem:hover {
+  background-color: var(--sorority-limeGreen);
+}
+
+// .test {
+//   background-color: aqua;
+//   &:hover {
+//     background-color: var(--sorority-grey);
+//   }
+// }

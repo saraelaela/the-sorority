@@ -100,3 +100,9 @@
 .tagContainer {
   width: 8vw;
 }
+
+.eventDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

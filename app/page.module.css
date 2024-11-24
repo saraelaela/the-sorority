@@ -63,13 +63,18 @@
   border: 1px solid black;
   border-radius: 30vw;
 }
+/* .buttonContainer{
+  wi
+} */
 
 .button {
   display: flex;
   gap: 1rem;
-  padding: 0.2rem 1rem 0.2rem 1rem;
+  padding: 0.3rem 1rem 0.3rem 1rem;
   border: 1px solid black;
   border-radius: 30vw;
+  background-color: transparent;
+  /* width: 30%; */
 }
 
 .sectionContainer {
@@ -78,4 +83,10 @@
   border-top: 1px solid black;
   text-transform: uppercase;
   font-weight: 350;
+}
+
+.eventDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }

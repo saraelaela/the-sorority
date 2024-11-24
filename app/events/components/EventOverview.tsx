@@ -53,10 +53,10 @@ export default function EventOverview(props: Props) {
             />
           </div>
           <div className={styles.eventTitle}>{props.event.eventTitle}</div>
-          <div>
-            {props.event.eventDescription}
+          <div className={styles.eventDescription}>
+            <p>{props.event.eventDescription}</p>
             <RsvpButton
-              icon={'➔'}
+              // icon={'➔'}
               value={'Anmelden'}
               eventDetails={props.event.id}
               userId={props.user.id}

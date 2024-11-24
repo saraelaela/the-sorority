@@ -3,6 +3,7 @@ import React from 'react';
 import type { User } from '../../../../database/users';
 import type { Rsvp } from '../../../../migrations/00006-rsvp';
 import SectionTitle from '../../../components/SectionTitle';
+import userCard from '../../../team/team.module.scss';
 import styles from './UserEventRsvp.module.scss';
 
 type Props = {
@@ -10,30 +11,41 @@ type Props = {
 };
 
 export default function UserEventRsvp(props: Props) {
+  const users = [
+    {
+      id: 1,
+      name: 'Marta Suzama',
+      linkedIn: 'www.linkedIn',
+      email: 'email',
+      intro:
+        'Geboren in der tschechischen Hauptstadt Prag, aufgewachsen in Deutschland, hat Wien zu ihrer Heimat auserkoren. Als Kunsthistorikerin in der Museumsarbeit sesshaft. Mit großem Herzen für Literatur, kuratiert sie den Salon Sorority. Fashionista, sammelt Kakteen und liebt Schönes. Ruhige Seele mit Hang zur Revolutionsführerin und überzeugte Feministin auf Lebenszeit. Meine Pronomen: sie/ihr',
+    },
+  ];
   return (
     <>
       <div className={styles.eventWrapper}>
         <div className={styles.eventContainer}>
-          <h1>Dein Bereich</h1>
-          <div className={styles.userCard}>
-            <div className={styles.userDetails}>
-              <Image
-                src="/images/Register.png"
-                width={300}
-                height={300}
-                alt="Mitglieder des Sorority-Vorstands"
-              />
-              <div>Name</div>
-              <div className={styles.connect}>
-                <div>LI</div> <div>Email</div>
-              </div>
-              <div>
-                Geboren und aufgewachsen in Döbling, mit ägyptischem Background.
-                Im Brotberuf angehende Steuerberaterin/Wirtschaftsprüferin und
-                Office-Allrounderin. Absolute Rap-Kennerin und
-                Organisationsfreak. Ansonsten hauptsächlich wütend, aber auf
-                eine produktive Art und Weise. Solidarity over everything!
-              </div>
+          <h1>Your Profile</h1>
+          <div className={styles.userOverview}>
+            <div className={styles.userCard}>
+              {users.map((users) => {
+                return (
+                  <div key={users.id} className={styles.userDetails}>
+                    <Image
+                      src={`/images/board/${users.name}.jpg`}
+                      width={280}
+                      height={280}
+                      alt={`${users.name}`}
+                    />
+                    <div className={styles.userName}>{users.name}</div>
+                    <div className={styles.contact}>
+                      <div>{users.linkedIn}</div>
+                      <div>{users.email}</div>
+                    </div>
+                    <p className={styles.userIntro}>{users.intro}</p>
+                  </div>
+                );
+              })}
             </div>
             <div className={styles.eventOverview}>
               <h3 className={styles.h3}>Your upcoming Events </h3>
