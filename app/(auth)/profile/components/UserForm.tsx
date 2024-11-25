@@ -99,8 +99,6 @@ export default function UserForm(props: Props) {
                 }
               />
             </label>
-
-            <button onClick={() => setShowForm(false)}>save update</button>
           </form>
         </div>
       </div>

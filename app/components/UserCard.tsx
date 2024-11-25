@@ -3,17 +3,17 @@ import React from 'react';
 import styles from '../page.module.css';
 
 export default function UserCard(props: Props) {
-  console.log('props user being passed to User Card', props.value);
+  console.log('props user being passed to UserCard', props.value);
   return (
     <div>
       {' '}
       <div key={props.value.id} className={styles.teamCard}>
-        <Image
+        {/* <Image
           src={`/images/board/${props.value.firstName}.jpg`}
           width={280}
           height={280}
           alt="Mitglieder des Sorority-Vorstands"
-        />
+        /> */}
         <div className={styles.teamMemberName}>
           {props.value.firstName}
           {props.value.lastName}

@@ -10,6 +10,7 @@ import SectionTitle from '../../../components/SectionTitle';
 import userCard from '../../../team/team.module.scss';
 import styles from './UserEventRsvp.module.scss';
 import UserForm from './UserForm';
+import UserProfile from './UserProfile';
 
 type Props = {
   userRsvp: Rsvp;
@@ -23,8 +24,7 @@ export default async function UserEventRsvp(props: Props) {
         <div className={styles.eventContainer}>
           <h1>Your Profile</h1>
           <div className={styles.userOverview}>
-            <UserForm user={props.user} />
-
+            <UserProfile user={props.user} />
             <div className={styles.eventOverview}>
               <h3 className={styles.h3}>Your upcoming Events </h3>
               {props.userRsvp.map((rsvp) => {
