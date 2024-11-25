@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import type { Event } from '../../../database/events';
 import type { User } from '../../../database/users';
+import type { Session } from '../../../migrations/00004-sessions';
 import Footer from '../../components/Footer';
 import styles from '../page.module.scss';
 import EventOverview from './EventOverview';
@@ -11,6 +12,7 @@ import EventOverview from './EventOverview';
 type Props = {
   events: Event[];
   user: User;
+  session: Session;
 };
 
 export default function DisplayEvents(props: Props) {
@@ -48,7 +50,11 @@ export default function DisplayEvents(props: Props) {
           {/* <Footer customFooter="customFooterLogin" /> */}
         </div>
         <div>
-          <EventOverview event={selectedEvent} user={props.user} />
+          <EventOverview
+            session={props.session}
+            event={selectedEvent}
+            user={props.user}
+          />
         </div>
       </div>
     </>

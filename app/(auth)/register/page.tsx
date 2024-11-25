@@ -44,7 +44,7 @@ export default async function RegisterPage(props: Props) {
       </div>
       <RegisterForm returnTo={returnTo} />
 
-      <Footer customFooter="customFooterRegister" />
+      <Footer customFooter="customFooterRegister" customColor={'#FFE3E9'} />
     </div>
   );
 }

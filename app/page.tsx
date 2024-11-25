@@ -13,7 +13,7 @@ export default async function Home() {
         </div>
       </div>
       <HomeComponent />
-      <Footer customFooter="customFooterHome" />
+      <Footer customFooter="customFooterHome" customColor={'#BFFF50'} />
     </div>
   );
 }

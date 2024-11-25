@@ -6,7 +6,22 @@ export const userSchema = z.object({
   lastName: z.string().min(3),
   email: z.string().min(3),
   password: z.string().min(3),
+  occupation: z.string().optional(),
+  profilePicture: z.string().optional(),
+  introText: z.string().optional(),
+  linkedIn: z.string().optional(),
 });
+
+export const updateUserSchema = z.object({
+  id: z.number(),
+  firstName: z.string().min(3),
+  lastName: z.string().min(3),
+  occupation: z.string().optional(),
+  profilePicture: z.string().optional(),
+  introText: z.string().optional(),
+  linkedIn: z.string().optional(),
+});
+
 export const loginSchema = z.object({
   email: z.string().min(3),
   password: z.string().min(3),
@@ -21,7 +36,7 @@ export type User = {
   introText?: string;
   profilePicture?: string;
   email: string;
-  linkedin?: string;
+  linkedIn?: string;
   isAdmin: boolean;
   createdAt?: Date;
 };

@@ -11,7 +11,7 @@ export type User = {
   introText?: string;
   profilePicture?: string;
   email: string;
-  linkedin?: string;
+  linkedIn?: string;
   isAdmin: boolean;
   createdAt?: Date;
 };
@@ -27,7 +27,12 @@ export const getUser = cache(async (sessionToken: Session['token']) => {
     SELECT
       users.id,
       users.first_name,
+      users.last_name,
+      users.occupation,
+      users.intro_text,
+      users.profile_picture,
       users.email,
+      users.linkedin,
       users.is_admin
     FROM
       users
@@ -50,6 +55,36 @@ export const getUsersInsecure = cache(async () => {
   console.log('users setup', users);
   return users;
 });
+export const updateUsersInsecure = cache(
+  async (
+    id: User['id'],
+    firstName: User['firstName'],
+    lastName: User['lastName'],
+    occupation?: User['occupation'],
+    introText?: User['introText'],
+    profilePicture?: User['profilePicture'],
+    linkedIn?: User['linkedIn'],
+  ) => {
+    const users = await sql<User[]>`
+      UPDATE users
+      SET
+        first_name = ${firstName},
+        last_name = ${lastName},
+        occupation = ${occupation},
+        intro_text = ${introText},
+        profile_picture = ${profilePicture},
+        linkedin = ${linkedIn}
+      WHERE
+        id = ${id}
+      RETURNING
+        *;
+
+      -- Return the updated user(s)
+    `;
+    console.log('users setup', users);
+    return users;
+  },
+);
 
 //check if user with email already exists
 export const getUserInsecure = cache(async (email: User['email']) => {

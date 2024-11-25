@@ -29,7 +29,7 @@ export default function RsvpButton(props: Props) {
 
   return (
     <div className={styles.buttonContainer}>
-      <Toaster position="center center" reverseOrder={false} />
+      <Toaster position="center" reverseOrder={false} />
       <button
         className={buttonStyles.logoutButton}
         onClick={async () => {

@@ -1,59 +1,30 @@
 import Image from 'next/image';
-import React from 'react';
-import type { User } from '../../../../database/users';
+import {
+  getUsersInsecure,
+  updateUsersInsecure,
+  type User,
+} from '../../../../database/users';
 import type { Rsvp } from '../../../../migrations/00006-rsvp';
 import LinkedIn from '../../../components/Icons/LinkedIn';
 import SectionTitle from '../../../components/SectionTitle';
 import userCard from '../../../team/team.module.scss';
 import styles from './UserEventRsvp.module.scss';
+import UserForm from './UserForm';
 
 type Props = {
   userRsvp: Rsvp;
+  user: User;
 };
 
-export default function UserEventRsvp(props: Props) {
-  const users = [
-    {
-      id: 1,
-      name: 'Marta Suzama',
-      linkedIn: 'https://www.linkedin.com/in/marta-suzama/',
-      email: 'marta@sorority.at',
-      intro:
-        'Geboren in der tschechischen Hauptstadt Prag, aufgewachsen in Deutschland, hat Wien zu ihrer Heimat auserkoren. Als Kunsthistorikerin in der Museumsarbeit sesshaft. Mit großem Herzen für Literatur, kuratiert sie den Salon Sorority. Fashionista, sammelt Kakteen und liebt Schönes. Ruhige Seele mit Hang zur Revolutionsführerin und überzeugte Feministin auf Lebenszeit. Meine Pronomen: sie/ihr',
-    },
-  ];
+export default async function UserEventRsvp(props: Props) {
   return (
     <>
       <div className={styles.eventWrapper}>
         <div className={styles.eventContainer}>
           <h1>Your Profile</h1>
           <div className={styles.userOverview}>
-            <div className={styles.userCard}>
-              {users.map((users) => {
-                return (
-                  <div key={users.id} className={styles.userDetails}>
-                    <Image
-                      src={`/images/board/${users.name}.jpg`}
-                      width={280}
-                      height={280}
-                      alt={`${users.name}`}
-                    />
-                    <div className={styles.userName}>{users.name}</div>
-                    <div className={styles.contact}>
-                      <div>
-                        <LinkedIn
-                          link={users.linkedIn}
-                          color={'black'}
-                          height={'80%'}
-                        />
-                      </div>
-                      <div>{users.email}</div>
-                    </div>
-                    <p className={styles.userIntro}>{users.intro}</p>
-                  </div>
-                );
-              })}
-            </div>
+            <UserForm user={props.user} />
+
             <div className={styles.eventOverview}>
               <h3 className={styles.h3}>Your upcoming Events </h3>
               {props.userRsvp.map((rsvp) => {

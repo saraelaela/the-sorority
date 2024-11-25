@@ -40,17 +40,17 @@
 }
 .customFooterRegister {
   background-color: var(--sorority-orange);
-  color: var(--sorority-pink);
+  color: var(--sorority-pink) !important;
   padding: 20px;
 }
 .customFooterLogin {
   background-color: var(--sorority-occer);
-  color: var(--sorority-grey);
+  color: var(--sorority-grey) !important;
   padding: 20px;
 }
 .customFooterTeam {
   background-color: var(--sorority-grey);
-  color: black;
+  color: var(--sorority-occer);
   padding: 20px;
 }
 

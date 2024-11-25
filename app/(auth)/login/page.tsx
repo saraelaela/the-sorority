@@ -39,7 +39,7 @@ export default async function LoginPage(props: Props) {
           </div>
         </div>
         <LoginForm />
-        <Footer customFooter="customFooterLogin" />
+        <Footer customFooter="customFooterLogin" customColor={'#E7E7E7'} />
       </div>
     </>
   );

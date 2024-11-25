@@ -5,7 +5,7 @@ import Facebook from './Icons/Facebook';
 import Instagram from './Icons/Instagram';
 import LinkedIn from './Icons/LinkedIn';
 
-export default function Footer(props) {
+export default function Footer(props: Props) {
   return (
     <footer className={styles[props.customFooter]}>
       <div className={styles.footerContainer}>
@@ -13,7 +13,7 @@ export default function Footer(props) {
           <div className={styles.socialMedia}>
             <Facebook
               link={'https://www.facebook.com/sorority.at/'}
-              color={'black'}
+              color={props.customColor}
               height={'10%'}
             />
 
@@ -21,14 +21,14 @@ export default function Footer(props) {
               link={
                 'https://www.linkedin.com/company/sorority/?originalSubdomain=at'
               }
-              color={'black'}
+              color={props.customColor}
               height={'80%'}
             />
             <LinkedIn
               link={
                 'https://www.linkedin.com/company/sorority/?originalSubdomain=at'
               }
-              color={'black'}
+              color={props.customColor}
               height={'90%'}
             />
           </div>

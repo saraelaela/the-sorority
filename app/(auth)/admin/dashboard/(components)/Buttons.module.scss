@@ -1,3 +1,22 @@
+.regularButton {
+  display: flex;
+  background-color: transparent;
+  border: none;
+  gap: -0.5rem;
+
+  > div {
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    border-radius: 10rem;
+    color: var(--sorority-lilac);
+    background-color: var(--sorority-pink);
+    border: 1px solid var(--sorority-lilac);
+    &:hover {
+      background-color: var(--sorority-lilac);
+      color: var(--sorority-pink);
+    }
+  }
+}
+
 .deleteButton {
   display: flex;
   background-color: transparent;

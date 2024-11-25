@@ -39,14 +39,20 @@ export default async function EventsPage(props: Props) {
   //   redirect(getSafeReturnToPath(returnTo) || '/');
   // }
 
-  const user = await getUser(session.token);
+  const user = session
+    ? await getUser(session.token)
+    : await getUsersInsecure();
   console.log('userdata', user);
   //1)  sessiontoken holen 2) Userdaten holen und als Props weitergeben, schauen, ob ID mitgeschickt wird
 
   return (
     <>
       <div>
-        <DisplayEvents events={events} user={user}></DisplayEvents>
+        <DisplayEvents
+          session={session}
+          events={events}
+          user={user}
+        ></DisplayEvents>
         {/* <Footer customFooter="customFooterLogin" /> */}
       </div>
     </>
