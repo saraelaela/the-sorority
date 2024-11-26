@@ -9,7 +9,9 @@ export default function UserProfile(props: Props) {
   console.log('user props being passed to UserProfile', props.user);
   return (
     <div className={styles.editUser}>
-      {showUserForm ? (
+      <UserForm user={props.user} />
+      {/* <button onClick={() => setShowUserForm(false)}>save update</button> */}
+      {/* {showUserForm ? (
         <>
           <UserForm user={props.user} />
           <button onClick={() => setShowUserForm(false)}>save update</button>
@@ -19,7 +21,7 @@ export default function UserProfile(props: Props) {
           <UserCard value={props.user} />
           <button onClick={() => setShowUserForm(true)}>Edit</button>
         </>
-      )}
+      )} */}
     </div>
   );
 }

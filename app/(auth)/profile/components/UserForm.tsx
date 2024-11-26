@@ -1,4 +1,6 @@
 'use client';
+import { CldUploadWidget } from 'next-cloudinary';
+import Image from 'next/image';
 import { useState } from 'react';
 import type { User } from '../../../../database/users';
 import UserCard from '../../../components/UserCard';
@@ -54,6 +56,35 @@ export default function UserForm(props: Props) {
     <>
       <div>
         <div className={styles.userCard}>
+          {/* <label>
+            Picture
+            <input
+              value={profilePicture}
+              onChange={(event) => setProfilePicture(event.currentTarget.value)}
+            />
+          </label> */}
+          <Image
+            src={profilePicture || '/images/image-placeholder.png'}
+            width={635}
+            height={345}
+            alt="Mitglieder des Sorority-Vorstands"
+          />
+          <CldUploadWidget
+            uploadPreset="sorority_event_upload"
+            onSuccess={(results, options) => {
+              if (results.info) {
+                console.log('results info secure_url', results.info.secure_url);
+                console.log('Upload info test NN:', results.info);
+                setProfilePicture(results.info.secure_url);
+              }
+              console.log('Upload success:', results);
+            }}
+          >
+            {({ open }) => {
+              return <button onClick={() => open()}>Upload Image</button>;
+            }}
+          </CldUploadWidget>
+
           <form onSubmit={async (event) => await handleUserUpdate(event)}>
             <label>
               name
@@ -90,15 +121,7 @@ export default function UserForm(props: Props) {
                 onChange={(event) => setLinkedIn(event.currentTarget.value)}
               />
             </label>
-            <label>
-              Picture
-              <input
-                value={profilePicture}
-                onChange={(event) =>
-                  setProfilePicture(event.currentTarget.value)
-                }
-              />
-            </label>
+            <button>save update</button>
           </form>
         </div>
       </div>
