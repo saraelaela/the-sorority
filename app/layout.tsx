@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { getUser } from '../database/users';
 import LogoutButton from './(auth)/logout/LogoutButton';
 import Footer from './components/Footer';
-import styles from './page.module.css';
+import styles from './page.module.scss';
 
 export const metadata: Metadata = {
   title: 'Solidarity, Sisters!',

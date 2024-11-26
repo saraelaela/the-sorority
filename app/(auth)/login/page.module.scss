@@ -7,11 +7,30 @@
   overflow: hidden;
 }
 
+.secondaryContainer {
+  position: absolute;
+  height: 100vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Optional: Adjusts spacing between items */
+  align-items: top; /* Optional: Aligns items vertically in the container */
+
+  width: 100%;
+  > div {
+    width: 50vw;
+  }
+}
+.footer {
+  position: sticky;
+  bottom: 0;
+}
+
 .logoArea {
   display: flex;
   flex-direction: column;
   background-color: var(--sorority-occer);
-  padding: 2rem 0 0 2rem;;
+  padding: 2rem 0 0 2rem;
 }
 
 .h1 {

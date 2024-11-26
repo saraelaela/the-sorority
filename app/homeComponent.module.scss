@@ -1,9 +1,9 @@
-.main {
-  position: absolute;
-  overflow: hidden;
-  height: 100vh;
-  display: flex;
-}
+// .main {
+//   position: absolute;
+//   overflow: hidden;
+//   height: 100vh;
+//   display: flex;
+// }
 
 .wrapper {
   display: flex;
@@ -20,6 +20,6 @@
   overflow-y: scroll; /* Makes .content scrollable */
   background-color: var(--sorority-grey);
   padding: 3vw 3vw 5vw 3vw;
-  width: 50%;
+  // width: 50%;
   min-height: 100vh;
 }

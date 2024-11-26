@@ -38,8 +38,12 @@ export default async function LoginPage(props: Props) {
             </h1>
           </div>
         </div>
-        <LoginForm />
-        <Footer customFooter="customFooterLogin" customColor={'#E7E7E7'} />
+        <div className={styles.secondaryContainer}>
+          <div className={styles.footer}>
+            <Footer customFooter="customFooterLogin" customColor={'#E7E7E7'} />
+            <LoginForm />
+          </div>
+        </div>
       </div>
     </>
   );

@@ -1,6 +1,4 @@
 'use client';
-
-// import { login } from 'module';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -19,7 +17,6 @@ export default function LoginForm(props: Props) {
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
 
-  // Fetch setup: sends information to the API
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -39,7 +36,6 @@ export default function LoginForm(props: Props) {
     }
 
     router.push(getSafeReturnToPath(props.returnTo) || `/admin/dashboard`);
-    // router.push(`/profile/${data.user.firstName}`);
     router.refresh();
   }
 
@@ -54,9 +50,11 @@ export default function LoginForm(props: Props) {
             alt="Mitglieder des Sorority-Vorstands"
           />
           <SectionTitle title={'Willkommen zurück, Sister!'} />
-          {/* <p>Logge dich hier ein um an Events dabei zu sein!</p> */}
 
-          <form className={styles.form} onSubmit={async (event) => await handleLogin(event)}>
+          <form
+            className={styles.form}
+            onSubmit={async (event) => await handleLogin(event)}
+          >
             <div className={styles.labelGroup}>
               <div className={styles.formItem}>
                 <label className={styles.label}>

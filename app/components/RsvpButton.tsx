@@ -5,7 +5,7 @@ import buttonStyles from '../(auth)/admin/dashboard/(components)/Buttons.module.
 import type { RsvpResponseBody } from '../(auth)/api/rsvp/route';
 import { getAllRsvpInsecure } from '../../database/rsvp';
 import type { User } from '../../database/users';
-import styles from '../page.module.css';
+import styles from '../page.module.scss';
 
 type Props = {
   event: Event[];

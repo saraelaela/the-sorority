@@ -40,9 +40,14 @@ export default async function RegisterPage(props: Props) {
           </h1>
         </div>
       </div>
-      <RegisterForm returnTo={returnTo} />
-
-      <Footer customFooter="customFooterRegister" customColor={'#FFE3E9'} />
+      <div className={styles.secondaryContainer}>
+        <div className={styles.footer}>
+          <Footer customFooter="customFooterRegister" customColor={'#FFE3E9'} />
+        </div>
+        <div>
+          <RegisterForm returnTo={returnTo} />
+        </div>
+      </div>
     </div>
   );
 }

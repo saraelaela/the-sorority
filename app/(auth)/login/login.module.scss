@@ -1,15 +1,13 @@
 .main {
   position: absolute;
-  overflow: hidden;
   width: 100vw;
-  height: 100vh;
   display: flex;
 }
 .wrapper {
   display: flex;
   justify-content: right;
   overflow: scroll;
-  height: 100%;
+  // height: 90%;
   flex: 1;
 }
 
@@ -22,7 +20,7 @@
   background-color: var(--sorority-grey);
   padding: 3vw 3vw 5vw 3vw;
   width: 50%;
-  min-height: 200vh; /* Extra height to demonstrate scrolling */
+  min-height: 100%; /* Extra height to demonstrate scrolling */
 }
 
 .welcomeSection {
