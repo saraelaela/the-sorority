@@ -82,11 +82,39 @@
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   text-transform: uppercase;
-  font-weight: 350;
+  /* .h1 {
+    font-weight: 150;
+  } */
 }
 
+.sectionTitle {
+  font-weight: 200;
+}
 .eventDescription {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.memberCard {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  gap: 2vh;
+  margin-bottom: 3vw;
+}
+.memberName {
+  display: flex;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+
+.contact {
+  display: flex;
+  gap: 3vw;
+}
+
+.memberIntro {
+  font-size: 1rem;
 }

@@ -1,29 +1,41 @@
 import Image from 'next/image';
 import React from 'react';
 import styles from '../page.module.css';
+import LinkedIn from './Icons/LinkedIn';
 
 export default function UserCard(props: Props) {
-  console.log('props user being passed to UserCard', props.value);
+  const user = console.log('props user being passed to UserCard', props.value);
   return (
     <div>
       {' '}
-      <div key={props.value.id} className={styles.teamCard}>
-        {/* <Image
-          src={`/images/board/${props.value.firstName}.jpg`}
+      <div key={props.value.id} className={styles.memberCard}>
+        <Image
+          src={props.value.profilePicture || '/images/image-placeholder.png'}
           width={280}
           height={280}
           alt="Mitglieder des Sorority-Vorstands"
-        /> */}
-        <div className={styles.teamMemberName}>
-          {props.value.firstName}
-          {props.value.lastName}
+        />
+        <div className={styles.memberName}>
+          <div> {props.value.firstName}</div> <div>{props.value.lastName}</div>
         </div>
         <div>{props.value.occupation}</div>
-        <div className={styles.contact}>
-          <div>{props.value.linkedIn}</div>
-          <div>{props.value.email}</div>
-        </div>
-        <p className={styles.teamMemberIntro}>{props.value.intro}</p>
+
+        {props.value.linkedin ? (
+          <div className={styles.contact}>
+            <LinkedIn
+              height={'16'}
+              color={'black'}
+              link={props.value.linkedin}
+            />{' '}
+            <div>{props.value.email}</div>
+          </div>
+        ) : (
+          <div className={styles.contact}>
+            <div>{props.value.email}</div>
+          </div>
+        )}
+
+        <p className={styles.memberIntro}>{props.value.introText}</p>
       </div>
     </div>
   );

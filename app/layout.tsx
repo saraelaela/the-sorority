@@ -31,7 +31,7 @@ export default async function RootLayout({
           <nav className={styles.navClass}>
             <Link href="/">Home</Link>
             <Link href="/events">Events</Link>
-            <Link href="/">About</Link>
+            {/* <Link href="/">About</Link> */}
             <Link href="/team">Team</Link>
             {/* <Link href="/">Magazin</Link> */}
             {/* <Link href="/">Press</Link> */}

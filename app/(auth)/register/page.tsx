@@ -3,8 +3,6 @@ import { redirect } from 'next/navigation';
 import { getValidSessionToken } from '../../../database/sessions';
 import { getSafeReturnToPath } from '../../../util/validation';
 import Footer from '../../components/Footer';
-// import footerStyles from '../../footerStyle.module.scss';
-import RootLayout from '../../layout';
 import styles from './page.module.scss';
 import RegisterForm from './RegisterForm';
 

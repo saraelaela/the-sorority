@@ -9,7 +9,7 @@ export default function SectionTitle(props: Props) {
   return (
     <>
       <div className={styles.sectionContainer}>
-        <h1>{props.title}</h1>
+        <h1 className={styles.sectionTitle}>{props.title}</h1>
       </div>
     </>
   );

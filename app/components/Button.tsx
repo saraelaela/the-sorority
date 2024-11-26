@@ -15,9 +15,9 @@ export default function Button(props: Props) {
   return (
     <div>
       <button
-        onClick={() => {
-          router.push(`${props.url}`);
-        }}
+        // onClick={() => {
+        //   router.push(`${props.url}`);
+        // }}
         className={styles.regularButton}
       >
         <div>{props.icon}</div>

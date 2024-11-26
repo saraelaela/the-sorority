@@ -14,6 +14,9 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
   justify-content: right;
   overflow-y: scroll; /* Makes .content scrollable */
   background-color: var(--sorority-grey);
@@ -45,4 +48,51 @@
   border-top: 1px solid black;
   justify-content: space-between;
   padding: 1vw 0 0 0;
+}
+
+.labelGroup {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-bottom: 1rem;
+}
+
+.formItem {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid black;
+  margin: 0.5rem 0 0.5rem 0;
+}
+
+.label {
+  // position: absolute;
+  // border-bottom: 1px solid black;
+  padding: 1.5rem 0 0.5rem 0;
+  width: 100%;
+  height: 100%;
+  color: black;
+  // opacity: 0.4;
+  // bottom: 0;
+}
+
+.input {
+  background-color: transparent;
+  padding: 0 0.1rem 0 0.5rem;
+  overflow-y: scroll;
+  left: 0;
+  bottom: 0.5rem;
+  height: 6.5vh;
+  width: 100%;
+  border: none;
+  &:focus {
+    background-color: var(--sorority-pink);
+    outline: none;
+  }
 }

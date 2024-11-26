@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ErrorMessage from '../../(errormessage)/ErrorMessage';
 import { getSafeReturnToPath } from '../../../util/validation';
+import SectionTitle from '../../components/SectionTitle';
+import buttonStyles from '../admin/dashboard/(components)/Buttons.module.scss';
 import type { LoginResponseBody } from '../api/login/route';
 import styles from './login.module.scss';
 
@@ -51,30 +53,52 @@ export default function LoginForm(props: Props) {
             height={325}
             alt="Mitglieder des Sorority-Vorstands"
           />
-          <h3 className={styles.h3}>Willkommen zurück!</h3>
-          <p>Logge dich hier ein um an Events dabei zu sein!</p>
+          <SectionTitle title={'Willkommen zurück, Sister!'} />
+          {/* <p>Logge dich hier ein um an Events dabei zu sein!</p> */}
 
-          <form onSubmit={async (event) => await handleLogin(event)}>
-            <label className={styles.loginLabel}>
-              Email
-              <input
-                className={styles.inputLabel}
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.currentTarget.value)}
-              />
-            </label>
-
-            <label className={styles.loginLabel}>
-              Password
-              <input
-                className={styles.inputLabel}
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.currentTarget.value)}
-              />
-            </label>
-            <button>Login</button>
+          <form className={styles.form} onSubmit={async (event) => await handleLogin(event)}>
+            <div className={styles.labelGroup}>
+              <div className={styles.formItem}>
+                <label className={styles.label}>
+                  Email
+                  <input
+                    className={styles.input}
+                    type="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.currentTarget.value)}
+                  />
+                </label>
+              </div>
+              <div className={styles.formItem}>
+                <label className={styles.label}>
+                  Password
+                  <input
+                    className={styles.input}
+                    type="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.currentTarget.value)}
+                  />
+                </label>
+              </div>
+            </div>
+            <button className={buttonStyles.registerButton}>
+              <div>
+                <svg
+                  width="10.5"
+                  height="9"
+                  viewBox="0 0 42 37"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0 18.5H38M22.5 2L39 18.5L22.5 35"
+                    stroke="black"
+                    stroke-width="4"
+                  />
+                </svg>
+              </div>
+              <div>Login</div>
+            </button>
 
             {errors.map((error) => (
               <div className="error" key={`error-${error.message}`}>

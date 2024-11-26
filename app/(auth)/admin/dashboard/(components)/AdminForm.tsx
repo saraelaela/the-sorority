@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ErrorMessage from '../../../../(errormessage)/ErrorMessage';
 import styles from '../AdminPage.module.scss';
-import CreateEvent from './CreateEvent';
-import UploadWidget from './Upload';
 
 type Props = { returnTo?: string | string[] };
 
@@ -31,16 +29,6 @@ export default function AdminEventForm(props: Props) {
     setEventImage('');
     setEventCosts('');
   }
-
-  console.log(
-    'body',
-    eventTitle,
-    eventDescription,
-    eventLocation,
-    eventDate,
-    hostedBy,
-    eventImage,
-  );
 
   // Function to handle form submission and API call (moving data from one place to anotgher)
   async function handleEventCreation() {
