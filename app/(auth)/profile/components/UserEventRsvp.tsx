@@ -15,6 +15,7 @@ import UserProfile from './UserProfile';
 type Props = {
   userRsvp: Rsvp;
   user: User;
+  firstName: string;
 };
 
 export default async function UserEventRsvp(props: Props) {
@@ -24,7 +25,7 @@ export default async function UserEventRsvp(props: Props) {
         <div className={styles.eventContainer}>
           <h1>Your Profile</h1>
           <div className={styles.userOverview}>
-            <UserProfile user={props.user} />
+            <UserProfile firstName={props.firstName} user={props.user} />
             <div className={styles.eventOverview}>
               <h3 className={styles.h3}>Your upcoming Events </h3>
               {props.userRsvp.map((rsvp) => {

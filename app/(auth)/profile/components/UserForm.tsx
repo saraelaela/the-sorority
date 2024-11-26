@@ -1,17 +1,19 @@
 'use client';
 import { CldUploadWidget } from 'next-cloudinary';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { User } from '../../../../database/users';
-import UserCard from '../../../components/UserCard';
 import type { EditUserResponseBody } from '../../api/users/route';
 import styles from '../profile.module.scss';
 
 type Props = {
   user: User;
+  firstName: string;
 };
 
 export default function UserForm(props: Props) {
+  const router = useRouter();
   const [userId, setUserId] = useState(props.user.id);
   const [firstName, setFirstName] = useState(props.user.firstName);
   const [lastName, setLastName] = useState(props.user.lastName);
@@ -47,8 +49,16 @@ export default function UserForm(props: Props) {
 
     if ('errors' in data) {
       setErrors(data.errors);
+      console.log('error:', data.errors);
       return;
     }
+
+    console.log('geschafft');
+    props.setShowUserForm(false);
+    router.refresh();
+
+    // router.push(`/profile/${props.firstName}`);
+    // router.();
   }
   console.log('props user being passed', props.user);
 

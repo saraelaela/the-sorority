@@ -51,7 +51,12 @@ export default async function UserProfilePage(props: Props) {
             <h1 className={styles.h1}>Sorority Sorority Sorority Sorority</h1>
           </div>
         </div>
-        <UserEventRsvp events={events} user={user} userRsvp={userRsvp} />
+        <UserEventRsvp
+          firstName={firstName}
+          events={events}
+          user={user}
+          userRsvp={userRsvp}
+        />
         <Footer customFooter="customFooterUser" />
       </div>
     </>

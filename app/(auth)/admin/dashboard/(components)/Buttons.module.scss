@@ -67,6 +67,12 @@
 
   border: none;
   gap: -0.5rem;
+
+  &:hover {
+    background-color: var(--sorority-limeGreen);
+    border-radius: 30px;
+    border: none;
+  }
 }
 
 .logoutButtonItem {
@@ -75,10 +81,16 @@
   border: 1px solid black;
   color: black;
   background-color: transparent;
+  &:hover {
+    border: none;
+  }
 }
-
-.logoutButtonItem:hover {
-  background-color: var(--sorority-limeGreen);
+.logoutButtonIcon {
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  border-radius: 2rem;
+  border: 1px solid black;
+  color: black;
+  background-color: transparent;
 }
 
 // .test {

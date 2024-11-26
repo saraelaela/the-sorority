@@ -43,8 +43,7 @@ export default function AdminEventForm(props: Props) {
   );
 
   // Function to handle form submission and API call (moving data from one place to anotgher)
-  async function handleEventCreation(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleEventCreation() {
     console.log('eventImage before sending:', eventImage);
     const response = await fetch('/api/events', {
       method: 'POST',
@@ -87,8 +86,6 @@ export default function AdminEventForm(props: Props) {
             <form
               onSubmit={async (event) => {
                 event.preventDefault();
-                await handleEventCreation(event);
-                resetFormStates();
               }}
               className={styles.form}
             >
@@ -179,8 +176,17 @@ export default function AdminEventForm(props: Props) {
                 </CldUploadWidget>
               </div>
             </form>
-
-            <CreateEvent />
+            <button
+              onClick={async () => {
+                await handleEventCreation();
+                resetFormStates();
+              }}
+              className={styles.createButton}
+            >
+              <div>↪</div>
+              <div>Create Event</div>
+            </button>
+            {/* <CreateEvent /> */}
           </div>
         </div>
       </div>

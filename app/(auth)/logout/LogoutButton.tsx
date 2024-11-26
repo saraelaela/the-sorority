@@ -17,7 +17,7 @@ export default function LogoutButton() {
             router.refresh();
           }}
         >
-          <div className={styles.logoutButtonItem}>
+          <div className={styles.logoutButtonIcon}>
             <svg
               width="10.5"
               height="9"
