@@ -4,7 +4,6 @@ import styles from '../page.module.scss';
 import LinkedIn from './Icons/LinkedIn';
 
 export default function UserCard(props: Props) {
-  const user = console.log('props user being passed to UserCard', props.value);
   return (
     <div>
       {' '}

@@ -3,7 +3,9 @@ import { CldUploadWidget } from 'next-cloudinary';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import formStyles from '../../../(auth)/admin/dashboard/AdminPage.module.scss';
 import type { User } from '../../../../database/users';
+import buttonStyles from '../../admin/dashboard/(components)/Buttons.module.scss';
 import type { EditUserResponseBody } from '../../api/users/route';
 import styles from '../profile.module.scss';
 
@@ -75,8 +77,8 @@ export default function UserForm(props: Props) {
           </label> */}
           <Image
             src={profilePicture || '/images/image-placeholder.png'}
-            width={635}
-            height={345}
+            width={280}
+            height={280}
             alt="Mitglieder des Sorority-Vorstands"
           />
           <CldUploadWidget
@@ -91,47 +93,91 @@ export default function UserForm(props: Props) {
             }}
           >
             {({ open }) => {
-              return <button onClick={() => open()}>Upload Image</button>;
+              return (
+                <button
+                  onClick={() => open()}
+                  className={buttonStyles.uploadButton}
+                >
+                  <div> + </div>
+                  <div>Upload/Change Image</div>
+                </button>
+              );
             }}
           </CldUploadWidget>
 
-          <form onSubmit={async (event) => await handleUserUpdate(event)}>
-            <label>
-              name
-              <input
-                value={firstName}
-                onChange={(event) => setFirstName(event.currentTarget.value)}
-              />
-            </label>
-            <label>
-              last name
-              <input
-                value={lastName}
-                onChange={(event) => setLastName(event.currentTarget.value)}
-              />
-            </label>
-            <label>
-              occupation
-              <input
-                value={occupation}
-                onChange={(event) => setOccupation(event.currentTarget.value)}
-              />
-            </label>
-            <label>
-              intro text
-              <input
-                value={introText}
-                onChange={(event) => setIntroText(event.currentTarget.value)}
-              />
-            </label>
-            <label>
-              linkedin
-              <input
-                value={linkedIn}
-                onChange={(event) => setLinkedIn(event.currentTarget.value)}
-              />
-            </label>
-            <button>save update</button>
+          <form
+            onSubmit={async (event) => await handleUserUpdate(event)}
+            className={styles.form}
+          >
+            <div>
+              <div className={formStyles.formItem}>
+                {' '}
+                <label className={formStyles.label}>
+                  name
+                  <input
+                    className={formStyles.input}
+                    value={firstName}
+                    onChange={(event) =>
+                      setFirstName(event.currentTarget.value)
+                    }
+                  />
+                </label>
+              </div>
+              <div className={formStyles.formItem}>
+                {' '}
+                <label className={formStyles.label}>
+                  last name
+                  <input
+                    className={formStyles.input}
+                    value={lastName}
+                    onChange={(event) => setLastName(event.currentTarget.value)}
+                  />
+                </label>
+              </div>
+
+              <div className={formStyles.formItem}>
+                {' '}
+                <label className={formStyles.label}>
+                  occupation
+                  <input
+                    className={formStyles.input}
+                    value={occupation}
+                    onChange={(event) =>
+                      setOccupation(event.currentTarget.value)
+                    }
+                  />
+                </label>
+              </div>
+
+              <div className={formStyles.formItem}>
+                {' '}
+                <label className={formStyles.label}>
+                  intro text
+                  <textarea
+                    className={styles.inputDescription}
+                    value={introText}
+                    onChange={(event) =>
+                      setIntroText(event.currentTarget.value)
+                    }
+                  />
+                </label>
+              </div>
+
+              <div className={formStyles.formItem}>
+                <label className={formStyles.label}>
+                  linkedin
+                  <input
+                    className={formStyles.input}
+                    value={linkedIn}
+                    onChange={(event) => setLinkedIn(event.currentTarget.value)}
+                  />
+                </label>
+              </div>
+            </div>
+            <button className={buttonStyles.update}>
+              <div> ✮ </div>
+              <div>save update</div>
+            </button>
           </form>
         </div>
       </div>

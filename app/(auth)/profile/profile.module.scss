@@ -6,6 +6,24 @@
   width: 100vw;
   overflow: hidden;
 }
+
+.secondaryContainer {
+  position: absolute;
+  height: 100vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Optional: Adjusts spacing between items */
+  align-items: top; /* Optional: Aligns items vertically in the container */
+
+  width: 100%;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+}
+
 .logoArea {
   display: flex;
   flex-direction: column;
@@ -45,13 +63,23 @@
 .editUser {
   display: flex;
   flex-direction: column;
-  min-height: 95vh;
+  min-height: 110vh;
+  width: 17.5rem;
 }
 
-// .userCard {
-//   display: flex;
-//   flex-direction: column;
-// }
+.userCard {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  margin-bottom: 8vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  gap: 3vh;
+}
 // .contactDetails {
 //   display: flex;
 //   flex-direction: column;
@@ -71,3 +99,18 @@
 //   background-color: darkgrey;
 //   height: 100vh;
 // }
+
+.inputDescription {
+  background-color: transparent;
+  overflow-y: scroll;
+  left: 0;
+  padding: 1rem 0.1rem 0 0.5rem;
+  bottom: 0.5rem;
+  height: 20vh;
+  width: 100%;
+  border: none;
+  &:focus {
+    background-color: var(--sorority-pink);
+    outline: none;
+  }
+}

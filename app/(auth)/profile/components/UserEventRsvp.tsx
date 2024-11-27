@@ -1,15 +1,7 @@
 import Image from 'next/image';
-import {
-  getUsersInsecure,
-  updateUsersInsecure,
-  type User,
-} from '../../../../database/users';
+import { type User } from '../../../../database/users';
 import type { Rsvp } from '../../../../migrations/00006-rsvp';
-import LinkedIn from '../../../components/Icons/LinkedIn';
-import SectionTitle from '../../../components/SectionTitle';
-import userCard from '../../../team/team.module.scss';
 import styles from './UserEventRsvp.module.scss';
-import UserForm from './UserForm';
 import UserProfile from './UserProfile';
 
 type Props = {
