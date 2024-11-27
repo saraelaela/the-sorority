@@ -25,7 +25,7 @@ export default function EventOverview(props: Props) {
             <div className={styles.eventSpecs}>
               <div>
                 <div className={styles.tagContainer}>
-                  <Tags value={'Wann'} />
+                  <Tags value={'When'} />
                 </div>
                 <div>
                   {new Date(props.event.eventDate).toLocaleDateString()}
@@ -33,14 +33,14 @@ export default function EventOverview(props: Props) {
               </div>
               <div>
                 <div className={styles.tagContainer}>
-                  <Tags value={'Wo'} />
+                  <Tags value={'Where'} />
                 </div>
                 <div>{props.event.eventLocation}</div>
               </div>
               <div>
                 <div className={styles.tagContainer}>
                   {' '}
-                  <Tags value={'Wie viel'} />
+                  <Tags value={'Costs'} />
                 </div>
                 <div>{props.event.eventCosts}</div>
               </div>

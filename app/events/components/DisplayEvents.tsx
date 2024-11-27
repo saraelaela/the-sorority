@@ -37,7 +37,7 @@ export default function DisplayEvents(props: Props) {
                   </div>
                   <div className={styles.eventDetails}>
                     <div className={styles.eventTags}>
-                      <div>event Time</div>
+                      <div>10.30 AM</div>
                       <div>{event.eventLocation}</div>
                     </div>
                     <h4 className={styles.h4}>{event.eventTitle}</h4>

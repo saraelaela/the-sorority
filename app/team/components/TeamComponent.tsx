@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import LinkedIn from '../../components/Icons/LinkedIn';
 import styles from '../team.module.scss';
 
 export default function TeamComponent() {
@@ -8,81 +9,81 @@ export default function TeamComponent() {
       id: 1,
       name: 'Marta Suzama',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'marta@sorority.at',
       intro:
-        'Geboren in der tschechischen Hauptstadt Prag, aufgewachsen in Deutschland, hat Wien zu ihrer Heimat auserkoren. Als Kunsthistorikerin in der Museumsarbeit sesshaft. Mit großem Herzen für Literatur, kuratiert sie den Salon Sorority. Fashionista, sammelt Kakteen und liebt Schönes. Ruhige Seele mit Hang zur Revolutionsführerin und überzeugte Feministin auf Lebenszeit. Meine Pronomen: sie/ihr',
+        'Born in the Czech capital of Prague, raised in Germany, she has chosen Vienna as her home. Settled as an art historian working in the museum field. With a great passion for literature, she curates the Salon Sorority. A fashionista who collects cacti and loves beautiful things. A calm soul with a tendency toward revolutionary leadership and a lifelong committed feminist. My pronouns: she/her.',
     },
     {
       id: 2,
       name: 'Katja Grafl',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'katja@sorority.at',
       intro:
-        'Groß geworden in Wien Margareten, verschweigt sie ihre burgenländischen Wurzeln gern einmal. Beruflich reicht der Werdegang von Sozialer Arbeit, über irgendetwas mit Medien hin zu Projektmanagement in diversen NPOs. Definitiv mehr Sommer- als Winter-Typ und Langzeit-Vegetarierin. Meine Pronomen: sie/ihr',
+        'Raised in Vienna\'s Margareten district, she often keeps her Burgenland roots under wraps. Her career path spans from social work to "something with media" and on to project management in various non-profit organizations. Definitely more of a summer than a winter type and a long-time vegetarian. My pronouns: she/her.',
     },
     {
       id: 3,
       name: 'Sibel Ada',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'sibel@sorority.at',
       intro:
-        'Im Dorf nahe Wien aufgewachsen, mit türkischem Migrationsvordergrund. Hirnforscherin vom Brotberuf und nebenbei erbitterte Erzfeindin des Patriarchats. Ansonsten eher Wasserratte, daher oft 20 Meter unter dem Meeresspiegel anzutreffen, wenn keine Rückmeldung auf Anruf oder E-Mails. Meine Pronomen: sie/ihr',
+        'Grew up in a village near Vienna, with a Turkish migration background. A neuroscientist by profession and, on the side, a fierce archenemy of the patriarchy. Otherwise, more of a water lover, often found 20 meters below sea level if there’s no response to calls or emails. My pronouns: she/her.',
     },
     {
       id: 4,
       name: 'Marlene Fischer',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'marlene@sorority.at',
       intro:
-        'Das Dorf im Westen von Wien verlassen, um sich erfolgreich mit den Studien der Kunstgeschichte & KSA zu duellieren. Bündelt nun alle Leidenschaften in den Corporate Relations im Kulturbetrieb. Folgt der Strategie der grenzenlos gelebten Harmonie von künstlerischem, kulturellem und gesellschaftlichem Engagement. Immer neugierig & Nerd im Herzen. Meine Pronomen: sie/ihr',
+        'Left the village west of Vienna to successfully duel with the studies of art history and cultural and social anthropology. Now channels all passions into corporate relations in the cultural sector. Follows the strategy of boundless harmony, combining artistic, cultural, and social engagement. Always curious and a nerd at heart. My pronouns: she/her.',
     },
     {
       id: 5,
       name: 'Rika Mader',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'rika@sorority.at',
       intro:
-        '„Wir sind nicht hübsch, wir sind nicht hässlich – Wir sind wütend“ Die gebürtige Steirerin lebt für mehr Gerechtigkeit und nennt Ungleichheiten offline & online gerne beim Namen. Wenn nicht gerade im Einsatz für Gleichberechtigung, dann gerne mit Campingbus in der „Wildnis“ unterwegs oder am True Crime – Wirtschafts-Podcasts hören. Meine Pronomen: sie/ihr',
+        'We are not pretty, we are not ugly – we are angry." The native Styrian lives for justice and isn’t afraid to call out inequalities, both offline and online. When not advocating for equality, she enjoys exploring the "wild" with her camper van or listening to true crime and business podcasts. My pronouns: she/her.',
     },
     {
       id: 6,
       name: 'Natalie Atzenberger',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'natalie@sorority.at',
       intro:
-        'Niederbayrisch-ägyptische Wurzeln, seit einem Jahrzehnt in Wien ansässig. Studierte Politologin samt transdisziplinärer Perspektive zu Ungleichheit, Entwicklung, Gender u.v.m. Beruflich verortet bei Compliance, Diversity & Inclusion. Möchte den Menschen die strukturelle Dimension von Ungleichheit begreiflich machen. Würde gerne viel öfter in den Tag hineinleben, am besten mit dem Gesicht in der Sonne! Meine Pronomen: sie/ihr',
+        'Of Lower Bavarian-Egyptian roots, she has called Vienna home for a decade. A political scientist with a transdisciplinary perspective on inequality, development, gender, and more. Professionally rooted in compliance, diversity, and inclusion. Strives to help people understand the structural dimensions of inequality. Would love to live more spontaneously, ideally with her face in the sun! My pronouns: she/her.',
     },
     {
       id: 7,
       name: 'Carmen Cirnfus',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'carmen@sorority.at',
       intro:
-        'In Kenia geboren und am österreichischen Land aufgewachsen. Das Leben zwischen den Kulturen, hat ihr mehrere Perspektiven gezeigt, was ihren Einsatz für die Rechte und Gleichstellung der Geschlechter sowie ihr streben Stereotypen und Vorurteile aufzubrechen, prägte. Neben dem Feminismus hat sie bereits von klein auf eine Leidenschaft für Musik und Film entwickelt. Diese Leidenschaft führte sie zum Studium „Film-, TV- und Medienproduktion“ und danach in die Arbeitswelt der Filmindustrie. Als DJ erforscht sie Klänge und stellt ihr Set auch gerne mit von Frauen, weiblich Gelesenen und nicht-binären Artists zusammen. Meine Pronomen: sie/they',
+        'Born in Kenya and raised in rural Austria, her life between cultures has given her multiple perspectives, shaping her commitment to gender rights and equality as well as her drive to challenge stereotypes and prejudices. Alongside feminism, she developed a passion for music and film from a young age. This passion led her to study "Film, TV, and Media Production" and later to a career in the film industry. As a DJ, she explores sounds and often curates her sets featuring women, female-perceived, and non-binary artists. My pronouns: she/they.',
     },
     {
       id: 8,
       name: 'Viktoria Stanzl',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'victoria@sorority.at',
       intro:
-        'Nach kurzem Abstecher in die Münchner Innovationsszene wieder in die Wiener Heimat zurückgekehrt um Gender Studies zu studieren und die europäische Startup Landschaft inklusiver zu gestalten. Auch beruflich mit dem Aufbau von Communities beschäftigt und absolute Pop-Culture Enthusiast. Meine Pronomen: sie/ihr',
+        "After a brief stint in Munich's innovation scene, she returned to her Viennese roots to study Gender Studies and make the European startup landscape more inclusive. Professionally engaged in building communities and an absolute pop culture enthusiast. My pronouns: she/her.",
     },
     {
       id: 9,
       name: 'Evin Ersen',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'evin@sorority.at',
       intro:
-        'In der Türkei geboren und seit 11 Jahren in Wien lebend, betrachtet sie diese Stadt als ihr Zuhause. Sie arbeitet im Bereich HR und hat ein besonderes Interesse an Diversity- und Gender-Management. Es liegt ihr am Herzen, immer mit der Flow zu gehen und den Moment zu genießen. Meine Pronomen: sie/ihr',
+        'Born in Turkey and living in Vienna for 11 years, she considers this city her home. She works in HR with a special interest in diversity and gender management. She values going with the flow and enjoying the moment. My pronouns: she/her.',
     },
     {
       id: 10,
       name: 'Carina Gastelsberger',
       linkedIn: 'www.linkedIn',
-      email: 'email',
+      email: 'carina@sorority.at',
       intro:
-        'Geboren und aufgewachsen in Oberösterreich, war das Studium in Wien eine gute Gelegenheit, um die beengende, ländliche Umgebung gegen die Freiheit der Stadt auszutauschen. Nach dem Abschluss in Politikwissenschaft, Auslandsaufenthalten in Tschechien und fast drei Jahren in Brüssel, war die Liebe zu Wien immer noch groß, und sie beschloss zu bleiben.Beruflich tätig in der Exportförderung im Bereich Mobilität und Technologie, hat sie Herz und Hirn schon lange an Feminismus und Chancengleichheit verloren. Mit zunehmendem Alter (und Anzahl der Kinder) ist die Erkenntnis gereift, dass es starke Banden braucht, um gegen strukturelle Ungleichheiten anzukämpfen. Fix the system – not the women, not the minorities! Meine Pronomen: sie/ihr',
+        'Born and raised in Upper Austria, studying in Vienna was the perfect opportunity to trade the confines of rural life for the freedom of the city. After earning a degree in political science, spending time abroad in the Czech Republic, and nearly three years in Brussels, her love for Vienna remained strong, and she decided to stay. Professionally active in export promotion in the fields of mobility and technology, her heart and mind have long been devoted to feminism and equal opportunities. With age (and the number of children) has come the realization that strong alliances are needed to fight structural inequalities. Fix the system – not the women, not the minorities! My pronouns: she/her.',
     },
   ];
   return (
@@ -101,7 +102,14 @@ export default function TeamComponent() {
                 />
                 <div className={styles.teamMemberName}>{teamMember.name}</div>
                 <div className={styles.contact}>
-                  <div>{teamMember.linkedIn}</div>
+                  <div>
+                    {' '}
+                    <LinkedIn
+                      height={'16'}
+                      color={'black'}
+                      link={teamMember.linkedIn}
+                    />{' '}
+                  </div>
                   <div>{teamMember.email}</div>
                 </div>
                 <p className={styles.teamMemberIntro}>{teamMember.intro}</p>

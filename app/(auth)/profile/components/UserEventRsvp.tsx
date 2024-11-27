@@ -19,6 +19,7 @@ type Props = {
 };
 
 export default async function UserEventRsvp(props: Props) {
+  console.log('userRSVP:', props.userRsvp);
   return (
     <>
       <div className={styles.eventWrapper}>
@@ -28,25 +29,30 @@ export default async function UserEventRsvp(props: Props) {
             <UserProfile firstName={props.firstName} user={props.user} />
             <div className={styles.eventOverview}>
               <h3 className={styles.h3}>Your upcoming Events </h3>
-              {props.userRsvp.map((rsvp) => {
-                return (
-                  <div
-                    key={`events-${rsvp.id}`}
-                    className={styles.eventListItem}
-                  >
-                    <div className={styles.eventDate}>
-                      {new Date(rsvp.eventDate).toLocaleDateString()}
-                    </div>
-                    <div className={styles.eventDetails}>
-                      <div className={styles.eventTags}>
-                        <div>event Time</div>
-                        <div>{rsvp.eventLocation}</div>
+
+              {props.userRsvp ? (
+                props.userRsvp.map((rsvp) => {
+                  return (
+                    <div
+                      key={`events-${rsvp.id}`}
+                      className={styles.eventListItem}
+                    >
+                      <div className={styles.eventDate}>
+                        {new Date(rsvp.eventDate).toLocaleDateString()}
                       </div>
-                      <h4 className={styles.h4}>{rsvp.eventTitle}</h4>
+                      <div className={styles.eventDetails}>
+                        <div className={styles.eventTags}>
+                          <div>10.30 AM</div>
+                          <div>{rsvp.eventLocation}</div>
+                        </div>
+                        <h4 className={styles.h4}>{rsvp.eventTitle}</h4>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <div className={styles.noEvent}>No events yet.</div>
+              )}
             </div>
           </div>
         </div>

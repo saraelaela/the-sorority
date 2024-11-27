@@ -3,6 +3,7 @@
 import { CldUploadWidget } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import buttonStyles from '../(components)/Buttons.module.scss';
 import ErrorMessage from '../../../../(errormessage)/ErrorMessage';
 import styles from '../AdminPage.module.scss';
 
@@ -169,7 +170,7 @@ export default function AdminEventForm(props: Props) {
                 await handleEventCreation();
                 resetFormStates();
               }}
-              className={styles.createButton}
+              className={buttonStyles.createButton}
             >
               <div>↪</div>
               <div>Create Event</div>

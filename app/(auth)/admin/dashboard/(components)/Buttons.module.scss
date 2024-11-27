@@ -168,3 +168,28 @@
     }
   }
 }
+.createButton {
+  display: flex;
+  width: max-content;
+  background-color: transparent;
+  border: none;
+  gap: -0.5rem;
+
+  &:hover {
+    background-color: var(--sorority-limeGreen);
+    border-radius: 30px;
+    border: none;
+  }
+
+  > div {
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    border-radius: 2rem;
+    color: black;
+    background-color: white;
+    &:hover {
+      background-color: var(--sorority-limeGreen);
+      border-radius: 30px;
+      border: none;
+    }
+  }
+}
