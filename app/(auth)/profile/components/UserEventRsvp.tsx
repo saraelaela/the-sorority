@@ -22,7 +22,7 @@ export default async function UserEventRsvp(props: Props) {
             <div className={styles.eventOverview}>
               <h3 className={styles.h3}>Your upcoming Events </h3>
 
-              {props.userRsvp ? (
+              {Array.isArray(props.userRsvp) && props.userRsvp.length > 0 ? (
                 props.userRsvp.map((rsvp) => {
                   return (
                     <div
@@ -30,7 +30,7 @@ export default async function UserEventRsvp(props: Props) {
                       className={styles.eventListItem}
                     >
                       <div className={styles.eventDate}>
-                        {new Date(rsvp.eventDate).toLocaleDateString()}
+                        {new Date(rsvp.eventDate).toLocaleDateString('de-DE')}
                       </div>
                       <div className={styles.eventDetails}>
                         <div className={styles.eventTags}>

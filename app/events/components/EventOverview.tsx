@@ -28,7 +28,7 @@ export default function EventOverview(props: Props) {
                   <Tags value={'When'} />
                 </div>
                 <div>
-                  {new Date(props.event.eventDate).toLocaleDateString()}
+                  {new Date(props.event.eventDate).toLocaleDateString('de-DE')}
                 </div>
               </div>
               <div>
@@ -66,27 +66,29 @@ export default function EventOverview(props: Props) {
                 userId={props.user.id}
               />
             ) : (
-              <Button
-                url={'../register'}
-                icon={
-                  <svg
-                    width="10.5"
-                    height="9"
-                    viewBox="0 0 42 37"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                  >
-                    <path
-                      d="M0 18.5H38M22.5 2L39 18.5L22.5 35"
-                      stroke="#6F28E3"
-                      stroke-width="4"
-                    />
-                  </svg>
-                }
-                value={'Interested? Become a Member!'}
-                eventDetails={props.event.id}
-                userId={props.user.id}
-              />
+              <Link href={'/register'}>
+                <Button
+                  url={'/register'}
+                  icon={
+                    <svg
+                      width="10.5"
+                      height="9"
+                      viewBox="0 0 42 37"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                    >
+                      <path
+                        d="M0 18.5H38M22.5 2L39 18.5L22.5 35"
+                        stroke="#6F28E3"
+                        stroke-width="4"
+                      />
+                    </svg>
+                  }
+                  value={'Interested? Become a Member!'}
+                  eventDetails={props.event.id}
+                  userId={props.user.id}
+                />
+              </Link>
             )}
           </div>
         </div>

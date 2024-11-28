@@ -53,7 +53,7 @@ export async function up(sql: Sql) {
       profile_picture varchar(200),
       email varchar(200) UNIQUE NOT NULL,
       linkedin varchar(200),
-      is_admin boolean DEFAULT TRUE
+      is_admin boolean DEFAULT FALSE
     )
   `;
 }

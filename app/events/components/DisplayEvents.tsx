@@ -33,7 +33,7 @@ export default function DisplayEvents(props: Props) {
                   }}
                 >
                   <div className={styles.eventDate}>
-                    {new Date(event.eventDate).toLocaleDateString()}
+                    {new Date(event.eventDate).toLocaleDateString('de-DE')}
                   </div>
                   <div className={styles.eventDetails}>
                     <div className={styles.eventTags}>

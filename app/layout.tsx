@@ -46,9 +46,7 @@ export default async function RootLayout({
                   </div>
                 ) : (
                   <div className={styles.userArea}>
-                    <Link href={`/profile/${user.firstName}`}>
-                      My Account {`${user.isAdmin}`}
-                    </Link>
+                    <Link href={`/profile/${user.firstName}`}>My Account</Link>
 
                     <LogoutButton />
                   </div>

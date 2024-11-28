@@ -55,7 +55,7 @@ export default function RegisterForm(props: Props) {
     // <div className={styles.main}>
     <div className={styles.wrapper}>
       <div className={styles.content}>
-        <SectionTitle title={'Du möchtest Sorority Mitglied werden?'} />
+        <SectionTitle title={'Want to become a Sorority member?'} />
         <Image
           src="/images/Register.png"
           width={600}
@@ -64,10 +64,9 @@ export default function RegisterForm(props: Props) {
         />
 
         <p>
-          Nichts leichter als das! Der Mitgliedsbeitag liegt bei symbolischen 30
-          EUR/Kalenderjahr. Wie in unseren Statuten festgelegt, können alle
-          Frauen und als Frauen gelesene Personen Mitglieder der Sorority
-          werden.
+          Nothing could be easier! The membership fee is a symbolic 30
+          EUR/calendar year. As stated in our statutes, all women and
+          individuals perceived as women can become members of The:Sorority.
         </p>
 
         <form onSubmit={handleRegister} className={styles.form}>
@@ -147,33 +146,34 @@ export default function RegisterForm(props: Props) {
 
         <div className={styles.organize}>
           <p>
-            Neben der finanziellen Unterstützung, die unsere Vereinsarbeit erst
-            ermöglicht, suchen wir immer wieder nach neuen engagierten Personen,
-            die sich ehrenamtlich in unser Netzwerk einbringen wollen. Zeit und
-            Umfang bestimmst dabei natürlich du. Aktuell gibt es hier folgende
-            Möglichkeiten: Als Teil des Content Teams kannst du spannende
-            Beiträge und Rezensionen für unsere Online-Kanäle schreiben oder in
-            Absprache mit unserer Team Lead Marta neue Format-Ideen entwickeln
-            und umsetzen.{' '}
+            In addition to the financial support that makes our association's
+            work possible, we are always looking for new dedicated individuals
+            who want to volunteer in our network. You determine the time and
+            scope of your involvement, of course. Currently, there are the
+            following opportunities:
           </p>{' '}
           <p>
-            Du hast ein spannendes feministisches Buch gelesen oder einen
-            Podcast entdeckt und möchtest andere daran teilhaben lassen? Dann
-            bist du hier genau richtig! Melde dich direkt bei
-            marta.suzama@sorority.at.{' '}
+            As part of the Content Team, you can write exciting articles and
+            reviews for our online channels or, in coordination with our Team
+            Lead Marta, develop and implement new format ideas.
           </p>{' '}
           <p>
-            Let’s be creative! Als Teil des Event Teams organisierst du
-            spannende Events und Workshops mit, lernst interessante Expert:innen
-            kennen und kannst Get Togethers für unsere Mitglieder mitgestalten.
-            Team Lead ist Rika. Und Spoiler: Wir feiern kommendes Jahr unser
-            10-jähriges Bestehen. Da kommt also ein besonders spannendes Event
-            auf uns zu.{' '}
+            Have you read an inspiring feminist book or discovered an intriguing
+            podcast and want to share it with others? Then you're in the right
+            place! Contact Marta directly at marta.suzama@sorority.at.
           </p>{' '}
           <p>
-            Du liebst es Dinge zu organisieren, bist offen und lernst gern neue,
-            spannende Leute kennen? Dann könnte das ein guter Match sein. Melde
-            dich direkt bei rika.mader@sorority.at. Let’s have fun!
+            Let’s be creative! As part of the Event Team, you'll help organize
+            exciting events and workshops, meet interesting experts, and
+            co-create get-togethers for our members. The Team Lead is Rika. And
+            spoiler alert: Next year, we’re celebrating our 10th anniversary, so
+            a particularly exciting event is coming up.
+          </p>
+          <p>
+            Do you love organizing things, enjoy meeting new, fascinating
+            people, and are open to learning? Then this could be a perfect match
+            for you. Reach out to Rika directly at rika.mader@sorority.at. Let’s
+            have fun!
           </p>
         </div>
       </div>
