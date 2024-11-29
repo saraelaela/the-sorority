@@ -10,23 +10,21 @@ import EditEvents from './(components)/EditEvents';
 import styles from './AdminPage.module.scss';
 
 // import AdminForm from './AdminForm';
-type Props = {
-  events: Event;
-  eventId: number;
-  searchParams: {
-    returnTo?: string | string[];
-  };
-};
+// type Props = {
+//   searchParams: {
+//     returnTo?: string | string[];
+//   };
+// };
 
 export const metadata = {
   title: 'Admin page',
   description: 'Solidarity Admin',
 };
 
-export default async function AdminPage(props: Props) {
+export default async function AdminPage() {
   const events = await getEventsInsecure();
   const usersTest = await getUsersInsecure();
-  console.log('usersData', usersTest);
+  // console.log('usersData', usersTest);
   //1. Cookie exist
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 
@@ -46,17 +44,12 @@ export default async function AdminPage(props: Props) {
       <div className={styles.eventSummary}>
         <div className={styles.info}>
           <h3 className={styles.h3}>Dashboard</h3>
-          {/* <p className={styles.p}>
-            {' '}
-            Welcome to your Dashboard! Please click to Edit or Delete an Event.
-            The events are sorted by newest Date.
-          </p> */}
         </div>
         {events.map((event) => {
           const eventId = event.id;
           return (
-            <div className={styles.eventParcel}>
-              <div key={`events-${event.id}`}>
+            <div key={`events-${event.id}`} className={styles.eventParcel}>
+              <div>
                 <div className={eventStyles.eventDate}>
                   {new Date(event.eventDate).toLocaleDateString()}
                 </div>
