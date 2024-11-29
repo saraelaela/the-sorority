@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import type { Props } from 'next/script';
+// import type { Props } from 'next/script';
 import React, { useState } from 'react';
 import type { EventResponseBodyDelete } from '../../../api/events/route';
 import styles from './Buttons.module.scss';
