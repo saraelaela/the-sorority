@@ -1,9 +1,8 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getEventsInsecure } from '../../../../database/events';
+import { type Event, getEventsInsecure } from '../../../../database/events';
 import { getValidSessionToken } from '../../../../database/sessions';
 import { getUser, getUsersInsecure } from '../../../../database/users';
-import DisplayEvents from '../../../events/components/DisplayEvents';
 import eventStyles from '../../../events/page.module.scss';
 import AdminForm from './(components)/AdminForm';
 import DeleteEvents from './(components)/DeleteEvents';
@@ -12,6 +11,7 @@ import styles from './AdminPage.module.scss';
 
 // import AdminForm from './AdminForm';
 type Props = {
+  events: Event[];
   eventId: number;
   searchParams: {
     returnTo?: string | string[];
