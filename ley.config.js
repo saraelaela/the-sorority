@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import { postgresConfig } from './eslint.config.js';
+import { postgresConfig } from './util/config';
 
 config();
 

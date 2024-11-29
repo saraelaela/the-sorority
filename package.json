@@ -44,6 +44,7 @@
     "@types/react-dom": "^18",
     "eslint": "^9.13.0",
     "eslint-config-upleveled": "^8.11.3",
+    "libpg-query": "16.2.0",
     "prettier": "^3.3.3",
     "prettier-plugin-embed": "^0.4.15",
     "prettier-plugin-sql": "^0.18.1",

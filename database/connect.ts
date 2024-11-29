@@ -1,8 +1,9 @@
-import { config } from 'dotenv-safe';
-import postgres, { type Sql } from 'postgres';
-import { postgresConfig } from '../eslint.config.js';
+import 'server-only';
+import type { Sql } from 'postgres';
+import postgres from 'postgres';
+import { postgresConfig, setEnvironmentVariables } from '../util/config';
 
-config();
+setEnvironmentVariables();
 
 // const sql = postgres({
 //   transform: {
