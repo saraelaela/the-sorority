@@ -102,9 +102,6 @@ importers:
       eslint-config-upleveled:
         specifier: ^8.11.3
         version: 8.11.3(@babel/core@7.25.8)(@types/eslint@9.6.1)(@types/node@20.16.13)(@types/react-dom@18.3.1)(@types/react@18.3.11)(eslint@9.13.0)(globals@15.11.0)(typescript@5.6.3)
-      libpg-query:
-        specifier: 16.2.0
-        version: 16.2.0(encoding@0.1.13)
       prettier:
         specifier: ^3.3.3
         version: 3.3.3
