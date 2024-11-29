@@ -20,20 +20,23 @@
   align-items: top; /* Optional: Aligns items vertically in the container */
 
   width: 100%;
-  > div {
-    width: 50vw;
-  }
+  // > div {
+  //   width: 50vw;
+  // }
 }
 
 .footer {
   position: sticky;
   bottom: 0;
+  width: 50vw;
+  z-index: 0;
 }
 .teamWrapper {
   // position: absolute;
   // top: 0;
   background-color: var(--sorority-pink);
   padding: 0 0 4rem 0;
+  z-index: 300;
 }
 
 .h2 {
@@ -43,13 +46,14 @@
 .teamContainer {
   display: flex;
   flex-direction: column;
-  gap: 8vh;
+  gap: 8vw;
   padding: 2rem 2rem 0 3rem;
   height: 100%;
 }
 
 .teamOverview {
   display: flex;
+  width: 50vw;
   flex-direction: row;
 
   flex-wrap: wrap;

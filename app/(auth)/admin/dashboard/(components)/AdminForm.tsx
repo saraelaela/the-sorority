@@ -160,7 +160,14 @@ export default function AdminEventForm(props: Props) {
                   }}
                 >
                   {({ open }) => {
-                    return <button onClick={() => open()}>Upload Image</button>;
+                    return (
+                      <button
+                        className={buttonStyles.uploadButton}
+                        onClick={() => open()}
+                      >
+                        Upload Image
+                      </button>
+                    );
                   }}
                 </CldUploadWidget>
               </div>
