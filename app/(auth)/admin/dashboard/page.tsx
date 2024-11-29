@@ -11,7 +11,7 @@ import styles from './AdminPage.module.scss';
 
 // import AdminForm from './AdminForm';
 type Props = {
-  events: Event[];
+  events: Event;
   eventId: number;
   searchParams: {
     returnTo?: string | string[];
