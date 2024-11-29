@@ -12,11 +12,10 @@ import styles from './AdminPage.module.scss';
 
 // import AdminForm from './AdminForm';
 type Props = {
-  // events: any;
   eventId: number;
-  searchParams: Promise<{
+  searchParams: {
     returnTo?: string | string[];
-  }>;
+  };
 };
 
 export const metadata = {
