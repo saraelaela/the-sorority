@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
 import {
   createEventInsecure,
   deleteEventInsecure,
@@ -8,16 +7,6 @@ import {
   getEventInsecure,
 } from '../../../../database/events';
 import { eventSchema } from '../../../../migrations/00002-createTableEvents';
-
-export type EventResponseBodyDelete =
-  | {
-      event: {
-        eventId: Event['id'];
-      };
-    }
-  | {
-      error: string;
-    };
 
 //1) defining typescript type:
 export type EventResponseBody =
@@ -44,7 +33,7 @@ export async function POST(
 
   // 2. validate w/zod
   const result = eventSchema.safeParse(requestBody);
-  console.log('eventSchemasafeParse', result);
+
   if (!result.success) {
     return NextResponse.json(
       { errors: result.error.issues },
@@ -60,32 +49,53 @@ export async function POST(
     result.data.eventLocation,
     result.data.eventDate,
     result.data.hostedBy,
-    result.data.eventImage,
+    result.data.eventImage ?? '',
     result.data.eventCosts,
   );
 
-  return NextResponse.json({ events: newEvent });
+  if (!newEvent) {
+    return NextResponse.json(
+      {
+        errors: [{ message: 'Invalid event data provided.' }],
+      },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  return NextResponse.json({ event: newEvent });
 }
 
 /////////////////////////////
 
-type EventResponseBodyGet =
+// type EventResponseBodyGet =
+//   | {
+//       events: Event['id'];
+//     }
+//   | {
+//       error: string;
+//     };
+
+// export async function GET(
+//   id: Event['id'],
+// ): Promise<NextResponse<EventResponseBodyGet>> {
+//   const events = await getEventInsecure(id);
+
+//   return NextResponse.json({ events });
+// }
+
+//////////////////////////
+
+export type EventResponseBodyDelete =
   | {
-      events: Event[];
+      event: {
+        eventId: Event['id'];
+      };
     }
   | {
       error: string;
     };
-
-export async function GET(
-  id: Event['id'],
-): Promise<NextResponse<EventResponseBodyGet>> {
-  const events = await getEventInsecure(id);
-
-  return NextResponse.json({ events });
-}
-
-//////////////////////////
 
 export async function DELETE(
   request: NextRequest,
@@ -99,8 +109,8 @@ export async function DELETE(
   //ist ID vohanden
   if (!id) {
     return NextResponse.json(
-      { error: 'Event ID is required' },
-      { status: 400 },
+      { error: 'Event ID is required' }, // Matches `error` as string in the type
+      { status: 400 }, // Bad Request
     );
   }
 
@@ -120,5 +130,8 @@ export async function DELETE(
     );
   }
 
-  return NextResponse.json({ event: deletedEvent });
+  return NextResponse.json(
+    { event: { eventId: deletedEvent.id } }, // Ensures response matches the type
+    { status: 200 }, // OK
+  );
 }

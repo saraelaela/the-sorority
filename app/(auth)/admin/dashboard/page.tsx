@@ -9,13 +9,6 @@ import DeleteEvents from './(components)/DeleteEvents';
 import EditEvents from './(components)/EditEvents';
 import styles from './AdminPage.module.scss';
 
-// import AdminForm from './AdminForm';
-// type Props = {
-//   searchParams: {
-//     returnTo?: string | string[];
-//   };
-// };
-
 export const metadata = {
   title: 'Admin page',
   description: 'Solidarity Admin',
@@ -24,7 +17,6 @@ export const metadata = {
 export default async function AdminPage() {
   const events = await getEventsInsecure();
   const usersTest = await getUsersInsecure();
-  // console.log('usersData', usersTest);
   //1. Cookie exist
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 
@@ -47,6 +39,9 @@ export default async function AdminPage() {
         </div>
         {events.map((event) => {
           const eventId = event.id;
+          if (!event.id) {
+            return null; // Safeguard against invalid data
+          }
           return (
             <div key={`events-${event.id}`} className={styles.eventParcel}>
               <div>

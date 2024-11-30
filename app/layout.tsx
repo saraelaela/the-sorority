@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  customFooter,
 }: Readonly<{
   children: React.ReactNode;
   customFooter?: string;

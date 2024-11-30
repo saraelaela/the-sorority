@@ -6,7 +6,6 @@ import type { EventResponseBodyDelete } from '../../../api/events/route';
 import styles from './Buttons.module.scss';
 
 type Props = {
-  // events: Event[];
   eventId: number;
 };
 

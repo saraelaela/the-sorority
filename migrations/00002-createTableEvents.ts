@@ -19,8 +19,9 @@ export type Event = {
   eventLocation: string;
   eventDate: Date;
   hostedBy: string;
-  eventImage: string;
+  eventImage?: string;
   eventCosts: string;
+  createdBy: number;
 };
 
 export async function up(sql: Sql) {

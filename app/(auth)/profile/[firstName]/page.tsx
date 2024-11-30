@@ -43,28 +43,26 @@ export default async function UserProfilePage(props: Props) {
   console.log('getAllRsvpInsecure', userRsvp);
   //1)  sessiontoken holen 2) Userdaten holen und als Props weitergeben, schauen, ob ID mitgeschickt wird
   return (
-    <>
-      <div className={styles.main}>
-        <div className={styles.logoArea}>
-          <h1 className={styles.h1}>The: </h1>
-          <div className={styles.animation}>
-            <h1 className={styles.h1}>Sorority Sorority Sorority Sorority</h1>
-          </div>
-        </div>
-        <div className={styles.secondaryContainer}>
-          <div className={styles.footer}>
-            <Footer customFooter="customFooterUser" />
-          </div>
-          <div>
-            <UserEventRsvp
-              firstName={firstName}
-              events={events}
-              user={user}
-              userRsvp={userRsvp}
-            />
-          </div>
+    <div className={styles.main}>
+      <div className={styles.logoArea}>
+        <h1 className={styles.h1}>The: </h1>
+        <div className={styles.animation}>
+          <h1 className={styles.h1}>Sorority Sorority Sorority Sorority</h1>
         </div>
       </div>
-    </>
+      <div className={styles.secondaryContainer}>
+        <div className={styles.footer}>
+          <Footer customFooter="customFooterUser" />
+        </div>
+        <div>
+          <UserEventRsvp
+            firstName={firstName}
+            events={events}
+            user={user}
+            userRsvp={userRsvp}
+          />
+        </div>
+      </div>
+    </div>
   );
 }

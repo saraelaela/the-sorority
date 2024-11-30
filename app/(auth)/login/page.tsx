@@ -28,23 +28,19 @@ export default async function LoginPage(props: Props) {
 
   // 4. If the sessionToken cookie is invalid or doesn't exist, show the login form:
   return (
-    <>
-      <div className={styles.main}>
-        <div className={styles.logoArea}>
-          <h1 className={styles.h1}>The: </h1>
-          <div className={styles.animation}>
-            <h1 className={styles.h1}>
-              Community Community Community Community
-            </h1>
-          </div>
-        </div>
-        <div className={styles.secondaryContainer}>
-          <div className={styles.footer}>
-            <Footer customFooter="customFooterLogin" customColor={'#E7E7E7'} />
-            <LoginForm />
-          </div>
+    <div className={styles.main}>
+      <div className={styles.logoArea}>
+        <h1 className={styles.h1}>The: </h1>
+        <div className={styles.animation}>
+          <h1 className={styles.h1}>Community Community Community Community</h1>
         </div>
       </div>
-    </>
+      <div className={styles.secondaryContainer}>
+        <div className={styles.footer}>
+          <Footer customFooter="customFooterLogin" customColor={'#E7E7E7'} />
+          <LoginForm />
+        </div>
+      </div>
+    </div>
   );
 }
