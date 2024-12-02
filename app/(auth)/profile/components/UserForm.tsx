@@ -1,5 +1,8 @@
 'use client';
-import { CldUploadWidget } from 'next-cloudinary';
+import {
+  CldUploadWidget,
+  type CloudinaryUploadWidgetResults,
+} from 'next-cloudinary';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -50,12 +53,6 @@ export default function UserForm(props: Props) {
 
     const data: EditUserResponseBody = await response.json();
 
-    // if ('errors' in data) {
-    //   setErrors(data.errors);
-    //   console.log('error:', data.errors);
-    //   return;
-    // }
-
     props.setShowUserForm(false);
     router.refresh();
   }
@@ -69,15 +66,26 @@ export default function UserForm(props: Props) {
           height={280}
           alt="Mitglieder des Sorority-Vorstands"
         />
-        <CldUploadWidget uploadPreset="sorority_event_upload">
+        <CldUploadWidget
+          onSuccess={(result: CloudinaryUploadWidgetResults) => {
+            if (
+              typeof result.info !== 'string' &&
+              'secure_url' in result.info!
+            ) {
+              setProfilePicture(result.info.secure_url);
+            } else {
+              console.error('Unexpected result.info type:', result.info);
+            }
+          }}
+          uploadPreset="sorority_event_upload"
+        >
           {({ open }) => {
             return (
               <button
-                onClick={() => open()}
                 className={buttonStyles.uploadButton}
+                onClick={() => open()}
               >
-                <div> + </div>
-                <div>Upload/Change Image</div>
+                Upload Image
               </button>
             );
           }}

@@ -44,8 +44,6 @@ export default function DisplayEvents(props: Props) {
             </div>
           );
         })}
-
-        {/* <Footer customFooter="customFooterLogin" /> */}
       </div>
       <div>
         <EventOverview

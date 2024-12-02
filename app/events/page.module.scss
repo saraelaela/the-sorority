@@ -22,12 +22,15 @@
 
 .eventContainer {
   padding: 2rem 2rem 2rem 0;
+  align-items: left;
   border-bottom: 1px solid var(--sorority-grey);
-  color: var(--sorority-grey);
+  display: flex;
   width: 45vw;
 }
 .eventButton {
   display: flex;
+  align-items: left;
+  color: var(--sorority-grey);
   gap: 1rem;
   background-color: transparent;
   border: none;
