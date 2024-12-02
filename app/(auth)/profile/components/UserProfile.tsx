@@ -8,23 +8,21 @@ import styles from '../profile.module.scss';
 import UserForm from './UserForm';
 
 type Props = {
-  user: User;
   firstName: string;
+  user: User;
 };
 
 export default function UserProfile(props: Props) {
   const [showUserForm, setShowUserForm] = useState(false);
-
+  console.log('PROPS USER', props.user);
   return (
     <div className={styles.editUser}>
       {showUserForm ? (
-        <>
-          <UserForm
-            setShowUserForm={setShowUserForm}
-            firstName={props.firstName}
-            user={props.user}
-          />
-        </>
+        <UserForm
+          setShowUserForm={setShowUserForm}
+          firstName={props.firstName}
+          user={props.user}
+        />
       ) : (
         <>
           <UserCard value={props.user} />

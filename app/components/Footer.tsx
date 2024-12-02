@@ -5,6 +5,11 @@ import Facebook from './Icons/Facebook';
 import Instagram from './Icons/Instagram';
 import LinkedIn from './Icons/LinkedIn';
 
+export type Props = {
+  customFooter: string;
+  customColor: string;
+};
+
 export default function Footer(props: Props) {
   return (
     <footer className={styles[props.customFooter]}>

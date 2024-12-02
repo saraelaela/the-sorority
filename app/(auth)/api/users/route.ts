@@ -1,20 +1,20 @@
 import { NextResponse } from 'next/server';
-import { updateUsersInsecure } from '../../../../database/users';
 import {
-  updateUserSchema,
+  type UpdateUser,
+  updateUsersInsecure,
   type User,
-  userSchema,
-} from '../../../../migrations/00000-createTableUsers';
+} from '../../../../database/users';
+import { updateUserSchema } from '../../../../migrations/00000-createTableUsers';
 
 export type EditUserResponseBody =
   | {
-      id: User['id'];
-      firstName: User['firstName'];
-      lastName: User['lastName'];
-      occupation?: User['occupation'];
-      introText?: User['introText'];
-      profilePicture?: User['profilePicture'];
-      linkedIn?: User['linkedIn'];
+      id: UpdateUser['id'];
+      firstName: UpdateUser['firstName'];
+      lastName: UpdateUser['lastName'];
+      occupation?: UpdateUser['occupation'] | null;
+      introText?: UpdateUser['introText'] | null;
+      profilePicture?: UpdateUser['profilePicture'] | null;
+      linkedin?: UpdateUser['linkedin'] | null;
     }
   | {
       errors: { message: string }[];
@@ -47,11 +47,25 @@ export async function PUT(
     result.data.id,
     result.data.firstName,
     result.data.lastName,
-    result.data.occupation,
-    result.data.introText,
-    result.data.profilePicture,
-    result.data.linkedIn,
+    result.data.occupation ?? '',
+    result.data.introText ?? '',
+    result.data.profilePicture ?? '',
+    result.data.linkedin ?? '',
   );
+  console.log('the updatedUser', updatedUser); //  Error: Property 'id' does not exist on type 'RowList<UpdateUser[]>'.
+
+  // You need to access the rows within:
+
+
+  const currentUser = updatedUser.find((user) => user.id === result.data.id);
+
+  if (!currentUser) {
+    return NextResponse.json(
+      { errors: [{ message: 'Current user not found.' }] },
+      { status: 404 },
+    );
+  }
+
   if (!updatedUser) {
     return NextResponse.json(
       {
@@ -67,7 +81,12 @@ export async function PUT(
     );
   }
 
-  return NextResponse.json({
-    updatedUser: updatedUser,
+  return NextResponse.json({ id: currentUser.id,
+    firstName: currentUser.firstName,
+    lastName: currentUser.lastName,
+    occupation: currentUser.occupation || null,
+    introText: currentUser.introText || null,
+    profilePicture: currentUser.profilePicture || null,
+    linkedin: currentUser.linkedin || null,
   });
 }

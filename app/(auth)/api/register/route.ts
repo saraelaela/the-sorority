@@ -6,17 +6,15 @@ import { createSessionInsecure } from '../../../../database/sessions';
 import {
   createUserInsecure,
   getUserInsecure,
-} from '../../../../database/users';
-import {
+  type registeredUser,
   type User,
-  userSchema,
-} from '../../../../migrations/00000-createTableUsers';
+} from '../../../../database/users';
+import { userSchema } from '../../../../migrations/00000-createTableUsers';
 import { secureCookieOptions } from '../../../../util/cookies';
 
 export type RegisterResponseBody =
   | {
-      firstName: User['firstName'];
-      user: User;
+      user: registeredUser;
     }
   | {
       errors: { message: string }[];
@@ -68,6 +66,7 @@ export async function POST(
     passwordHash,
     result.data.firstName,
     result.data.lastName,
+    // result.data.isAdmin,
   );
 
   if (!newUser) {

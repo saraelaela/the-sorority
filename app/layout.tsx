@@ -16,7 +16,7 @@ export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  customFooter?: string;
+  // customFooter?: string | null;
 }>) {
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 
@@ -60,7 +60,7 @@ export default async function RootLayout({
           </nav>
         </header>
         <main className={styles.main}>{children}</main>
-        {/* <Footer /> */}
+        {/* {customFooter && <div>{customFooter}</div>} */}
       </body>
     </html>
   );

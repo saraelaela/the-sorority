@@ -67,26 +67,6 @@ export async function POST(
   return NextResponse.json({ event: newEvent });
 }
 
-/////////////////////////////
-
-// type EventResponseBodyGet =
-//   | {
-//       events: Event['id'];
-//     }
-//   | {
-//       error: string;
-//     };
-
-// export async function GET(
-//   id: Event['id'],
-// ): Promise<NextResponse<EventResponseBodyGet>> {
-//   const events = await getEventInsecure(id);
-
-//   return NextResponse.json({ events });
-// }
-
-//////////////////////////
-
 export type EventResponseBodyDelete =
   | {
       event: {
@@ -135,3 +115,52 @@ export async function DELETE(
     { status: 200 }, // OK
   );
 }
+
+// export async function PUT(
+//   request: NextRequest,
+//   { params }: UserParams,
+// ): Promise<NextResponse<UserResponseBodyPut>> {
+//   const requestBody = await request.json();
+
+//   const result = userSchema.safeParse(requestBody);
+
+//   if (!result.success) {
+//     return NextResponse.json(
+//       {
+//         error: "Request doesn't contain user object",
+//         errorIssues: result.error.issues,
+//       },
+//       {
+//         status: 400,
+//       },
+//     );
+//   }
+
+//   const sessionTokenCookie = (await cookies()).get('sessionToken');
+
+//   const updatedUser =
+//     sessionTokenCookie &&
+//     (await updateUserInsecure(sessionTokenCookie.value, {
+//       firstName: result.data.firstName,
+//       lastName: result.data.lastName,
+//       occupation: result.data.occupation || null,
+//       introText: result.data.introText || null,
+//       profilePicture: result.data.profilePicture || null,
+//       linkedin: result.data.linkedin || null,
+//     }));
+
+//   if (!updatedUser) {
+//     return NextResponse.json(
+//       {
+//         error: 'User not found or access denied updating user',
+//       },
+//       {
+//         status: 500,
+//       },
+//     );
+//   }
+
+//   return NextResponse.json({
+//     user: updatedUser,
+//   });
+// }

@@ -8,10 +8,9 @@ import type { User } from '../../database/users';
 import styles from '../page.module.scss';
 
 type Props = {
-  event: Event[];
-  user: User | undefined;
-  userId: number;
+  userId?: number;
   eventDetails: number;
+  value: string;
 };
 
 export default function RsvpButton(props: Props) {
@@ -29,9 +28,10 @@ export default function RsvpButton(props: Props) {
 
   return (
     <div className={styles.buttonContainer}>
-      <Toaster position="center" reverseOrder={false} />
+      <Toaster position="bottom-center" reverseOrder={false} />
       <button
         className={buttonStyles.logoutButton}
+        disabled={!userId}
         onClick={async () => {
           notify();
           // Update RsvpStatus

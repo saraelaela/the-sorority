@@ -16,6 +16,7 @@ export default async function LoginPage(props: Props) {
   // 1) check if sessionToken exists
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 
+  const { returnTo } = await props.searchParams;
   //2. Check if sessionToken cookie is still valid
   const session =
     sessionTokenCookie &&

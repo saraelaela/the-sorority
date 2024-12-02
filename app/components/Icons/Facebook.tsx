@@ -1,3 +1,9 @@
+export type Props = {
+  color: string;
+  height: string;
+  link: string;
+};
+
 export default function Facebook(props: Props) {
   return (
     <svg

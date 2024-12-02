@@ -1,6 +1,7 @@
 import type { Sql } from 'postgres';
 import { z } from 'zod';
-import type { User } from './00000-createTableUsers';
+import type { User } from '../database/users';
+import type { Event } from './00002-createTableEvents';
 
 export type Rsvp = User &
   Event & {

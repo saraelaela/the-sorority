@@ -2,22 +2,7 @@ import { cache } from 'react';
 import type { Session } from '../migrations/00004-sessions';
 import { sql } from './connect';
 
-export type User = {
-  id: number;
-  passwordHash: string;
-  firstName: string;
-  lastName: string;
-  occupation?: string;
-  introText?: string;
-  profilePicture?: string;
-  email: string;
-  linkedIn?: string;
-  isAdmin: boolean;
-  createdAt?: Date;
-};
-
 type UserWithPasswordHash = User & {
-  email: string;
   passwordHash: string;
 };
 
@@ -26,6 +11,7 @@ export const getUser = cache(async (sessionToken: Session['token']) => {
   const [user] = await sql<UserWithPasswordHash[]>`
     SELECT
       users.id,
+      users.password_hash,
       users.first_name,
       users.last_name,
       users.occupation,
@@ -45,43 +31,90 @@ export const getUser = cache(async (sessionToken: Session['token']) => {
   return user;
 });
 
+export type User = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  occupation: string | null;
+  introText: string | null;
+  profilePicture: string | null;
+  email: string;
+  linkedin: string | null;
+  isAdmin: boolean | null;
+};
+export type registeredUser = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
 export const getUsersInsecure = cache(async () => {
   const users = await sql<User[]>`
     SELECT
-      *
+      id,
+      first_name,
+      last_name,
+      occupation,
+      intro_text,
+      profile_picture,
+      email,
+      linkedin,
+      is_admin
     FROM
       users
   `;
   console.log('users setup', users);
   return users;
 });
+
+export type UpdateUser = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  occupation: null | string;
+  introText: null | string;
+  profilePicture: null | string;
+  linkedin: null | string;
+};
+export type CreateUser = {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+};
+
 export const updateUsersInsecure = cache(
   async (
-    id: User['id'],
-    firstName: User['firstName'],
-    lastName: User['lastName'],
-    occupation?: User['occupation'],
-    introText?: User['introText'],
-    profilePicture?: User['profilePicture'],
-    linkedIn?: User['linkedIn'],
+    id: number,
+    firstName: UpdateUser['firstName'],
+    lastName: UpdateUser['lastName'],
+    occupation: UpdateUser['occupation'],
+    introText: UpdateUser['introText'],
+    profilePicture: UpdateUser['profilePicture'],
+    linkedin: UpdateUser['linkedin'],
   ) => {
-    const users = await sql<User[]>`
+    const users = await sql<UpdateUser[]>`
       UPDATE users
       SET
         first_name = ${firstName},
         last_name = ${lastName},
-        occupation = ${occupation},
-        intro_text = ${introText},
-        profile_picture = ${profilePicture},
-        linkedin = ${linkedIn}
+        occupation = ${occupation ?? ''},
+        intro_text = ${introText ?? ''},
+        profile_picture = ${profilePicture ?? ''},
+        linkedin = ${linkedin ?? ''}
       WHERE
         id = ${id}
       RETURNING
-        *;
-
-      -- Return the updated user(s)
+        id,
+        first_name,
+        last_name,
+        occupation,
+        intro_text,
+        profile_picture,
+        linkedin;
     `;
-    console.log('users setup', users);
+
     return users;
   },
 );
@@ -92,8 +125,13 @@ export const getUserInsecure = cache(async (email: User['email']) => {
     SELECT
       id,
       first_name,
+      last_name,
+      occupation,
+      intro_text,
+      profile_picture,
       email,
-      password_hash
+      linkedin,
+      is_admin
     FROM
       users
     WHERE
@@ -110,7 +148,7 @@ export const createUserInsecure = cache(
     firstName: User['firstName'],
     lastName: User['lastName'],
   ) => {
-    const [user] = await sql<User[]>`
+    const [user] = await sql<CreateUser[]>`
       INSERT INTO
         users (
           email,
@@ -128,7 +166,8 @@ export const createUserInsecure = cache(
       RETURNING
         users.id,
         users.email,
-        users.first_name
+        users.first_name,
+        users.last_name
     `;
 
     return user;
@@ -142,7 +181,13 @@ export const getUserWithPasswordHashInsecure = cache(
       SELECT
         id,
         first_name,
+        last_name,
+        occupation,
+        intro_text,
+        profile_picture,
         email,
+        linkedin,
+        is_admin,
         password_hash
       FROM
         users

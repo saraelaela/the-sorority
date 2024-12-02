@@ -18,6 +18,7 @@ export default async function AdminPage() {
   const events = await getEventsInsecure();
   const usersTest = await getUsersInsecure();
   //1. Cookie exist
+  console.log('usersTest', usersTest);
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 
   //2. sessionToken still valid

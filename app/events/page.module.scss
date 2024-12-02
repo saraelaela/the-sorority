@@ -21,18 +21,22 @@
 }
 
 .eventContainer {
-  display: flex;
-  gap: 1rem;
   padding: 2rem 2rem 2rem 0;
   border-bottom: 1px solid var(--sorority-grey);
   color: var(--sorority-grey);
   width: 45vw;
+}
+.eventButton {
+  display: flex;
+  gap: 1rem;
+  background-color: transparent;
+  border: none;
   &:hover {
     color: var(--sorority-occer);
   }
 }
-
 .eventDate {
+  display: flex;
   font-size: 1.4rem;
   min-width: 13vw;
 }

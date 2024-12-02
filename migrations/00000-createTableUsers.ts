@@ -9,7 +9,8 @@ export const userSchema = z.object({
   occupation: z.string().optional(),
   profilePicture: z.string().optional(),
   introText: z.string().optional(),
-  linkedIn: z.string().optional(),
+  linkedin: z.string().optional(),
+  isAdmin: z.boolean(),
 });
 
 export const updateUserSchema = z.object({
@@ -19,27 +20,13 @@ export const updateUserSchema = z.object({
   occupation: z.string().optional(),
   profilePicture: z.string().optional(),
   introText: z.string().optional(),
-  linkedIn: z.string().optional(),
+  linkedin: z.string().optional(),
 });
 
 export const loginSchema = z.object({
   email: z.string().min(3),
   password: z.string().min(3),
 });
-
-export type User = {
-  id?: number;
-  passwordHash: string;
-  firstName: string;
-  lastName: string;
-  occupation?: string;
-  introText?: string;
-  profilePicture?: string;
-  email: string;
-  linkedIn?: string;
-  isAdmin: boolean;
-  createdAt?: Date;
-};
 
 export async function up(sql: Sql) {
   await sql`

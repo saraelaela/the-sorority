@@ -13,6 +13,7 @@ import {
   getUserWithPasswordHashInsecure,
 } from '../../database/users';
 import { userSchema } from '../../migrations/00000-createTableUsers';
+import type { Session } from '../../migrations/00004-sessions';
 import { getSafeReturnToPath } from '../../util/validation';
 import Footer from '../components/Footer';
 import DisplayEvents from './components/DisplayEvents';
@@ -39,22 +40,19 @@ export default async function EventsPage(props: Props) {
   //   redirect(getSafeReturnToPath(returnTo) || '/');
   // }
 
-  const user = session
-    ? await getUser(session.token)
-    : await getUsersInsecure();
+  const user = session ? await getUser(session.token) : null;
   console.log('userdata', user);
   //1)  sessiontoken holen 2) Userdaten holen und als Props weitergeben, schauen, ob ID mitgeschickt wird
 
   return (
-    <>
-      <div>
-        <DisplayEvents
-          session={session}
-          events={events}
-          user={user}
-        ></DisplayEvents>
-        {/* <Footer customFooter="customFooterLogin" /> */}
-      </div>
-    </>
+    <div>
+      {user ? (
+        <DisplayEvents session={session} events={events} user={user} />
+      ) : (
+        ''
+      )}
+
+      {/* <Footer customFooter="customFooterLogin" /> */}
+    </div>
   );
 }

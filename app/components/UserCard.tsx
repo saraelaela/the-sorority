@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import React from 'react';
+import type { User } from '../../database/users';
 import styles from '../page.module.scss';
 import LinkedIn from './Icons/LinkedIn';
+
+type Props = {
+  value: User;
+};
 
 export default function UserCard(props: Props) {
   return (
