@@ -1,55 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sorority Web-App
 
-## Technologies
+Welcome to the Sorority App! This project is a web application designed to streamline event management and enhance community engagement for sorority members. Users can RSVP to events, manage profiles, and interact dynamically with a user-friendly interface.
 
-- Next.js
-  Postgres.js
+---
 
-## Database Setup
+## Features
 
-postgres=# CREATE DATABASE final_project_sorority;
-CREATE DATABASE
-postgres=# CREATE USER final_project_sorority WITH ENCRYPTED PASSWORD 'final_project_sorority';
-CREATE ROLE
-postgres=# GRANT ALL PRIVILEGES ON DATABASE final_project_sorority TO final_project_sorority;
-GRANT
-postgres=# \connect final_project_sorority
-You are now connected to database "final_project_sorority" as user "sara".
-final_project_sorority=# CREATE SCHEMA final_project_sorority AUTHORIZATION final_project_sorority;
-CREATE SCHEMA
-final_project_sorority=#
+- **User Authentication**: Secure login and registration with password hashing.
+- **Event Management**: Create, view, and RSVP to events.
+- **Dynamic Styling**: Individualized page layouts with reusable styles and dynamic footers.
+- **Cloudinary Integration**: Upload and manage event images seamlessly.
+- **Responsive Design**: Optimized for desktop and mobile devices.
+
+---
+
+## Tech Stack
+
+- **Frontend**: Next.js (React Framework)
+- **Backend**: Node.js with REST API
+- **Database**: PostgreSQL
+- **Styling**: CSS Modules with dynamic styles and variables
+- **Image Hosting**: Cloudinary
+- **Validation**: Zod schema for data validation
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+Ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (v16 or later)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Cloudinary](https://cloudinary.com/) account (for image uploads)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/sorority-app.git
+   cd sorority-app
+
+
+2. Install dependencies:
 
 ```bash
+npm install
+
+
+3. Set up your environment variables: Create a .env file in the root directory and include:
+
+
+
+```.env
+DATABASE_URL=your_database_url
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+
+4. Run database migrations:
+```bash
+npx prisma migrate dev
+
+5. Start the development server:
+```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Visit http://localhost:3000 to view the app.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### API Routes
+User Routes
+POST /api/users - Create a new user
+GET /api/users/:id - Retrieve user data
+Event Routes
+POST /api/events - Create a new event
+GET /api/events - List all events
+GET /api/events/:id - Get event details
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### Contribution Guidelines
+1. Fork the repository and create your branch:
+```bash
+git checkout -b feature/your-feature-name
 
-To learn more about Next.js, take a look at the following resources:
+2. Commit your changes:
+```bash
+git commit -m "Add your message"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Push to your fork:
+```bash
+git push origin feature/your-feature-name
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Open a pull request.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Roadmap
+Add support for event comments.
+Implement user profile editing.
+Integrate real-time notifications for event updates.
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+###Acknowledgements
+Cloudinary for image management.
+UpLeveled for guidance and resources.
+All contributors for their efforts and ideas.
+Made with ❤️ by Sara El Abed and contributors.
