@@ -1,3 +1,6 @@
+# 
+
+
 # Sorority Web-App
 
 Welcome to the Sorority App! This project is a web application designed to streamline event management and enhance community engagement for sorority members. Users can RSVP to events, manage profiles, and interact dynamically with a user-friendly interface.
@@ -38,78 +41,91 @@ Ensure you have the following installed:
 ### Installation
 
 1. Clone the repository:
-   ```bash
+    ```
    git clone https://github.com/your-username/sorority-app.git
    cd sorority-app
-
-
+    ```
+   
 2. Install dependencies:
-
 ```bash
 npm install
-
+```
 
 3. Set up your environment variables: Create a .env file in the root directory and include:
-
-
-
-```.env
-DATABASE_URL=your_database_url
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-
+  ```bash
+   DATABASE_URL=your_database_url
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
+```
 
 4. Run database migrations:
 ```bash
 npx prisma migrate dev
+```
 
 5. Start the development server:
 ```bash
 npm run dev
+```
+
 Visit http://localhost:3000 to view the app.
 
 ---
-
 ### API Routes
-User Routes
-POST /api/users - Create a new user
-GET /api/users/:id - Retrieve user data
+
+#### User Routes
+
+- POST /api/users - Create a new user
+- GET /api/users/:id - Retrieve user data
 Event Routes
-POST /api/events - Create a new event
-GET /api/events - List all events
-GET /api/events/:id - Get event details
+- POST /api/events - Create a new event
+- GET /api/events - List all events
+- GET /api/events/:id - Get event details
 
 ---
+## Contribution Guidelines
 
-### Contribution Guidelines
+
 1. Fork the repository and create your branch:
 ```bash
 git checkout -b feature/your-feature-name
+```
 
 2. Commit your changes:
 ```bash
 git commit -m "Add your message"
+```
 
 3. Push to your fork:
 ```bash
 git push origin feature/your-feature-name
+```
 
 4. Open a pull request.
 
 ---
 
-### Roadmap
+## Roadmap
+
+
 Add support for event comments.
 Implement user profile editing.
 Integrate real-time notifications for event updates.
-License
+
+---
+
+## License
+
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
-###Acknowledgements
-Cloudinary for image management.
-UpLeveled for guidance and resources.
-All contributors for their efforts and ideas.
+## Acknowledgements
+
+- Cloudinary for image management.
+- UpLeveled for guidance and resources.
+- All contributors for their efforts and ideas.
+
 Made with ❤️ by Sara El Abed and contributors.
+
