@@ -160,7 +160,16 @@ export default function AdminEventForm(props: Props) {
             ))}
             <div>
               <CldUploadWidget
-                onSuccess={(result) => setEventImage(result.info!.secure_url)}
+                onSuccess={(result: CloudinaryUploadWidgetResults) => {
+                  if (
+                    typeof result.info !== 'string' &&
+                    'secure_url' in result.info!
+                  ) {
+                    setEventImage(result.info.secure_url);
+                  } else {
+                    console.error('Unexpected result.info type:', result.info);
+                  }
+                }}
                 uploadPreset="sorority_event_upload"
               >
                 {({ open }) => {
