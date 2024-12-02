@@ -1,6 +1,9 @@
 'use client';
 
-import { CldUploadWidget } from 'next-cloudinary';
+import {
+  CldUploadWidget,
+  type CloudinaryUploadWidgetResults,
+} from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import buttonStyles from '../(components)/Buttons.module.scss';
@@ -156,7 +159,10 @@ export default function AdminEventForm(props: Props) {
               </div>
             ))}
             <div>
-              <CldUploadWidget uploadPreset="sorority_event_upload">
+              <CldUploadWidget
+                onSuccess={(result) => setEventImage(result.info!.secure_url)}
+                uploadPreset="sorority_event_upload"
+              >
                 {({ open }) => {
                   return (
                     <button
