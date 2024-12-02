@@ -33,6 +33,7 @@ export default function RegisterForm(props: Props) {
         lastName,
         email,
         password,
+        isAdmin: false,
       }),
     });
 
