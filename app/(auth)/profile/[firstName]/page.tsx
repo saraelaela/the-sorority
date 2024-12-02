@@ -54,7 +54,7 @@ export default async function UserProfilePage(props: Props) {
       </div>
       <div className={styles.secondaryContainer}>
         <div className={styles.footer}>
-          <Footer customFooter="customFooterUser" customColor={'#BFFF50'} />
+          <Footer customFooter="customFooterUser" customColor={'#000000'} />
         </div>
         <div>
           {user ? (

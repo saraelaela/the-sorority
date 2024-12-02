@@ -46,11 +46,12 @@ export default async function EventsPage(props: Props) {
 
   return (
     <div>
-      {user ? (
+      <DisplayEvents session={session} events={events} user={user} />
+      {/* {user ? (
         <DisplayEvents session={session} events={events} user={user} />
       ) : (
-        ''
-      )}
+
+      )} */}
 
       {/* <Footer customFooter="customFooterLogin" /> */}
     </div>
