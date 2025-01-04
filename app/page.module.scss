@@ -1,3 +1,9 @@
+.navbarDesktop {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -138,4 +144,24 @@
 
 .memberIntro {
   font-size: 1rem;
+}
+
+.navbarMobile {
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .navbarDesktop {
+    display: none;
+  }
+  .navbarMobile {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .button {
+    border: none;
+    background-color: transparent;
+  }
 }

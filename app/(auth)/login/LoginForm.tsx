@@ -45,6 +45,10 @@ export default function LoginForm(props: Props) {
         <div className={styles.content}>
           <Image
             src="/images/Register.png"
+            style={{
+              width: '100%',
+              height: 'auto',
+            }}
             width={600}
             height={325}
             alt="Mitglieder des Sorority-Vorstands"

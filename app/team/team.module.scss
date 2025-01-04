@@ -8,6 +8,7 @@
 }
 
 .logoArea {
+  padding: 2rem 0 0 2rem;
   height: 100%;
 }
 .secondaryContainer {
@@ -20,9 +21,6 @@
   align-items: top; /* Optional: Aligns items vertically in the container */
 
   width: 100%;
-  // > div {
-  //   width: 50vw;
-  // }
 }
 
 .footer {
@@ -32,8 +30,6 @@
   z-index: 0;
 }
 .teamWrapper {
-  // position: absolute;
-  // top: 0;
   background-color: var(--sorority-pink);
   padding: 0 0 4rem 0;
   z-index: 300;
@@ -90,10 +86,6 @@
   color: var(--sorority-occer);
 }
 
-.logoArea {
-  padding: 2rem 0 0 2rem;
-  height: 100%;
-}
 .animation {
   display: flex;
   flex-direction: column;
@@ -148,4 +140,27 @@
   border-top: 1px solid black;
   text-transform: uppercase;
   font-weight: 350;
+}
+
+@media only screen and (max-width: 800px) {
+  .teamWrapper {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    padding: 1rem 3rem 3rem 3rem;
+    z-index: 0;
+  }
+  .teamContainer {
+    padding-bottom: 3rem;
+  }
+  .teamOverview {
+    width: 100%;
+  }
+  .teamCard {
+    width: 100%;
+  }
+
+  .teamMemberIntro {
+    width: 100%;
+  }
 }

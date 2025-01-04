@@ -59,6 +59,10 @@ export default function RegisterForm(props: Props) {
         <SectionTitle title={'Want to become a Sorority member?'} />
         <Image
           src="/images/Register.png"
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
           width={600}
           height={325}
           alt="Mitglieder des Sorority-Vorstands"

@@ -20,7 +20,7 @@
   background-color: var(--sorority-grey);
   padding: 3vw 3vw 5vw 3vw;
   width: 50%;
-  min-height: 100%; /* Extra height to demonstrate scrolling */
+  min-height: 100vh; /* Extra height to demonstrate scrolling */
 }
 
 .welcomeSection {
@@ -92,5 +92,18 @@
   &:focus {
     background-color: var(--sorority-pink);
     outline: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .content {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    padding: 3rem;
+  }
+
+  .form {
+    margin-bottom: 3rem;
   }
 }

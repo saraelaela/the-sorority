@@ -68,3 +68,16 @@
   flex-direction: column;
   height: 100%;
 }
+
+@media only screen and (max-width: 800px) {
+  .content {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    padding: 3rem;
+  }
+
+  .organize {
+    margin-bottom: 4rem;
+  }
+}

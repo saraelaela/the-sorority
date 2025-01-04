@@ -96,6 +96,10 @@ export default function TeamComponent() {
               <div key={teamMember.id} className={styles.teamCard}>
                 <Image
                   src={`/images/board/${teamMember.name}.jpg`}
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   width={280}
                   height={280}
                   alt="Mitglieder des Sorority-Vorstands"

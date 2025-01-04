@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getUser } from '../database/users';
 import LogoutButton from './(auth)/logout/LogoutButton';
 import Footer from './components/Footer';
+import Navigation from './components/Navigation';
 import styles from './page.module.scss';
 
 export const metadata: Metadata = {
@@ -28,35 +29,7 @@ export default async function RootLayout({
       <body>
         <header className={styles.header}>
           <nav className={styles.navClass}>
-            <Link href="/">Home</Link>
-            <Link href="/events">Events</Link>
-            {/* <Link href="/">About</Link> */}
-            <Link href="/team">Team</Link>
-            {/* <Link href="/">Magazin</Link> */}
-            {/* <Link href="/">Press</Link> */}
-
-            <div>
-              {user ? (
-                user.isAdmin ? (
-                  <div className={styles.userArea}>
-                    <Link href="/admin/dashboard">Dashboard</Link>
-                    <Link href={`/profile/${user.firstName}`}>My Account</Link>
-                    <LogoutButton />
-                  </div>
-                ) : (
-                  <div className={styles.userArea}>
-                    <Link href={`/profile/${user.firstName}`}>My Account</Link>
-
-                    <LogoutButton />
-                  </div>
-                )
-              ) : (
-                <div className={styles.userArea}>
-                  <Link href="/register">Join Us</Link>
-                  <Link href="/login">Log-in</Link>
-                </div>
-              )}
-            </div>
+            <Navigation user={user} sessionTokenCookie={sessionTokenCookie} />
           </nav>
         </header>
         <main className={styles.main}>{children}</main>
