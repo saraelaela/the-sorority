@@ -1,7 +1,7 @@
 import 'server-only';
 import type { Sql } from 'postgres';
 import postgres from 'postgres';
-import { postgresConfig, setEnvironmentVariables } from '../util/config.js';
+import { postgresConfig, setEnvironmentVariables } from '../util/config';
 
 setEnvironmentVariables();
 
@@ -9,16 +9,23 @@ declare namespace globalThis {
   let postgresSqlClient: Sql;
 }
 
-// Connect only once to the database
-// https://github.com/vercel/next.js/issues/7811#issuecomment-715259370
 function connectOneTimeToDatabase() {
   if (!('postgresSqlClient' in globalThis)) {
-    // Use the connection URL directly
-    globalThis.postgresSqlClient = postgres(process.env.POSTGRES_URL!, {
-      ssl: {
-        rejectUnauthorized: true,
-      },
-    });
+    // Use type assertion since we know these environment variables are required
+    const connectionString =
+      process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL_NON_POOLING;
+
+    if (!connectionString) {
+      throw new Error(
+        'Database connection string is missing. Please set either POSTGRES_PRISMA_URL or POSTGRES_URL_NON_POOLING',
+      );
+    }
+
+    // Type assertion to string since we've verified it exists
+    globalThis.postgresSqlClient = postgres(
+      connectionString as string,
+      postgresConfig,
+    );
   }
 
   return globalThis.postgresSqlClient;

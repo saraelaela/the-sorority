@@ -2,16 +2,16 @@ import { config } from 'dotenv-safe';
 import postgres from 'postgres';
 
 export const postgresConfig = {
-  ssl: Boolean(process.env.POSTGRES_URL),
+  ssl: true,
   transform: {
     ...postgres.camel,
     undefined: null,
   },
-};
+}; // Use const assertion
 
 export function setEnvironmentVariables() {
-  if (!process.env.POSTGRES_URL) {
-    throw new Error('Required environment variable POSTGRES_URL is missing');
+  if (process.env.NODE_ENV === 'production' || process.env.CI) {
+    return;
   }
+  config();
 }
-config();
