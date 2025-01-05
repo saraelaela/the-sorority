@@ -7,7 +7,7 @@
   display: flex;
   justify-content: right;
   overflow: scroll;
-  // height: 90%;
+
   flex: 1;
 }
 
@@ -16,11 +16,11 @@
   flex-direction: column;
   gap: 3rem;
   justify-content: right;
-  overflow-y: scroll; /* Makes .content scrollable */
+  overflow-y: scroll;
   background-color: var(--sorority-grey);
   padding: 3vw 3vw 5vw 3vw;
   width: 50%;
-  min-height: 100vh; /* Extra height to demonstrate scrolling */
+  min-height: 100vh;
 }
 
 .welcomeSection {

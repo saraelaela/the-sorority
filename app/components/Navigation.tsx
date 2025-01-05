@@ -60,8 +60,8 @@ export default function Navigation(props: Props) {
         </button>
         {mobileOpen && (
           <MobileMenue
-          mobileOpen ={mobileOpen}
-          setMobileOpen={setMobileOpen}
+            mobileOpen={mobileOpen}
+            setMobileOpen={setMobileOpen}
             user={props.user}
             sessionTokenCookie={props.sessionTokenCookie}
           />

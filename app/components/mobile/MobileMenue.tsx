@@ -13,6 +13,7 @@ type Props = {
   user: User | undefined;
   sessionTokenCookie: RequestCookie | undefined;
   mobileOpen: boolean;
+  setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function MobileMenue(props: Props) {
