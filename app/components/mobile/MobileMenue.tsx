@@ -22,7 +22,14 @@ export default function MobileMenue(props: Props) {
   return (
     <div className={styles.mobileMenue}>
       <div className={styles.header}>
-        <div>The: Sorority</div>
+        <Link
+          href="/"
+          onClick={() => {
+            props.setMobileOpen(!props.mobileOpen);
+          }}
+        >
+          The: Sorority
+        </Link>
         <button
           className={styles.button}
           onClick={() => {
@@ -184,7 +191,7 @@ export default function MobileMenue(props: Props) {
         <Facebook
           link={'https://www.facebook.com/sorority.at/'}
           color={'#6e28e3'}
-          height={'10%'}
+          height={'100%'}
         />
 
         <Instagram

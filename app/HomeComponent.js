@@ -14,6 +14,10 @@ export default function HomeComponent() {
           <div className={styles.content}>
             <Image
               src="/images/Register.png"
+              style={{
+                width: '100%',
+                height: 'auto',
+              }}
               width={635}
               height={345}
               alt="Mitglieder des Sorority-Vorstands"

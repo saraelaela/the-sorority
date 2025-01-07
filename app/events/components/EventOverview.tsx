@@ -14,6 +14,8 @@ type Props = {
   event: Event | undefined;
   user: User | null;
   session: Session | undefined;
+  mobileEvent: boolean;
+  setMobileEvent: (value: boolean) => void;
 };
 
 export default function EventOverview(props: Props) {
@@ -21,8 +23,23 @@ export default function EventOverview(props: Props) {
     return (
       <div className={styles.eventCard}>
         <div className={styles.eventMeta}>
+          <button
+            className={styles.button}
+            onClick={() => props.setMobileEvent(!props.mobileEvent)}
+          >
+            <svg
+              width="30"
+              height="25"
+              viewBox="0 0 20 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M16.026 1.24151L4.10081 13.3419" stroke="#6e28e3" />
+              <path d="M4.33366 1.32129L15.6663 13.9783" stroke="#6e28e3" />
+            </svg>
+          </button>
           <div className={styles.eventSpecs}>
-            <div>
+            <div className={styles.tagWrapper}>
               <div className={styles.tagContainer}>
                 <Tags value={'When'} />
               </div>
@@ -30,13 +47,13 @@ export default function EventOverview(props: Props) {
                 {new Date(props.event.eventDate).toLocaleDateString('de-DE')}
               </div>
             </div>
-            <div>
+            <div className={styles.tagWrapper}>
               <div className={styles.tagContainer}>
                 <Tags value={'Where'} />
               </div>
               <div>{props.event.eventLocation}</div>
             </div>
-            <div>
+            <div className={styles.tagWrapper}>
               <div className={styles.tagContainer}>
                 {' '}
                 <Tags value={'Costs'} />
@@ -44,10 +61,13 @@ export default function EventOverview(props: Props) {
               <div>{props.event.eventCosts}</div>
             </div>
           </div>
-          {/* {`${props.event.eventImage}`} */}
 
           <Image
             src={`${props.event.eventImage}`}
+            style={{
+              width: '100%',
+              height: 'auto',
+            }}
             width={350}
             height={200}
             alt="Mitglieder des Sorority-Vorstands"

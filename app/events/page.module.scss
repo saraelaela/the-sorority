@@ -113,3 +113,80 @@
   flex-direction: column;
   gap: 2rem;
 }
+
+.close {
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .eventWrapper {
+    display: block;
+    width: 100vw;
+    > div {
+      width: 100vw;
+    }
+  }
+
+  .eventsList {
+    width: 100%;
+    padding-right: 2rem;
+    z-index: -1;
+    margin-bottom: 3rem;
+  }
+
+  .eventContainer {
+    width: 100%;
+  }
+
+  .eventButton {
+    gap: 6rem;
+    text-align: left;
+  }
+
+  .eventOverviewContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: absolute;
+    top: 8rem;
+    padding: 2rem 0 0 0;
+    background-color: var(--sorority-pink);
+    left: 0;
+  }
+  .eventCard {
+    padding-top: 1rem;
+    padding-bottom: 19rem;
+    overflow: scroll;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .eventMeta {
+    flex-direction: column;
+  }
+
+  .tagWrapper {
+    display: flex;
+    gap: 3rem;
+  }
+
+  .tagContainer {
+    min-width: 5rem;
+  }
+
+  .close {
+    display: flex;
+    padding-right: 2rem;
+    justify-content: flex-end;
+  }
+
+  .button {
+    display: flex;
+    justify-content: flex-end;
+    border: none;
+    background-color: transparent;
+  }
+  // .mobileOverview {
+  //   visibility: none;
+  // }
+}
