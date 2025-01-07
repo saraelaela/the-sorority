@@ -68,6 +68,8 @@ export default function DisplayEvents(props: Props) {
             session={props.session}
             event={selectedEvent}
             user={props.user ?? null}
+            setMobileEvent={setMobileEvent}
+            mobileEvent={mobileEvent}
           />
         </div>
       ) : (
