@@ -9,8 +9,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0 7rem 0 2rem;
-  gap: 1vw;
+  padding: 0 0rem 0 2rem;
+  gap: 3rem;
   /* max-width: 60%; */
 }
 
@@ -29,6 +29,8 @@
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
+  font-size: 0.9rem;
+  text-transform: uppercase;
 }
 
 .customFooter {
@@ -55,6 +57,12 @@
   color: var(--sorority-occer);
   padding: 20px;
   width: 44.6vw;
+}
+
+.customFooterMagazine {
+  background-color: var(--sorority-occer);
+  color: black;
+  padding: 20px;
 }
 
 .customFooterProfile {

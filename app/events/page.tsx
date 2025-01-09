@@ -14,6 +14,7 @@ import {
 } from '../../database/users';
 import { userSchema } from '../../migrations/00000-createTableUsers';
 import type { Session } from '../../migrations/00004-sessions';
+import { prisma } from '../../src/lib/db';
 import { getSafeReturnToPath } from '../../util/validation';
 import Footer from '../components/Footer';
 import DisplayEvents from './components/DisplayEvents';
@@ -26,7 +27,12 @@ type Props = {
 };
 
 export default async function EventsPage(props: Props) {
-  const events = await getEventsInsecure();
+  // const events = await getEventsInsecure();
+
+  const events = await prisma.event.findMany();
+  {
+    console.log('does this show', events);
+  }
   // 1) check if sessionToken exists
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 

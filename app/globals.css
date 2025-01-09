@@ -6,7 +6,8 @@
   --sorority-lilac: #6e28e3;
   --sorority-occer: #f2af02;
   --sorority-grey: #e7e7e7;
-  --display-font: 'Thunder-BoldLC';
+  --display-font: 'Thunder-BoldLC', 'Verdana', 'sans-serif';
+  --italic: 'Heuristica', 'Georgia', 'serif';
   --h1-size: 17.5rem;
   --h2-size: 5rem;
   --h3-size: 3rem;
@@ -37,11 +38,15 @@
   line-height: 0.8;
 }
 
-/* @font-face {
-  font-family: 'Thunder-BoldLC', Arial, sans-serif;
-  line-height: 0.8;
-  src: url('../public/fonts/Thunder-BoldLC.ttf') format('truetype');
-} */
+@font-face {
+  font-family: 'Heuristica';
+  src:
+    url('../public/fonts/Heuristica-Italic.woff2') format('woff2'),
+    url('../public/fonts/Heuristica-Italic.woff') format('woff');
+  /* font-weight: lighter; */
+  font-style: italic;
+  font-display: swap;
+}
 
 html,
 body {
@@ -80,5 +85,5 @@ footer {
   position: fixed;
   bottom: 0;
   z-index: -1;
-  width: 50vw;
+  width: 40%;
 }

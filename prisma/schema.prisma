@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgres://neondb_owner:6pgkUt7fOMNe@ep-dawn-rice-a2lfz91h-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require"
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  passwordHash   String    @map("password_hash") @db.VarChar(100)
+  firstName      String    @map("first_name") @db.VarChar(100)
+  lastName       String    @map("last_name") @db.VarChar(100)
+  occupation     String?   @db.VarChar(100)
+  introText      String?   @map("intro_text") @db.VarChar(500)
+  profilePicture String?   @map("profile_picture") @db.VarChar(200)
+  email          String    @unique @db.VarChar(200)
+  linkedin       String?   @db.VarChar(200)
+  isAdmin        Boolean   @default(false) @map("is_admin")
+  events         Event[]
+  sessions       Session[]
+  payments       Payment[]
+  rsvps          Rsvp[]
+  blogPosts      BlogPost[]
+}
+
+
+model Event {
+  id               Int      @id @default(autoincrement())
+  eventTitle       String   @map("event_title") @db.VarChar(500)
+  eventDescription String   @map("event_description") @db.Text
+  eventLocation    String   @map("event_location") @db.VarChar(500)
+  eventDate        DateTime @map("event_date")
+  hostedBy         String   @map("hosted_by") @db.VarChar(500)
+  eventImage       String?  @map("event_image") @db.VarChar(500)
+  eventCosts       String   @map("event_costs") @db.VarChar(500)
+  createdBy        Int      @map("created_by")
+
+  User User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+
+  rsvps Rsvp[]
+
+
+}
+
+
+
+model Session {
+  id              Int      @id @default(autoincrement())
+  token           String   @db.VarChar(150) @unique
+  expiryTimestamp DateTime @default(now()) @db.Timestamp(6)
+  userId          Int      @map("user_id")
+
+  User User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id           Int      @id @default(autoincrement())
+  userId       Int      @map("user_id")
+  firstName    String   @map("first_name") @db.VarChar(100)
+  lastName     String   @map("last_name") @db.VarChar(100)
+  adress       String   @db.VarChar(500)
+  zipCode      Int      @map("zip_code")
+  city         String   @db.VarChar(100)
+  country      String   @db.VarChar(100)
+  paypal       String?  @db.VarChar(500)
+  creditCard   Int      @map("credit_card")
+  paymentStatus Boolean @map("payment_status")
+
+  User User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Rsvp {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @map("user_id")
+  eventId    Int      @map("event_id")
+  rsvpStatus Boolean  @map("rsvp_status") @default(false)
+
+  User  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+model BlogPost {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  user        User     @relation(fields: [userId], references: [id])
+  category    String   @db.VarChar(500)
+  headline    String   @db.VarChar(255)
+  intro       String   @db.Text
+  bodyText    String   @db.Text
+  published   DateTime @default(now())
+  blogPostImage String? @db.VarChar(500)
+}

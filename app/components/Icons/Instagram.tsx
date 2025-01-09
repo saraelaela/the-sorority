@@ -10,7 +10,7 @@ export default function Instagram(props: Props) {
       style={{
         width: 'auto', // Makes the SVG responsive
         height: props.height, // Maintains aspect ratio
-        maxWidth: '26px', // Optional: set a max size
+        maxWidth: '19px', // Optional: set a max size
       }}
       viewBox="0 0 25 25"
       fill={`${props.color}`}

@@ -10,7 +10,7 @@ export default function Facebook(props: Props) {
       style={{
         width: 'auto', // Makes the SVG responsive
         height: props.height, // Maintains aspect ratio
-        maxWidth: '14px', // Optional: set a max size
+        maxWidth: '10px', // Optional: set a max size
       }}
       fill={`${props.color}`}
       viewBox="0 0 14 25"

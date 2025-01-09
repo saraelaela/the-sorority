@@ -65,7 +65,7 @@ export default function EventOverview(props: Props) {
           <Image
             src={`${props.event.eventImage}`}
             style={{
-              width: '100%',
+              width: '50%',
               height: 'auto',
             }}
             width={350}
