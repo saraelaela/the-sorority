@@ -14,7 +14,7 @@ type Props = {
 
 export default function DisplayEvents(props: Props) {
   const [selectedEvent, setSelectedEvent] = useState(props.events[0]);
-  const [mobileEvent, setMobileEvent] = useState(false);
+  const [mobileEvent, setMobileEvent] = useState<boolean>(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -68,8 +68,8 @@ export default function DisplayEvents(props: Props) {
             session={props.session}
             event={selectedEvent}
             user={props.user ?? null}
-            setMobileEvent={setMobileEvent}
             mobileEvent={mobileEvent}
+            setMobileEvent={setMobileEvent}
           />
         </div>
       ) : (
