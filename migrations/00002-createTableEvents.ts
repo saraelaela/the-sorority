@@ -10,6 +10,7 @@ export const eventSchema = z.object({
   hostedBy: z.string().min(1, 'Host information is required'),
   eventImage: z.string().url().optional(),
   eventCosts: z.string(),
+  createdBy: z.number(),
 });
 
 export type Event = {

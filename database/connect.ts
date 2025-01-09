@@ -1,6 +1,8 @@
 import 'server-only';
+import { PrismaClient } from '@prisma/client';
 import type { Sql } from 'postgres';
 import postgres from 'postgres';
+import { prisma } from '../src/lib/db';
 import { postgresConfig, setEnvironmentVariables } from '../util/config';
 
 setEnvironmentVariables();
@@ -33,3 +35,17 @@ function connectOneTimeToDatabase() {
 
 // Connect to PostgreSQL
 export const sql = connectOneTimeToDatabase();
+
+// const prismaClientSingleton = () => {
+//   return new PrismaClient();
+// };
+
+// declare global {
+//   var prisma: undefined | ReturnType<typeof prismaClientSingleton>;
+// }
+
+// const prisma = globalThis.prisma ?? prismaClientSingleton();
+
+// if (process.env.NODE_ENV !== 'production') globalThis.prisma = prisma;
+
+// export default prisma;
