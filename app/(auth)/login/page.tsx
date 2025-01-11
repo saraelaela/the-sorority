@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getValidSessionToken } from '../../../database/sessions';
+// import { getValidSessionToken } from '../../../database/sessions';
+import { prisma } from '../../../src/lib/db';
 import { getSafeReturnToPath } from '../../../util/validation';
 import Footer from '../../components/Footer';
 import LoginForm from './LoginForm';
@@ -20,7 +21,17 @@ export default async function LoginPage(props: Props) {
   //2. Check if sessionToken cookie is still valid
   const session =
     sessionTokenCookie &&
-    (await getValidSessionToken(sessionTokenCookie?.value));
+    (await prisma.session.findFirst({
+      where: {
+        token: sessionTokenCookie.value,
+        expiryTimestamp: {
+          gt: new Date(), // Only get sessions that haven't expired yet
+        },
+      },
+      include: {
+        User: true, // If you need the related user data
+      },
+    }));
 
   // 3. if SessionToken cookie is Valid, redirect to home
   if (session) {

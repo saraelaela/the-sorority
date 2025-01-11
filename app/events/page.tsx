@@ -3,17 +3,7 @@ import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import React, { useState } from 'react';
-import { getEventInsecure, getEventsInsecure } from '../../database/events';
-import { getValidSessionToken } from '../../database/sessions';
-import {
-  getUser,
-  getUserInsecure,
-  getUsersInsecure,
-  getUserWithPasswordHashInsecure,
-} from '../../database/users';
-import { userSchema } from '../../migrations/00000-createTableUsers';
-import type { Session } from '../../migrations/00004-sessions';
+import React from 'react'; // Remove useState since this is a Server Component
 import { prisma } from '../../src/lib/db';
 import { getSafeReturnToPath } from '../../util/validation';
 import Footer from '../components/Footer';
@@ -27,28 +17,43 @@ type Props = {
 };
 
 export default async function EventsPage(props: Props) {
-  // const events = await getEventsInsecure();
+  // Get all events
+  const events = await prisma.event.findMany({
+    include: {
+      User: true, // Include user data if needed
+      rsvps: true, // Include RSVPs if needed
+    },
+  });
 
-  const events = await prisma.event.findMany();
-  {
-    console.log('does this show', events);
-  }
-  // 1) check if sessionToken exists
+  // Get session token from cookies
   const sessionTokenCookie = (await cookies()).get('sessionToken');
+  // const sessionTokenCookie = cookies().get('sessionToken');
 
-  //2. Check if sessionToken cookie is still valid
-  const session =
-    sessionTokenCookie &&
-    (await getValidSessionToken(sessionTokenCookie?.value));
+  // Check if session is valid
+  const session = sessionTokenCookie
+    ? await prisma.session.findUnique({
+        where: {
+          token: sessionTokenCookie.value,
+        },
+        include: {
+          User: true, // Include user data with the session
+        },
+      })
+    : null;
 
-  // 3. if SessionToken cookie is Valid, redirect to home
-  // if (session) {
-  //   redirect(getSafeReturnToPath(returnTo) || '/');
-  // }
+  // Get user if session exists
+  const user = session?.User || null;
 
-  const user = session ? await getUser(session.token) : null;
-  console.log('userdata', user);
-  //1)  sessiontoken holen 2) Userdaten holen und als Props weitergeben, schauen, ob ID mitgeschickt wird
+  // Optional: Check if session is expired
+  if (session && session.expiryTimestamp < new Date()) {
+    // Delete expired session
+    await prisma.session.delete({
+      where: {
+        token: session.token,
+      },
+    });
+    return redirect('/login'); // or wherever you want to redirect
+  }
 
   return (
     <div>

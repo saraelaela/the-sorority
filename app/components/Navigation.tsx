@@ -8,8 +8,8 @@ import styles from '../page.module.scss';
 import MobileMenue from './mobile/MobileMenue';
 
 type Props = {
-  user: User | undefined;
-  sessionTokenCookie: RequestCookie | undefined;
+  user: User | undefined | null;
+  sessionTokenCookie: RequestCookie | string | undefined | null;
 };
 
 export default function Navigation(props: Props) {

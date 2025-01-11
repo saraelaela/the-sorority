@@ -10,7 +10,6 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "migrate": "ley --require tsx/cjs",
     "start": "next start"
   },
   "dependencies": {

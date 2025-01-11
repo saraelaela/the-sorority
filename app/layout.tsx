@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { getUser } from '../database/users';

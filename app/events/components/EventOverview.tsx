@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { type Event, getEventsInsecure } from '../../../database/events';
+import { type Event } from '../../../database/events';
 import type { User } from '../../../database/users';
 import type { Session } from '../../../migrations/00004-sessions';
 import Button from '../../components/Button';
@@ -13,7 +13,7 @@ import styles from '../page.module.scss';
 type Props = {
   event: Event | undefined;
   user: User | null;
-  session: Session | undefined;
+  session: Session | undefined | null;
   mobileEvent: boolean;
   setMobileEvent: (value: boolean) => void;
 };

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createUserRsvp } from '../../../../database/rsvp';
+//import { createUserRsvp } from '../../../../database/rsvp';
 import { type Rsvp, rsvpSchema } from '../../../../migrations/00006-rsvp';
 import { prisma } from '../../../../src/lib/db';
 

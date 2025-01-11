@@ -10,8 +10,8 @@ import LinkedIn from '../Icons/LinkedIn';
 import styles from './mobileMenue.module.scss';
 
 type Props = {
-  user: User | undefined;
-  sessionTokenCookie: RequestCookie | undefined;
+  user: User | undefined | null;
+  sessionTokenCookie: RequestCookie | string | undefined | null;
   mobileOpen: boolean;
   setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };

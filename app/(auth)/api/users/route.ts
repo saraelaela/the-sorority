@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
-import {
-  type UpdateUser,
-  updateUsersInsecure,
-  type User,
-} from '../../../../database/users';
+import { type UpdateUser, type User } from '../../../../database/users';
 import { updateUserSchema } from '../../../../migrations/00000-createTableUsers';
 import { prisma } from '../../../../src/lib/db';
 
@@ -44,15 +40,19 @@ export async function PUT(
     );
   }
 
-  const updatedUser = await updateUsersInsecure(
-    result.data.id,
-    result.data.firstName,
-    result.data.lastName,
-    result.data.occupation ?? '',
-    result.data.introText ?? '',
-    result.data.profilePicture ?? '',
-    result.data.linkedin ?? '',
-  );
+  const updatedUser = await prisma.user.update({
+    where: {
+      id: result.data.id,
+    },
+    data: {
+      firstName: result.data.firstName,
+      lastName: result.data.lastName,
+      occupation: result.data.occupation ?? null,
+      introText: result.data.introText ?? null,
+      profilePicture: result.data.profilePicture ?? null,
+      linkedin: result.data.linkedin ?? null,
+    },
+  });
   console.log('the updatedUser', updatedUser); //  Error: Property 'id' does not exist on type 'RowList<UpdateUser[]>'.
 
   // You need to access the rows within:

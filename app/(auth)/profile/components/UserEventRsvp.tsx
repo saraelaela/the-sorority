@@ -1,5 +1,6 @@
 import { type User } from '../../../../database/users';
 import type { Rsvp } from '../../../../migrations/00006-rsvp';
+import { prisma } from '../../../../src/lib/db';
 import styles from './UserEventRsvp.module.scss';
 import UserProfile from './UserProfile';
 
@@ -12,6 +13,14 @@ type Props = {
 export default async function UserEventRsvp(props: Props) {
   console.log('userRSVP:', props.userRsvp);
   console.log('props user:', props.user);
+  const rsvps = await prisma.rsvp.findMany({
+    where: {
+      eventId: id, // or whatever your filter is
+    },
+    include: {
+      Event: true, // This includes all Event fields
+    },
+  });
   return (
     <div className={styles.eventWrapper}>
       <div className={styles.eventContainer}>

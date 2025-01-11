@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { type Event, getEventsInsecure } from '../../../../database/events';
-import { getValidSessionToken } from '../../../../database/sessions';
-import { getUser, getUsersInsecure } from '../../../../database/users';
+// import { type Event, getEventsInsecure } from '../../../../database/events';
+// import { getValidSessionToken } from '../../../../database/sessions';
+// import { getUser, getUsersInsecure } from '../../../../database/users';
 import { prisma } from '../../../../src/lib/db';
 import eventStyles from '../../../events/page.module.scss';
 import AdminForm from './(components)/AdminForm';
@@ -18,22 +18,31 @@ export const metadata = {
 export default async function AdminPage() {
   // const events = await getEventsInsecure();
   const events = await prisma.event.findMany();
-  const usersTest = await getUsersInsecure();
   //1. Cookie exist
-  console.log('usersTest', usersTest);
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 
   //2. sessionToken still valid
   const session =
     sessionTokenCookie &&
-    (await getValidSessionToken(sessionTokenCookie.value));
+    (await prisma.session.findFirst({
+      where: {
+        token: sessionTokenCookie.value,
+        expiryTimestamp: {
+          gt: new Date(), // Only get sessions that haven't expired yet
+        },
+      },
+      include: {
+        User: true, // If you need the related user data
+      },
+    }));
 
   //3.
   if (!session) {
     redirect('/login?returnTo=/admin/dashboard');
   }
 
-  const user = sessionTokenCookie && (await getUser(sessionTokenCookie?.value));
+  const user = session?.User;
+
   return (
     <div className={styles.main}>
       <div className={styles.eventSummary}>
@@ -58,7 +67,6 @@ export default async function AdminPage() {
                   </div>
                   <h4 className={eventStyles.h4}>{event.eventTitle}</h4>
                 </div>
-                {/* </div> */}
               </div>
               <div className={styles.editSection}>
                 <EditEvents />
@@ -68,7 +76,6 @@ export default async function AdminPage() {
           );
         })}
       </div>
-      {/* <DisplayEvents events={events} /> */}
       <div className={styles.eventCreation}>
         <AdminForm />
       </div>

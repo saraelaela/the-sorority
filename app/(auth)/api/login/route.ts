@@ -2,11 +2,8 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { createSessionInsecure } from '../../../../database/sessions';
-import {
-  getUserWithPasswordHashInsecure,
-  type User,
-} from '../../../../database/users';
+//import { createSessionInsecure } from '../../../../database/sessions';
+import { type User } from '../../../../database/users';
 import { loginSchema } from '../../../../migrations/00000-createTableUsers';
 import { prisma } from '../../../../src/lib/db';
 import { secureCookieOptions } from '../../../../util/cookies';
@@ -44,9 +41,17 @@ export async function POST(
 
   //3. verify user
 
-  const userWithPasswordHash = await getUserWithPasswordHashInsecure(
-    result.data.email,
-  );
+  const userWithPasswordHash = await prisma.user.findUnique({
+    where: {
+      email: result.data.email,
+    },
+    select: {
+      id: true,
+      email: true,
+      passwordHash: true,
+      firstName: true,
+    },
+  });
 
   if (!userWithPasswordHash) {
     return NextResponse.json(
@@ -88,7 +93,18 @@ export async function POST(
   const token = crypto.randomBytes(100).toString('base64');
 
   // 6. create the session record
-  const session = await createSessionInsecure(userWithPasswordHash.id, token);
+  // const session = await createSessionInsecure(userWithPasswordHash.id, token);
+
+  const session = await prisma.session.create({
+    data: {
+      token: token,
+      userId: userWithPasswordHash.id,
+      expiryTimestamp: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    },
+    include: {
+      User: true,
+    },
+  });
 
   if (!session) {
     return NextResponse.json(

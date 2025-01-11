@@ -1,8 +1,12 @@
+import type { User } from '@prisma/client';
 import type { Sql } from 'postgres';
 
 export type Session = {
+  id: number;
   token: string;
-  userId: string;
+  expiryTimestamp: Date;
+  userId: number;
+  User?: User;
 };
 
 export async function up(sql: Sql) {

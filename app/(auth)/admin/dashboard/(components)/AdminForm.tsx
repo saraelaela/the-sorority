@@ -35,6 +35,7 @@ export default function AdminEventForm(props: Props) {
   }
 
   // Function to handle form submission and API call (moving data from one place to anotgher)
+
   async function handleEventCreation() {
     console.log('eventImage before sending:', eventImage);
     const response = await fetch('/api/events', {

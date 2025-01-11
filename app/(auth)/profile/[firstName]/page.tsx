@@ -1,8 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getAllRsvpInsecure } from '../../../../database/rsvp';
-import { getValidSessionToken } from '../../../../database/sessions';
-import { getUser, type User } from '../../../../database/users';
+import { prisma } from '../../../../src/lib/db';
 import { getSafeReturnToPath } from '../../../../util/validation';
 import Footer from '../../../components/Footer';
 import UserEventRsvp from '../components/UserEventRsvp';
@@ -16,33 +14,41 @@ type Props = {
 };
 
 export default async function UserProfilePage(props: Props) {
-  const { returnTo } = await props.params;
-  const { firstName } = await props.params;
+  const { returnTo, firstName } = await props.params;
 
-  // 1) check if sessionToken exists
+  // 1) Get session token and validate
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 
-  // 2. Check if sessionToken cookie is still valid
-  const session =
-    sessionTokenCookie &&
-    (await getValidSessionToken(sessionTokenCookie.value));
+  if (!sessionTokenCookie) {
+    redirect(getSafeReturnToPath(returnTo) || '/');
+  }
+
+  // 2. Get session with user data
+  const session = await prisma.session.findFirst({
+    where: {
+      token: sessionTokenCookie.value,
+      expiryTimestamp: {
+        gt: new Date(),
+      },
+    },
+    include: {
+      User: true, // Include full user data
+    },
+  });
 
   if (!session) {
-    // Redirect if session is invalid
     redirect(getSafeReturnToPath(returnTo) || '/');
   }
 
-  const userWithPasswordHash = await getUser(session.token);
-
-  if (!userWithPasswordHash) {
-    redirect(getSafeReturnToPath(returnTo) || '/');
-  }
-
-  const user = await getUser(session.token);
-
-  const userRsvp = await getAllRsvpInsecure();
-
-  // 1) sessiontoken holen 2) Userdaten holen und als Props weitergeben, schauen, ob ID mitgeschickt wird
+  // 3. Get user RSVPs
+  const userRsvp = await prisma.rsvp.findMany({
+    where: {
+      userId: session.User.id, // Optionally filter by user
+    },
+    include: {
+      Event: true, // Include event details if needed
+    },
+  });
 
   return (
     <div className={styles.main}>
@@ -57,10 +63,10 @@ export default async function UserProfilePage(props: Props) {
           <Footer customFooter="customFooterUser" customColor={'#000000'} />
         </div>
         <div>
-          {user ? (
+          {session.User ? (
             <UserEventRsvp
               firstName={firstName}
-              user={user}
+              user={session.User}
               userRsvp={userRsvp}
             />
           ) : (

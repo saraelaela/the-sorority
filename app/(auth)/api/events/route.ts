@@ -1,11 +1,6 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  createEventInsecure,
-  deleteEventInsecure,
-  type Event,
-  getEventInsecure,
-} from '../../../../database/events';
+import { type Event } from '../../../../database/events';
 import { eventSchema } from '../../../../migrations/00002-createTableEvents';
 import { prisma } from '../../../../src/lib/db';
 
@@ -102,8 +97,16 @@ export async function DELETE(
   const sessionToken = (await cookies()).get('sessionToken')?.value;
 
   //kreirt eine variable für returnvalue der Datenbankabfrage
-  const deletedEvent = await deleteEventInsecure(id); // geht zur Datenbank und löscht das event //nimm query und führe sie durch mit Value von ID
-  console.log('deletedEvent', deletedEvent);
+  // const deletedEvent = await deleteEventInsecure(id);
+
+  const deletedEvent = await prisma.event.delete({
+    where: {
+      id: id,
+    },
+  });
+
+  // geht zur Datenbank und löscht das event //nimm query und führe sie durch mit Value von ID
+
   if (!deletedEvent) {
     return NextResponse.json(
       {

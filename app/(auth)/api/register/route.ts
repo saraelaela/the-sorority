@@ -2,13 +2,8 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { createSessionInsecure } from '../../../../database/sessions';
-import {
-  createUserInsecure,
-  getUserInsecure,
-  type registeredUser,
-  type User,
-} from '../../../../database/users';
+//import { createSessionInsecure } from '../../../../database/sessions';
+import { type registeredUser, type User } from '../../../../database/users';
 import { userSchema } from '../../../../migrations/00000-createTableUsers';
 import { prisma } from '../../../../src/lib/db';
 import { secureCookieOptions } from '../../../../util/cookies';
@@ -42,7 +37,12 @@ export async function POST(
   }
 
   //3. Check if user exists
-  const user = await getUserInsecure(result.data.email);
+  const user = await prisma.user.findUnique({
+    where: {
+      email: result.data.email,
+    },
+  });
+
   if (user) {
     return NextResponse.json(
       {
@@ -57,7 +57,6 @@ export async function POST(
       },
     );
   }
-
   //4. Hash the password
   const passwordHash = await bcrypt.hash(result.data.password, 12);
 
@@ -96,8 +95,18 @@ export async function POST(
   // 6. Create a token
   const token = crypto.randomBytes(100).toString('base64');
 
+  const session = await prisma.session.create({
+    data: {
+      token: token,
+      userId: newUser.id,
+      expiryTimestamp: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    },
+    include: {
+      User: true,
+    },
+  });
   // 7. Create the session record
-  const session = await createSessionInsecure(newUser.id, token);
+  // const session = await createSessionInsecure(newUser.id, token);
 
   if (!session) {
     return NextResponse.json(

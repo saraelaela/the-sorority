@@ -9,7 +9,7 @@ import EventOverview from './EventOverview';
 type Props = {
   events: Event[];
   user?: User | null;
-  session?: Session;
+  session?: Session | null | undefined;
 };
 
 export default function DisplayEvents(props: Props) {
