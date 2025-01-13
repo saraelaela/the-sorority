@@ -2,7 +2,7 @@ import { config } from 'dotenv-safe';
 import postgres from 'postgres';
 
 export const postgresConfig = {
-  ssl: true,
+  ssl: false,
   transform: {
     ...postgres.camel,
     undefined: null,

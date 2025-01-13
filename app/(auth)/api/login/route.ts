@@ -8,7 +8,6 @@ import {
   type User,
 } from '../../../../database/users';
 import { loginSchema } from '../../../../migrations/00000-createTableUsers';
-import { prisma } from '../../../../src/lib/db';
 import { secureCookieOptions } from '../../../../util/cookies';
 
 export type LoginResponseBody =
@@ -43,11 +42,9 @@ export async function POST(
   }
 
   //3. verify user
-
   const userWithPasswordHash = await getUserWithPasswordHashInsecure(
     result.data.email,
   );
-
   if (!userWithPasswordHash) {
     return NextResponse.json(
       {

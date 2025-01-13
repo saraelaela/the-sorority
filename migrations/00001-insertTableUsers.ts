@@ -1,5 +1,4 @@
 import type { Sql } from 'postgres';
-import { sql } from '../database/connect';
 
 const users = [
   {

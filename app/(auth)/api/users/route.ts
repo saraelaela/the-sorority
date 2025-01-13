@@ -5,7 +5,6 @@ import {
   type User,
 } from '../../../../database/users';
 import { updateUserSchema } from '../../../../migrations/00000-createTableUsers';
-import { prisma } from '../../../../src/lib/db';
 
 export type EditUserResponseBody =
   | {
@@ -56,13 +55,7 @@ export async function PUT(
   console.log('the updatedUser', updatedUser); //  Error: Property 'id' does not exist on type 'RowList<UpdateUser[]>'.
 
   // You need to access the rows within:
-
-  const currentUser = await prisma.user.findUnique({
-    where: {
-      id: result.data.id,
-    },
-  });
-  // const currentUser = updatedUser.find((user) => user.id === result.data.id);
+  const currentUser = updatedUser.find((user) => user.id === result.data.id);
 
   if (!currentUser) {
     return NextResponse.json(

@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation';
 import { type Event, getEventsInsecure } from '../../../../database/events';
 import { getValidSessionToken } from '../../../../database/sessions';
 import { getUser, getUsersInsecure } from '../../../../database/users';
-import { prisma } from '../../../../src/lib/db';
 import eventStyles from '../../../events/page.module.scss';
 import AdminForm from './(components)/AdminForm';
 import DeleteEvents from './(components)/DeleteEvents';
@@ -16,8 +15,8 @@ export const metadata = {
 };
 
 export default async function AdminPage() {
-  // const events = await getEventsInsecure();
-  const events = await prisma.event.findMany();
+  const events = await getEventsInsecure();
+
   const usersTest = await getUsersInsecure();
   //1. Cookie exist
   console.log('usersTest', usersTest);

@@ -7,7 +7,6 @@ import {
   getEventInsecure,
 } from '../../../../database/events';
 import { eventSchema } from '../../../../migrations/00002-createTableEvents';
-import { prisma } from '../../../../src/lib/db';
 
 //1) defining typescript type:
 export type EventResponseBody =
@@ -20,7 +19,6 @@ export type EventResponseBody =
         hostedBy: Event['hostedBy'];
         eventImage: Event['eventImage'];
         eventCosts: Event['eventCosts'];
-        createdBy: Event['createdBy'];
       };
     }
   | {
@@ -45,18 +43,15 @@ export async function POST(
     );
   }
 
-  const newEvent = await prisma.event.create({
-    data: {
-      eventTitle: result.data.eventTitle,
-      eventDescription: result.data.eventDescription,
-      eventLocation: result.data.eventLocation,
-      eventDate: result.data.eventDate,
-      hostedBy: result.data.hostedBy,
-      eventImage: result.data.eventImage,
-      eventCosts: result.data.eventCosts,
-      createdBy: result.data.createdBy,
-    },
-  });
+  const newEvent = await createEventInsecure(
+    result.data.eventTitle,
+    result.data.eventDescription,
+    result.data.eventLocation,
+    result.data.eventDate,
+    result.data.hostedBy,
+    result.data.eventImage ?? '',
+    result.data.eventCosts,
+  );
 
   if (!newEvent) {
     return NextResponse.json(

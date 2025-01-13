@@ -9,13 +9,13 @@ export type Event = {
   eventLocation: string;
   eventDate: Date;
   hostedBy: string;
-  eventImage: string | null;
+  eventImage: string;
   eventCosts: string;
   createdBy: number;
 };
 
 export const getEventInsecure = cache(async (eventId: Event['id']) => {
-  const [event] = await sql<Event[]>`
+  const event = await sql<Event[]>`
     SELECT
       id,
       event_title,
@@ -27,7 +27,7 @@ export const getEventInsecure = cache(async (eventId: Event['id']) => {
       event_costs,
       created_by
     FROM
-      event
+      events
     WHERE
       id = ${eventId}
   `;
@@ -37,17 +37,9 @@ export const getEventInsecure = cache(async (eventId: Event['id']) => {
 export const getEventsInsecure = cache(async () => {
   const events = await sql<Event[]>`
     SELECT
-      id,
-      event_title,
-      event_description,
-      event_location,
-      event_date,
-      hosted_by,
-      event_image,
-      event_costs,
-      created_by
+      *
     FROM
-      event
+      events
     ORDER BY
       event_date ASC
   `;
@@ -67,7 +59,7 @@ export const createEventInsecure = cache(
   ) => {
     const [event] = await sql<Event[]>`
       INSERT INTO
-        event (
+        events (
           event_title,
           event_description,
           event_location,
@@ -87,15 +79,13 @@ export const createEventInsecure = cache(
           ${eventCosts}
         )
       RETURNING
-        id,
         event_title,
         event_description,
         event_location,
         event_date,
         hosted_by,
         event_image,
-        event_costs,
-        created_by
+        event_costs
     `;
 
     return event;
@@ -104,24 +94,18 @@ export const createEventInsecure = cache(
 
 export const deleteEventInsecure = cache(async (id: number) => {
   const [event] = await sql<Event[]>`
-    DELETE FROM event
+    DELETE FROM events
     WHERE
-      id = ${id}
+      events.id = ${id}
     RETURNING
-      id,
-      event_title,
-      event_description,
-      event_location,
-      event_date,
-      hosted_by,
-      event_image,
-      event_costs,
-      created_by
+      events.*
   `;
-
+  console.log('is event transferred:', event);
   if (!event) {
     throw new Error('Event not found');
   }
 
+  // returns only if event is deleted successfully
+  console.log('event successfully removed', event);
   return event;
 });

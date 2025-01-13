@@ -10,7 +10,6 @@ import {
   type User,
 } from '../../../../database/users';
 import { userSchema } from '../../../../migrations/00000-createTableUsers';
-import { prisma } from '../../../../src/lib/db';
 import { secureCookieOptions } from '../../../../util/cookies';
 
 export type RegisterResponseBody =
@@ -62,22 +61,13 @@ export async function POST(
   const passwordHash = await bcrypt.hash(result.data.password, 12);
 
   // 5. Save user info w/ passwordhash
-  const newUser = await prisma.user.create({
-    data: {
-      email: result.data.email,
-      passwordHash,
-      firstName: result.data.firstName,
-      lastName: result.data.lastName,
-    },
-  });
-
-  // const newUser = await createUserInsecure(
-  //   result.data.email,
-  //   passwordHash,
-  //   result.data.firstName,
-  //   result.data.lastName,
-  //   // result.data.isAdmin,
-  // );
+  const newUser = await createUserInsecure(
+    result.data.email,
+    passwordHash,
+    result.data.firstName,
+    result.data.lastName,
+    // result.data.isAdmin,
+  );
 
   if (!newUser) {
     return NextResponse.json(
