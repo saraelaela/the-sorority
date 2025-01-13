@@ -18,7 +18,7 @@ export default function Navigation(props: Props) {
     <>
       <div className={styles.navbarDesktop}>
         <Link href="/">Home</Link>
-        <Link href="/events">Events</Link>
+        {/* <Link href="/events">Events</Link> */}
         <Link href="/team">Team</Link>
         <Link href="/magazine">Magazin</Link>
         {props.user ? (
