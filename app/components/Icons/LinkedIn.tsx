@@ -13,7 +13,7 @@ export default function LinkedIn(props: Props) {
         style={{
           width: 'auto',
           height: props.height,
-          maxWidth: '26px',
+          maxWidth: '20px',
         }}
         viewBox="0 0 26 25"
         fill={props.color}

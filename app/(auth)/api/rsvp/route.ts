@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createUserRsvp } from '../../../../database/rsvp';
 import { type Rsvp, rsvpSchema } from '../../../../migrations/00006-rsvp';
+import { prisma } from '../../../../src/lib/db';
 
 export type RsvpResponseBody =
   | {
@@ -17,8 +18,6 @@ export type RsvpResponseBody =
 export async function POST(
   request: Request,
 ): Promise<NextResponse<RsvpResponseBody>> {
-  // Task: Implement the user login workflow
-
   // 1. Get the user data from the request
   const requestBody = await request.json();
 
@@ -34,11 +33,19 @@ export async function POST(
     );
   }
 
-  const newRsvp = await createUserRsvp(
-    result.data.userId,
-    result.data.eventId,
-    result.data.rsvpStatus,
-  );
+  const newRsvp = await prisma.rsvp.create({
+    data: {
+      userId: result.data.userId,
+      eventId: result.data.eventId,
+      rsvpStatus: result.data.rsvpStatus,
+    },
+  });
+
+  // const newRsvp = await createUserRsvp(
+  //   result.data.userId,
+  //   result.data.eventId,
+  //   result.data.rsvpStatus,
+  // );
   if (!newRsvp) {
     return NextResponse.json(
       {

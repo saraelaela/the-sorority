@@ -9,7 +9,7 @@ export type Event = {
   eventLocation: string;
   eventDate: Date;
   hostedBy: string;
-  eventImage: string;
+  eventImage: string | null;
   eventCosts: string;
   createdBy: number;
 };

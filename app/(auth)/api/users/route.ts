@@ -5,6 +5,7 @@ import {
   type User,
 } from '../../../../database/users';
 import { updateUserSchema } from '../../../../migrations/00000-createTableUsers';
+import { prisma } from '../../../../src/lib/db';
 
 export type EditUserResponseBody =
   | {
@@ -56,8 +57,12 @@ export async function PUT(
 
   // You need to access the rows within:
 
-
-  const currentUser = updatedUser.find((user) => user.id === result.data.id);
+  const currentUser = await prisma.user.findUnique({
+    where: {
+      id: result.data.id,
+    },
+  });
+  // const currentUser = updatedUser.find((user) => user.id === result.data.id);
 
   if (!currentUser) {
     return NextResponse.json(
@@ -81,7 +86,8 @@ export async function PUT(
     );
   }
 
-  return NextResponse.json({ id: currentUser.id,
+  return NextResponse.json({
+    id: currentUser.id,
     firstName: currentUser.firstName,
     lastName: currentUser.lastName,
     occupation: currentUser.occupation || null,
