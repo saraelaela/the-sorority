@@ -1,3 +1,51 @@
+.h1 {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: var(--display-font);
+  font-size: var(--h1-size);
+  line-height: 0.9;
+  text-transform: uppercase;
+  max-width: 100%;
+  color: var(--sorority-occer);
+}
+
+.animation {
+  display: flex;
+  flex-direction: column;
+  animation: 45s linear 1s infinite running slidein;
+  /* margin: 0 auto; */
+}
+
+/* reverse both */
+
+@keyframes slidein {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.temporaryWrapper {
+  padding: 5rem 3rem 3rem 2rem;
+  background-color: var(--sorority-grey);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  overflow: scroll;
+}
+
+.temporaryContainer {
+  display: flex;
+  gap: 7rem;
+  > p {
+    width: 30%;
+  }
+}
+
 .eventWrapper {
   position: absolute;
   overflow: hidden;

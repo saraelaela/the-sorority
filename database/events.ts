@@ -15,7 +15,7 @@ export type Event = {
 };
 
 export const getEventInsecure = cache(async (eventId: Event['id']) => {
-  const event = await sql<Event[]>`
+  const [event] = await sql<Event[]>`
     SELECT
       id,
       event_title,
@@ -27,7 +27,7 @@ export const getEventInsecure = cache(async (eventId: Event['id']) => {
       event_costs,
       created_by
     FROM
-      events
+      event
     WHERE
       id = ${eventId}
   `;
@@ -37,9 +37,17 @@ export const getEventInsecure = cache(async (eventId: Event['id']) => {
 export const getEventsInsecure = cache(async () => {
   const events = await sql<Event[]>`
     SELECT
-      *
+      id,
+      event_title,
+      event_description,
+      event_location,
+      event_date,
+      hosted_by,
+      event_image,
+      event_costs,
+      created_by
     FROM
-      events
+      event
     ORDER BY
       event_date ASC
   `;
@@ -59,7 +67,7 @@ export const createEventInsecure = cache(
   ) => {
     const [event] = await sql<Event[]>`
       INSERT INTO
-        events (
+        event (
           event_title,
           event_description,
           event_location,
@@ -79,13 +87,15 @@ export const createEventInsecure = cache(
           ${eventCosts}
         )
       RETURNING
+        id,
         event_title,
         event_description,
         event_location,
         event_date,
         hosted_by,
         event_image,
-        event_costs
+        event_costs,
+        created_by
     `;
 
     return event;
@@ -94,18 +104,24 @@ export const createEventInsecure = cache(
 
 export const deleteEventInsecure = cache(async (id: number) => {
   const [event] = await sql<Event[]>`
-    DELETE FROM events
+    DELETE FROM event
     WHERE
-      events.id = ${id}
+      id = ${id}
     RETURNING
-      events.*
+      id,
+      event_title,
+      event_description,
+      event_location,
+      event_date,
+      hosted_by,
+      event_image,
+      event_costs,
+      created_by
   `;
-  console.log('is event transferred:', event);
+
   if (!event) {
     throw new Error('Event not found');
   }
 
-  // returns only if event is deleted successfully
-  console.log('event successfully removed', event);
   return event;
 });
