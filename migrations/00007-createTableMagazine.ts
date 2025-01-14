@@ -21,7 +21,7 @@ export async function up(sql: Sql) {
       intro text,
       bodytext text,
       published date NOT NULL,
-      blog_post_image varchar(500),
+      blog_post_image varchar(500)
     )
   `;
 }

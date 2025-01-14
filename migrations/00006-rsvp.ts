@@ -13,14 +13,15 @@ export type Rsvp = {
 
 export async function up(sql: Sql) {
   await sql`
-    CREATE TABLE payment (
+    CREATE TABLE rsvp (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-      rsvp_status boolean user_id integer NOT NULL REFERENCES users (id) ON DELETE cascade,
-      event_id integer NOT NULL REFERENCES events (id) ON DELETE cascade,
+      rsvp_status boolean NOT NULL,
+      user_id integer NOT NULL REFERENCES users (id) ON DELETE cascade,
+      event_id integer NOT NULL REFERENCES events (id) ON DELETE cascade
     )
   `;
 } //perform operation
 
 export async function down(sql: Sql) {
-  await sql` DROP TABLE payment `;
+  await sql` DROP TABLE rsvp `;
 } // reverse operation
