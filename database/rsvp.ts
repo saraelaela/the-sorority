@@ -1,10 +1,11 @@
 import { cache } from 'react';
-import type { Rsvp } from '../migrations/00006-rsvp';
+import type { Rsvp, UserRsvp } from '../migrations/00006-rsvp';
 import { sql } from './connect';
 
 export const getAllRsvpInsecure = cache(async () => {
   const rsvp = await sql<Rsvp[]>`
     SELECT
+      rsvp.id,
       rsvp.rsvp_status,
       users.id AS user_id,
       users.first_name AS first_name,
@@ -23,7 +24,7 @@ export const getAllRsvpInsecure = cache(async () => {
 
 // sort rsvp after User
 export const getUserRsvp = cache(async (id: Rsvp['id']) => {
-  const [rsvp] = await sql<Rsvp[]>`
+  const [rsvp] = await sql<UserRsvp[]>`
     SELECT
       user_id,
       event_id,
@@ -40,7 +41,7 @@ export const createUserRsvp = cache(
     eventId: Rsvp['eventId'],
     rsvpStatus: Rsvp['rsvpStatus'],
   ) => {
-    const [rsvp] = await sql<Rsvp[]>`
+    const [rsvp] = await sql<UserRsvp[]>`
       INSERT INTO
         rsvp (
           user_id,

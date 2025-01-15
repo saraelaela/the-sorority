@@ -2,16 +2,36 @@ import { cache } from 'react';
 import type { Session } from '../migrations/00004-sessions';
 import { sql } from './connect';
 
+// Expected: {
+// id: number;
+// eventTitle: null | string;
+// eventDescription: null | string;
+// eventLocation: null | string;
+// eventDate: Date;
+// hostedBy: null | string;
+// eventImage: null | string;
+// eventCosts: null | string;
+// createdBy: null | number }[]
+
 export type Event = {
   id: number;
-  eventTitle: string;
-  eventDescription: string;
-  eventLocation: string;
+  eventTitle: string | null;
+  eventDescription: string | null;
+  eventLocation: string | null;
   eventDate: Date;
-  hostedBy: string;
-  eventImage: string;
-  eventCosts: string;
-  createdBy: number;
+  hostedBy: string | null;
+  eventImage: string | null;
+  eventCosts: string | null;
+  createdBy: number | null;
+};
+export type CreateEvent = {
+  eventTitle: null | string;
+  eventDescription: null | string;
+  eventLocation: null | string;
+  eventDate: Date;
+  hostedBy: null | string;
+  eventImage: null | string;
+  eventCosts: null | string;
 };
 
 export const getEventInsecure = cache(async (eventId: Event['id']) => {
@@ -47,6 +67,11 @@ export const getEventsInsecure = cache(async () => {
   return events;
 });
 
+//	Expected: { id: number;
+// eventTitle: null | string;
+// eventDescription: null | string;
+// eventLocation: null | string; eventDate: Date; hostedBy: null | string; eventImage: null | string; eventCosts: null | string; createdBy: null | number }[]
+
 export const createEventInsecure = cache(
   async (
     eventTitle: Event['eventTitle'],
@@ -57,7 +82,7 @@ export const createEventInsecure = cache(
     eventImage: Event['eventImage'],
     eventCosts: Event['eventCosts'],
   ) => {
-    const [event] = await sql<Event[]>`
+    const [event] = await sql<CreateEvent[]>`
       INSERT INTO
         events (
           event_title,

@@ -50,9 +50,6 @@ importers:
       esm:
         specifier: ^3.2.25
         version: 3.2.25
-      final-project-sorority:
-        specifier: 'link:'
-        version: 'link:'
       graphql:
         specifier: ^16.9.0
         version: 16.9.0

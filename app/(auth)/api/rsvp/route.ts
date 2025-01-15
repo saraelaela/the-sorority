@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import { createUserRsvp } from '../../../../database/rsvp';
-import { type Rsvp } from '../../../../migrations/00006-rsvp';
+import { rsvpSchema, type UserRsvp } from '../../../../migrations/00006-rsvp';
 
 export type RsvpResponseBody =
   | {
       rsvp: {
-        userId: Rsvp['userId'];
-        eventId: Rsvp['eventId'];
-        rsvpStatus: Rsvp['rsvpStatus'];
+        userId: UserRsvp['userId'];
+        eventId: UserRsvp['eventId'];
+        rsvpStatus: UserRsvp['rsvpStatus'];
       };
     }
   | {
@@ -20,7 +20,12 @@ export async function POST(
   // Task: Implement the user login workflow
 
   // 1. Get the user data from the request
-  const result = await request.json();
+  const requestBody = await request.json();
+  {
+    console.log('datacheck', requestBody);
+  }
+
+  const result = rsvpSchema.safeParse(requestBody);
 
   if (!result.success) {
     return NextResponse.json(

@@ -1,14 +1,27 @@
 import type { Sql } from 'postgres';
 import { z } from 'zod';
+import type { User } from '../database/users';
+
+export const rsvpSchema = z.object({
+  userId: z.number(),
+  eventId: z.number(),
+  rsvpStatus: z.boolean(),
+});
 
 export type Rsvp = {
   id: number;
   rsvpStatus: boolean;
   userId: number;
-  eventId: string;
-  eventTitle: string;
-  eventDate: string;
-  eventLocation: string;
+  firstName: string;
+  eventId: number;
+  eventTitle: string | null;
+  eventDate: Date;
+  eventLocation: string | null;
+};
+export type UserRsvp = {
+  userId: number;
+  eventId: number;
+  rsvpStatus: boolean;
 };
 
 export async function up(sql: Sql) {

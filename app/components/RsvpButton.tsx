@@ -1,10 +1,7 @@
-import { NextResponse } from 'next/server';
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import buttonStyles from '../(auth)/admin/dashboard/(components)/Buttons.module.scss';
 import type { RsvpResponseBody } from '../(auth)/api/rsvp/route';
-import { getAllRsvpInsecure } from '../../database/rsvp';
-import type { User } from '../../database/users';
 import styles from '../page.module.scss';
 
 type Props = {
@@ -53,6 +50,9 @@ export default function RsvpButton(props: Props) {
           // Parse response
           const data: RsvpResponseBody = await response.json();
 
+          {
+            console.log('datacheck', data);
+          }
           // Check for errors in response
           if ('errors' in data) {
             setErrors(data.errors);
