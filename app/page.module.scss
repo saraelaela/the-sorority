@@ -2,6 +2,14 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+
+  a {
+    text-decoration: none;
+    color: black;
+    &:hover {
+      color: var(--sorority-brown);
+    }
+  }
 }
 
 .main {
@@ -90,9 +98,7 @@
   border: 1px solid black;
   border-radius: 30vw;
 }
-/* .buttonContainer{
-  wi
-} */
+
 
 .button {
   display: flex;
@@ -101,7 +107,7 @@
   border: 1px solid black;
   border-radius: 30vw;
   background-color: transparent;
-  /* width: 30%; */
+
 }
 
 .sectionContainer {
@@ -109,9 +115,7 @@
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   text-transform: uppercase;
-  /* .h1 {
-    font-weight: 150;
-  } */
+
 }
 
 .sectionTitle {
