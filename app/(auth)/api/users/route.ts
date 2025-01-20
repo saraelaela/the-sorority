@@ -25,8 +25,6 @@ export async function PUT(
 ): Promise<NextResponse<EditUserResponseBody>> {
   // Task: Implement the user login workflow
 
-  console.log('hello world');
-
   // 1. Get the user data from the request
   const requestBody = await request.json();
   console.log('error requestBody', JSON.stringify(requestBody));

@@ -95,7 +95,7 @@ export default function LoginForm(props: Props) {
                   <path
                     d="M0 18.5H38M22.5 2L39 18.5L22.5 35"
                     stroke="black"
-                    stroke-width="4"
+                    strokeWidth="4"
                   />
                 </svg>
               </div>

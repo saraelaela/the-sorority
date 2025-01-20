@@ -4,9 +4,13 @@ import {
   createEventInsecure,
   deleteEventInsecure,
   type Event,
-  getEventInsecure,
+  type UpdateEvent,
+  updateEventInsecure,
 } from '../../../../database/events';
-import { eventSchema } from '../../../../migrations/00002-createTableEvents';
+import {
+  eventSchema,
+  updateEventSchema,
+} from '../../../../migrations/00002-createTableEvents';
 
 //1) defining typescript type:
 export type EventResponseBody =
@@ -115,52 +119,3 @@ export async function DELETE(
     { status: 200 }, // OK
   );
 }
-
-// export async function PUT(
-//   request: NextRequest,
-//   { params }: UserParams,
-// ): Promise<NextResponse<UserResponseBodyPut>> {
-//   const requestBody = await request.json();
-
-//   const result = userSchema.safeParse(requestBody);
-
-//   if (!result.success) {
-//     return NextResponse.json(
-//       {
-//         error: "Request doesn't contain user object",
-//         errorIssues: result.error.issues,
-//       },
-//       {
-//         status: 400,
-//       },
-//     );
-//   }
-
-//   const sessionTokenCookie = (await cookies()).get('sessionToken');
-
-//   const updatedUser =
-//     sessionTokenCookie &&
-//     (await updateUserInsecure(sessionTokenCookie.value, {
-//       firstName: result.data.firstName,
-//       lastName: result.data.lastName,
-//       occupation: result.data.occupation || null,
-//       introText: result.data.introText || null,
-//       profilePicture: result.data.profilePicture || null,
-//       linkedin: result.data.linkedin || null,
-//     }));
-
-//   if (!updatedUser) {
-//     return NextResponse.json(
-//       {
-//         error: 'User not found or access denied updating user',
-//       },
-//       {
-//         status: 500,
-//       },
-//     );
-//   }
-
-//   return NextResponse.json({
-//     user: updatedUser,
-//   });
-// }

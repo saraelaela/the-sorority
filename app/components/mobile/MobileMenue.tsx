@@ -62,7 +62,7 @@ export default function MobileMenue(props: Props) {
               <path
                 d="M0 18.5H38M22.5 2L39 18.5L22.5 35"
                 stroke="black"
-                stroke-width="2"
+                strokeWidth="2"
               />
             </svg>
             <Link
@@ -85,7 +85,7 @@ export default function MobileMenue(props: Props) {
               <path
                 d="M0 18.5H38M22.5 2L39 18.5L22.5 35"
                 stroke="black"
-                stroke-width="2"
+                strokeWidth="2"
               />
             </svg>
             <Link
@@ -108,7 +108,7 @@ export default function MobileMenue(props: Props) {
               <path
                 d="M0 18.5H38M22.5 2L39 18.5L22.5 35"
                 stroke="black"
-                stroke-width="2"
+                strokeWidth="2"
               />
             </svg>
             <Link

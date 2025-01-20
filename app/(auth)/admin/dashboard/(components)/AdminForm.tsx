@@ -5,14 +5,22 @@ import {
   type CloudinaryUploadWidgetResults,
 } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import buttonStyles from '../(components)/Buttons.module.scss';
 import ErrorMessage from '../../../../(errormessage)/ErrorMessage';
+import type { Event } from '../../../../../database/events';
 import styles from '../AdminPage.module.scss';
 
-type Props = { returnTo?: string | string[] };
+type Props = {
+  returnTo?: string | string[];
+  events: Event[];
+  setShowForm: (Status: boolean) => void;
+  showForm: boolean;
+  selectedEvent?: Event | null;
+};
 
 export default function AdminEventForm(props: Props) {
+  const isEditing = !!props.selectedEvent;
   const [eventTitle, setEventTitle] = useState('');
   const [eventDescription, setEventDescription] = useState('');
   const [eventLocation, setEventLocation] = useState('');
@@ -22,9 +30,9 @@ export default function AdminEventForm(props: Props) {
   const [hostedBy, setHostedBy] = useState('');
   const [eventImage, setEventImage] = useState('');
   const [eventCosts, setEventCosts] = useState('');
-  // const [createdBy, setCreatedBy] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
+  const [apiFetch, setApiFetch] = useState('');
   function resetFormStates() {
     setEventTitle('');
     setEventDescription('');
@@ -34,9 +42,19 @@ export default function AdminEventForm(props: Props) {
     setEventCosts('');
   }
 
-  // Function to handle form submission and API call (moving data from one place to anotgher)
+  useEffect(() => {
+    if (isEditing) {
+      setEventTitle(props.selectedEvent?.eventTitle || '');
+      setEventDescription(props.selectedEvent?.eventDescription || '');
+      setEventLocation(props.selectedEvent?.eventLocation || '');
+      // setEventDate(props.selectedEvent.eventDate).toISOString().split('T')[0] || '');
+      setHostedBy(props.selectedEvent?.hostedBy || '');
+      setEventImage(props.selectedEvent?.eventImage || '');
+      setEventCosts(props.selectedEvent?.eventCosts || '');
+    }
+  }, [isEditing, props.selectedEvent]);
+
   async function handleEventCreation() {
-    console.log('eventImage before sending:', eventImage);
     const response = await fetch('/api/events', {
       method: 'POST',
       headers: {
@@ -50,8 +68,34 @@ export default function AdminEventForm(props: Props) {
         hostedBy,
         eventImage,
         eventCosts,
-        // eventCosts: parseFloat(eventCosts),
-        // createdBy,
+      }),
+    });
+
+    const data = await response.json();
+
+    if ('errors' in data) {
+      setErrors(data.errors);
+      return;
+    }
+
+    router.push(`/admin/dashboard`);
+    router.refresh();
+  }
+
+  async function editEvent() {
+    const response = await fetch(`/api/events/${props.selectedEvent?.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        eventTitle,
+        eventDescription,
+        eventLocation,
+        eventDate,
+        hostedBy,
+        eventImage,
+        eventCosts,
       }),
     });
 
@@ -70,18 +114,18 @@ export default function AdminEventForm(props: Props) {
     <div className={styles.eventCard}>
       <div className={styles.singleEventContainer}>
         <div className={styles.h4}>
-          <h4> New Event</h4>
+          <h4>{isEditing ? 'Edit Event' : 'Create Events'}</h4>
         </div>
 
         <div className={styles.formContainer}>
           <form
-            onSubmit={async (event) => {
+            onSubmit={(event) => {
               event.preventDefault();
             }}
             className={styles.form}
           >
             <div className={styles.formItem}>
-              <label htmlFor={'Event Title'} className={styles.label}>
+              <label htmlFor="Event Title" className={styles.label}>
                 Event Title
               </label>
               <input
@@ -92,7 +136,7 @@ export default function AdminEventForm(props: Props) {
               />
             </div>
             <div className={styles.formItem}>
-              <label htmlFor={'Event Description'} className={styles.label}>
+              <label htmlFor="Event Description" className={styles.label}>
                 Event Description
               </label>{' '}
               <textarea
@@ -105,7 +149,7 @@ export default function AdminEventForm(props: Props) {
             </div>
 
             <div className={styles.formItem}>
-              <label htmlFor={'Event Location'} className={styles.label}>
+              <label htmlFor="Event Location" className={styles.label}>
                 Event Location
               </label>{' '}
               <input
@@ -117,9 +161,8 @@ export default function AdminEventForm(props: Props) {
                 }
               />
             </div>
-            {/* <img src="https://res.cloudinary.com/drhdyavyq/image/upload/v1732025980/irmbearkwyu56zq4dknj.png" /> */}
             <div className={styles.formItem}>
-              <label htmlFor={'Event Date'} className={styles.label}>
+              <label htmlFor="Event Date" className={styles.label}>
                 Event Date
               </label>{' '}
               <input
@@ -131,7 +174,7 @@ export default function AdminEventForm(props: Props) {
             </div>
 
             <div className={styles.formItem}>
-              <label htmlFor={'Hosted By'} className={styles.label}>
+              <label htmlFor="Hosted By" className={styles.label}>
                 Hosted By
               </label>
               <input
@@ -143,7 +186,7 @@ export default function AdminEventForm(props: Props) {
             </div>
 
             <div className={styles.formItem}>
-              <label htmlFor={'Event Costs'} className={styles.label}>
+              <label htmlFor="Event Costs" className={styles.label}>
                 Event Costs
               </label>{' '}
               <input
@@ -185,16 +228,28 @@ export default function AdminEventForm(props: Props) {
               </CldUploadWidget>
             </div>
           </form>
-          <button
-            onClick={async () => {
-              await handleEventCreation();
-              resetFormStates();
-            }}
-            className={buttonStyles.createButton}
-          >
-            <div>↪</div>
-            <div>Create Event</div>
-          </button>
+
+          {isEditing ? (
+            <button
+              onClick={async () => {
+                await editEvent();
+                resetFormStates();
+              }}
+              className={buttonStyles.createButton}
+            >
+              <div>↪</div>
+              <div>Save Changes</div>
+            </button>
+          ) : (
+            <button
+              onClick={async () => {
+                await handleEventCreation();
+                resetFormStates();
+              }}
+            >
+              Create Event
+            </button>
+          )}
         </div>
       </div>
     </div>

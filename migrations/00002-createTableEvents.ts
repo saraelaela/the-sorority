@@ -12,6 +12,17 @@ export const eventSchema = z.object({
   eventCosts: z.string(),
 });
 
+export const updateEventSchema = z.object({
+  id: z.number(),
+  eventTitle: z.string().min(1, 'Event title is required'),
+  eventDescription: z.string().min(1, 'Event description is required'),
+  eventLocation: z.string().min(1, 'Event location is required'),
+  eventDate: z.coerce.date(),
+  hostedBy: z.string().min(1, 'Host information is required'),
+  eventImage: z.string().url().optional(),
+  eventCosts: z.string(),
+});
+
 export type Event = {
   id: number;
   eventTitle: string;
