@@ -1,6 +1,5 @@
 import type { Sql } from 'postgres';
 import { z } from 'zod';
-import type { User } from '../database/users';
 
 export const rsvpSchema = z.object({
   userId: z.number(),
@@ -42,7 +41,8 @@ export async function up(sql: Sql) {
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       rsvp_status boolean NOT NULL,
       user_id integer NOT NULL REFERENCES users (id) ON DELETE cascade,
-      event_id integer NOT NULL REFERENCES events (id) ON DELETE cascade
+      event_id integer NOT NULL REFERENCES events (id) ON DELETE cascade,
+      UNIQUE (user_id, event_id)
     )
   `;
 } //perform operation

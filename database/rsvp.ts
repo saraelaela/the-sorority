@@ -4,7 +4,7 @@ import { sql } from './connect';
 
 export const getAllRsvpInsecure = cache(async () => {
   const rsvp = await sql<Rsvp[]>`
-    SELECT
+    SELECT DISTINCT
       rsvp.id,
       rsvp.rsvp_status,
       users.id AS user_id,
@@ -24,7 +24,7 @@ export const getAllRsvpInsecure = cache(async () => {
 
 export const getEventRsvp = cache(async () => {
   const rsvp = await sql<EventRsvp[]>`
-    SELECT
+    SELECT DISTINCT
       rsvp.id,
       rsvp.rsvp_status,
       users.id AS user_id,
@@ -43,7 +43,6 @@ export const getEventRsvp = cache(async () => {
   console.log('rsvp with user and event', rsvp);
   return rsvp;
 });
-
 // sort rsvp after User
 export const getUserRsvp = cache(async (id: Rsvp['id']) => {
   const [rsvp] = await sql<UserRsvp[]>`

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import buttonStyles from '../(auth)/admin/dashboard/(components)/Buttons.module.scss';
 import type { RsvpResponseBody } from '../(auth)/api/rsvp/route';
+import { createUserRsvp } from '../../database/rsvp';
 import styles from '../page.module.scss';
 
 type Props = {
   userId?: number;
-  eventDetails: number;
+  eventDetails?: number;
   value: string;
 };
 
@@ -43,7 +44,7 @@ export default function RsvpButton(props: Props) {
             body: JSON.stringify({
               userId,
               eventId,
-              rsvpStatus,
+              rsvpStatus: true,
             }),
           });
 
@@ -57,6 +58,7 @@ export default function RsvpButton(props: Props) {
           if ('errors' in data) {
             setErrors(data.errors);
           }
+
           //3. Check if user exists
           // const allRsvp = await getAllRsvpInsecure();
           // if (allRsvp) {

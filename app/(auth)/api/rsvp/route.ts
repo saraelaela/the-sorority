@@ -55,7 +55,7 @@ export async function POST(
       },
     );
   }
-
+  console.log('newRsvp', newRsvp);
   return NextResponse.json({
     rsvp: newRsvp,
   });

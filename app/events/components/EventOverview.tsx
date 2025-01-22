@@ -83,11 +83,15 @@ export default function EventOverview(props: Props) {
 
           {props.session && props.user ? (
             <div>
-              <RsvpButton
-                value={'RSVP'}
-                eventDetails={props.event.id}
-                userId={props.user.id}
-              />{' '}
+              {props.rsvps?.some((rsvp) => rsvp.userId === props.user?.id) ? (
+                <div>You are registered for this Event, yay!</div>
+              ) : (
+                <RsvpButton
+                  value={'RSVP'}
+                  eventDetails={props.event?.id}
+                  userId={props.user?.id}
+                />
+              )}
               <div className={styles.attendeeContainer}>
                 Meet {firstAttendee} & many others at this Event!
                 <div className={styles.attendeeGallery}>
