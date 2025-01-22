@@ -135,29 +135,29 @@ export default function EventOverview(props: Props) {
                   value={'Interested? Become a Member!'}
                 />
               </Link>
-              {props.rsvps?.map((rsvp) => {
-                return (
-                  <div
-                    className={styles.atendeeGallery}
-                    key={`rsvp-${rsvp.id}`}
-                  >
+              <div className={styles.attendeeContainer}>
+                Meet {firstAttendee} & many others at this Event!
+                <div className={styles.attendeeGallery}>
+                  {props.rsvps?.map((rsvp, index: number) => (
                     <Image
-                      className={styles.atendeeImage}
+                      key={`rsvp-${rsvp.id}`}
+                      className={styles.attendeeImage}
                       src={
                         rsvp.profilePicture || '/images/image-placeholder.png'
                       }
                       style={{
-                        width: '10%',
+                        width: '7%',
                         height: 'auto',
                         borderRadius: '30px',
+                        zIndex: props.rsvps!.length - index,
                       }}
                       width={50}
                       height={50}
                       alt="Mitglieder des Sorority-Vorstands"
                     />
-                  </div>
-                );
-              })}
+                  ))}
+                </div>
+              </div>
             </>
           )}
         </div>
