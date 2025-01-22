@@ -25,18 +25,20 @@ export default async function UserEventRsvp(props: Props) {
               props.userRsvp.map((rsvp) => {
                 return (
                   <div
+                    className={styles.eventListContainer}
                     key={`events-${rsvp.id}`}
-                    className={styles.eventListItem}
                   >
-                    <div className={styles.eventDate}>
-                      {new Date(rsvp.eventDate).toLocaleDateString('de-DE')}
-                    </div>
-                    <div className={styles.eventDetails}>
-                      <div className={styles.eventTags}>
-                        <div>10.30 AM</div>
-                        <div>{rsvp.eventLocation}</div>
+                    <div className={styles.eventListItem}>
+                      <div className={styles.eventDate}>
+                        {new Date(rsvp.eventDate).toLocaleDateString('de-DE')}
                       </div>
-                      <h4 className={styles.h4}>{rsvp.eventTitle}</h4>
+                      <div className={styles.eventDetails}>
+                        <div className={styles.eventTags}>
+                          <div>10.30 AM</div>
+                          <div>{rsvp.eventLocation}</div>
+                        </div>
+                        <h4 className={styles.h4}>{rsvp.eventTitle}</h4>
+                      </div>
                     </div>
                   </div>
                 );

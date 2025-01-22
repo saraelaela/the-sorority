@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import type { Event } from '../../../database/events';
 import type { User } from '../../../database/users';
 import type { Session } from '../../../migrations/00004-sessions';
+import type { EventRsvp, Rsvp } from '../../../migrations/00006-rsvp';
 import styles from '../page.module.scss';
 import EventOverview from './EventOverview';
 
@@ -10,6 +11,7 @@ type Props = {
   events: Event[];
   user?: User | null;
   session?: Session;
+  rsvps?: EventRsvp[];
 };
 
 export default function DisplayEvents(props: Props) {
@@ -30,9 +32,8 @@ export default function DisplayEvents(props: Props) {
     };
   }, []);
 
-  console.log('mobileEvent', mobileEvent);
-  console.log('screenwidth', screenWidth);
   return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {screenWidth > 800 ? (
         <div className={styles.eventWrapper}>
@@ -65,6 +66,7 @@ export default function DisplayEvents(props: Props) {
             })}
           </div>
           <EventOverview
+            rsvps={props.rsvps}
             session={props.session}
             event={selectedEvent}
             user={props.user ?? null}
@@ -107,6 +109,7 @@ export default function DisplayEvents(props: Props) {
           {mobileEvent && (
             <div className={styles.eventOverviewContainer}>
               <EventOverview
+                rsvps={props.rsvps}
                 session={props.session}
                 event={selectedEvent}
                 user={props.user ?? null}

@@ -171,6 +171,22 @@
   display: none;
 }
 
+.attendeeContainer {
+  padding-top: 1rem;
+}
+
+.attendeeGallery {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  flex-wrap: wrap;
+  .attendeeImage {
+    border: 2px solid var(--sorority-pink);
+    margin-right: -0.5rem;
+  }
+}
+
 @media only screen and (max-width: 800px) {
   .eventWrapper {
     display: block;

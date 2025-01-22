@@ -1,10 +1,11 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import { type Event, getEventsInsecure } from '../../../database/events';
+import React from 'react';
+import { type Event } from '../../../database/events';
 import type { User } from '../../../database/users';
 import type { Session } from '../../../migrations/00004-sessions';
+import type { EventRsvp } from '../../../migrations/00006-rsvp';
 import Button from '../../components/Button';
 import RsvpButton from '../../components/RsvpButton';
 import Tags from '../../components/Tag';
@@ -16,9 +17,12 @@ type Props = {
   session: Session | undefined;
   mobileEvent: boolean;
   setMobileEvent: (value: boolean) => void;
+  rsvps?: EventRsvp[];
 };
 
 export default function EventOverview(props: Props) {
+  console.log('RsvpList:', props.rsvps);
+  const firstAttendee = props.rsvps?.[0]?.firstName;
   if (props.event) {
     return (
       <div className={styles.eventCard}>
@@ -78,33 +82,83 @@ export default function EventOverview(props: Props) {
           <p>{props.event.eventDescription}</p>
 
           {props.session && props.user ? (
-            <RsvpButton
-              value={'RSVP'}
-              eventDetails={props.event.id}
-              userId={props.user.id}
-            />
-          ) : (
-            <Link href={'/register'}>
-              <Button
-                url={'/register'}
-                icon={
-                  <svg
-                    width="10.5"
-                    height="9"
-                    viewBox="0 0 42 37"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                  >
-                    <path
-                      d="M0 18.5H38M22.5 2L39 18.5L22.5 35"
-                      stroke="#6F28E3"
-                      strokeWidth="4"
+            <div>
+              <RsvpButton
+                value={'RSVP'}
+                eventDetails={props.event.id}
+                userId={props.user.id}
+              />{' '}
+              <div className={styles.attendeeContainer}>
+                Meet {firstAttendee} & many others at this Event!
+                <div className={styles.attendeeGallery}>
+                  {props.rsvps?.map((rsvp, index: number) => (
+                    <Image
+                      key={`rsvp-${rsvp.id}`}
+                      className={styles.attendeeImage}
+                      src={
+                        rsvp.profilePicture || '/images/image-placeholder.png'
+                      }
+                      style={{
+                        width: '7%',
+                        height: 'auto',
+                        borderRadius: '30px',
+                        zIndex: props.rsvps!.length - index,
+                      }}
+                      width={50}
+                      height={50}
+                      alt="Mitglieder des Sorority-Vorstands"
                     />
-                  </svg>
-                }
-                value={'Interested? Become a Member!'}
-              />
-            </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <Link href={'/register'}>
+                <Button
+                  url={'/register'}
+                  icon={
+                    <svg
+                      width="10.5"
+                      height="9"
+                      viewBox="0 0 42 37"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                    >
+                      <path
+                        d="M0 18.5H38M22.5 2L39 18.5L22.5 35"
+                        stroke="#6F28E3"
+                        strokeWidth="4"
+                      />
+                    </svg>
+                  }
+                  value={'Interested? Become a Member!'}
+                />
+              </Link>
+              {props.rsvps?.map((rsvp) => {
+                return (
+                  <div
+                    className={styles.atendeeGallery}
+                    key={`rsvp-${rsvp.id}`}
+                  >
+                    <Image
+                      className={styles.atendeeImage}
+                      src={
+                        rsvp.profilePicture || '/images/image-placeholder.png'
+                      }
+                      style={{
+                        width: '10%',
+                        height: 'auto',
+                        borderRadius: '30px',
+                      }}
+                      width={50}
+                      height={50}
+                      alt="Mitglieder des Sorority-Vorstands"
+                    />
+                  </div>
+                );
+              })}
+            </>
           )}
         </div>
       </div>

@@ -18,6 +18,18 @@ export type Rsvp = {
   eventDate: Date;
   eventLocation: string | null;
 };
+export type EventRsvp = {
+  id: number;
+  rsvpStatus: boolean;
+  userId: number;
+  firstName: string;
+  lastName: string;
+  profilePicture: string | null;
+  eventId: number;
+  eventTitle: string | null;
+  eventDate: Date;
+  eventLocation: string | null;
+};
 export type UserRsvp = {
   userId: number;
   eventId: number;
