@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getEventsInsecure } from '../../../../database/events';
+import { getEventRsvp, getUserRsvp } from '../../../../database/rsvp';
 import { getValidSessionToken } from '../../../../database/sessions';
 import { getUser, getUsersInsecure } from '../../../../database/users';
 import EventComponent from './(components)/EventComponent';
@@ -29,5 +30,15 @@ export default async function AdminPage() {
   }
 
   const user = sessionTokenCookie && (await getUser(sessionTokenCookie?.value));
+
+  if (!user) {
+    redirect('/login?returnTo=/admin/dashboard');
+  }
+
+  const rsvps = await getUserRsvp(user.id);
+  console.log('rsvps check', rsvps);
+  // if (!rsvps) {
+  //   return 'no userRSVP';
+  // }
   return <EventComponent events={events} />;
 }

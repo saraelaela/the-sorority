@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import buttonStyles from '../../../(auth)/admin/dashboard/(components)/Buttons.module.scss';
 import type { User } from '../../../../database/users';
-import Button from '../../../components/Button';
 import UserCard from '../../../components/UserCard';
 import styles from '../profile.module.scss';
 import UserForm from './UserForm';

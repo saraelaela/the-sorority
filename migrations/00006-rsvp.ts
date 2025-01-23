@@ -29,10 +29,17 @@ export type EventRsvp = {
   eventDate: Date;
   eventLocation: string | null;
 };
-export type UserRsvp = {
+export type CreateUserRsvp = {
   userId: number;
   eventId: number;
   rsvpStatus: boolean;
+};
+export type UserRsvp = {
+  id: number;
+  rsvpStatus: boolean;
+  eventTitle: string | null;
+  eventDate: Date;
+  eventLocation: string | null;
 };
 
 export async function up(sql: Sql) {

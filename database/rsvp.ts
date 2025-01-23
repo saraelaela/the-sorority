@@ -1,6 +1,12 @@
 import { cache } from 'react';
-import type { EventRsvp, Rsvp, UserRsvp } from '../migrations/00006-rsvp';
+import type {
+  CreateUserRsvp,
+  EventRsvp,
+  Rsvp,
+  UserRsvp,
+} from '../migrations/00006-rsvp';
 import { sql } from './connect';
+import type { User } from './users';
 
 export const getAllRsvpInsecure = cache(async () => {
   const rsvp = await sql<Rsvp[]>`
@@ -22,6 +28,7 @@ export const getAllRsvpInsecure = cache(async () => {
   return rsvp;
 });
 
+// eslint-disable-next-line no-restricted-syntax
 export const getEventRsvp = cache(async () => {
   const rsvp = await sql<EventRsvp[]>`
     SELECT DISTINCT
@@ -44,25 +51,44 @@ export const getEventRsvp = cache(async () => {
   return rsvp;
 });
 // sort rsvp after User
-export const getUserRsvp = cache(async (id: Rsvp['id']) => {
-  const [rsvp] = await sql<UserRsvp[]>`
+// export const getUserRsvp = cache(async (id: Rsvp['id']) => {
+//   const [rsvp] = await sql<UserRsvp[]>`
+//     SELECT
+//       user_id,
+//       event_id,
+//       rsvp_status
+//     FROM
+//       rsvp
+//   `;
+//   return rsvp;
+// });
+
+// eslint-disable-next-line no-restricted-syntax
+export const getUserRsvp = cache(async (userId: User['id']) => {
+  const rsvps = await sql<UserRsvp[]>`
     SELECT
-      user_id,
-      event_id,
-      rsvp_status
+      rsvp.id,
+      rsvp.rsvp_status,
+      events.event_title,
+      events.event_date,
+      events.event_location
     FROM
       rsvp
+      JOIN events ON rsvp.event_id = events.id
+    WHERE
+      rsvp.user_id = ${userId}
   `;
-  return rsvp;
+  return rsvps;
 });
 
+// eslint-disable-next-line no-restricted-syntax
 export const createUserRsvp = cache(
   async (
     userId: Rsvp['userId'],
     eventId: Rsvp['eventId'],
     rsvpStatus: Rsvp['rsvpStatus'],
   ) => {
-    const [rsvp] = await sql<UserRsvp[]>`
+    const [rsvp] = await sql<CreateUserRsvp[]>`
       INSERT INTO
         rsvp (
           user_id,

@@ -5,7 +5,7 @@ import React from 'react';
 import { type Event } from '../../../database/events';
 import type { User } from '../../../database/users';
 import type { Session } from '../../../migrations/00004-sessions';
-import type { EventRsvp } from '../../../migrations/00006-rsvp';
+import type { EventRsvp, UserRsvp } from '../../../migrations/00006-rsvp';
 import Button from '../../components/Button';
 import RsvpButton from '../../components/RsvpButton';
 import Tags from '../../components/Tag';
@@ -18,6 +18,7 @@ type Props = {
   mobileEvent: boolean;
   setMobileEvent: (value: boolean) => void;
   rsvps?: EventRsvp[];
+  userRsvp?: UserRsvp;
 };
 
 export default function EventOverview(props: Props) {
@@ -83,7 +84,7 @@ export default function EventOverview(props: Props) {
 
           {props.session && props.user ? (
             <div>
-              {props.rsvps?.some((rsvp) => rsvp.userId === props.user?.id) ? (
+              {props.rsvps?.some((rsvp) => rsvp.eventId === props.event?.id) ? (
                 <div>You are registered for this Event, yay!</div>
               ) : (
                 <RsvpButton

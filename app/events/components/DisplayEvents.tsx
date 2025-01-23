@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import type { Event } from '../../../database/events';
 import type { User } from '../../../database/users';
 import type { Session } from '../../../migrations/00004-sessions';
-import type { EventRsvp, Rsvp } from '../../../migrations/00006-rsvp';
+import type { EventRsvp, Rsvp, UserRsvp } from '../../../migrations/00006-rsvp';
 import styles from '../page.module.scss';
 import EventOverview from './EventOverview';
 
@@ -12,6 +12,7 @@ type Props = {
   user?: User | null;
   session?: Session;
   rsvps?: EventRsvp[];
+  userRsvp?: UserRsvp;
 };
 
 export default function DisplayEvents(props: Props) {
@@ -109,6 +110,7 @@ export default function DisplayEvents(props: Props) {
           {mobileEvent && (
             <div className={styles.eventOverviewContainer}>
               <EventOverview
+                userRsvp={props.userRsvp}
                 rsvps={props.rsvps}
                 session={props.session}
                 event={selectedEvent}

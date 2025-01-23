@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import buttonStyles from '../(auth)/admin/dashboard/(components)/Buttons.module.scss';
@@ -16,6 +17,7 @@ export default function RsvpButton(props: Props) {
   const [rsvpStatus, setInitialRsvpStatus] = useState(false);
   const eventId = props.eventDetails;
   const userId = props.userId;
+  const router = useRouter();
 
   const notify = () => toast('RSVP Successful! See you soon (.❛ ᴗ ❛.)');
 
@@ -51,30 +53,14 @@ export default function RsvpButton(props: Props) {
           // Parse response
           const data: RsvpResponseBody = await response.json();
 
-          {
-            console.log('datacheck', data);
-          }
           // Check for errors in response
           if ('errors' in data) {
             setErrors(data.errors);
+          } else {
+            setTimeout(() => {
+              router.refresh();
+            }, 1000);
           }
-
-          //3. Check if user exists
-          // const allRsvp = await getAllRsvpInsecure();
-          // if (allRsvp) {
-          //   return NextResponse.json(
-          //     {
-          //       errors: [
-          //         {
-          //           message: 'You already RSVPd',
-          //         },
-          //       ],
-          //     },
-          //     {
-          //       status: 400,
-          //     },
-          //   );
-          // }
         }}
       >
         <div className={buttonStyles.logoutButtonItem}>

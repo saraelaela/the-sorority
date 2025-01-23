@@ -35,7 +35,7 @@ export default function EventComponent(props: Props) {
             <div key={`events-${event.id}`} className={styles.eventParcel}>
               <div>
                 <div className={eventStyles.eventDate}>
-                  {new Date(event.eventDate).toLocaleDateString()}
+                  {new Date(event.eventDate).toLocaleDateString('de-DE')}
                 </div>
                 <div className={eventStyles.eventDetails}>
                   <div className={eventStyles.eventTags}>
