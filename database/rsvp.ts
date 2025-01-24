@@ -1,5 +1,10 @@
 import { cache } from 'react';
-import type { CreateUserRsvp, Rsvp, UserRsvp } from '../migrations/00006-rsvp';
+import type {
+  CreateUserRsvp,
+  EventRsvpOverview,
+  Rsvp,
+  UserRsvp,
+} from '../migrations/00006-rsvp';
 import { sql } from './connect';
 import type { Event } from './events';
 import type { User } from './users';
@@ -62,6 +67,22 @@ export const getAllUserRsvp = cache(async (userId: User['id']) => {
   return rsvps;
 });
 
+export const getAllEventRsvp = cache(async (eventId: Event['id']) => {
+  const eventRsvps = await sql<EventRsvpOverview[]>`
+    SELECT
+      rsvp.id,
+      rsvp.rsvp_status,
+      users.first_name,
+      users.profile_picture
+    FROM
+      rsvp
+      JOIN users ON rsvp.user_id = users.id
+    WHERE
+      rsvp.event_id = ${eventId}
+  `;
+  return eventRsvps;
+});
+
 // eslint-disable-next-line no-restricted-syntax
 export const createUserRsvp = cache(
   async (
@@ -69,21 +90,6 @@ export const createUserRsvp = cache(
     eventId: Rsvp['eventId'],
     rsvpStatus: Rsvp['rsvpStatus'],
   ) => {
-    // const [existingRsvp] = await sql<PreventDoubleRsvp[]>`
-    //   SELECT
-    //     id
-    //   FROM
-    //     rsvp
-    //   WHERE
-    //     user_id = ${userId}
-    //     AND event_id = ${eventId}
-    // `;
-
-    // if (existingRsvp) {
-    //   return {
-    //     error: "You have already RSVP'd to this event",
-    //   };
-    // }
     const [rsvp] = await sql<CreateUserRsvp[]>`
       INSERT INTO
         rsvp (

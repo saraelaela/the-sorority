@@ -45,6 +45,12 @@ export type UserRsvp = {
   eventDate: Date;
   eventLocation: string | null;
 };
+export type EventRsvpOverview = {
+  id: number;
+  rsvpStatus: boolean;
+  firstName: string;
+  profilePicture: string | null;
+};
 
 export async function up(sql: Sql) {
   await sql`

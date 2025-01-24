@@ -9,6 +9,7 @@ import Button from '../../components/Button';
 import RsvpButton from '../../components/RsvpButton';
 import Tags from '../../components/Tag';
 import styles from '../page.module.scss';
+import Attendees from './Attendees';
 
 type Props = {
   event: Event | undefined;
@@ -102,7 +103,10 @@ export default function EventOverview(props: Props) {
           {props.session && props.user ? (
             <div>
               {rsvpStatus === true ? (
-                <div>You are registered for this Event, yay!</div>
+                <>
+                  <div>You are registered for this Event, yay!</div>
+                  <Attendees event={props.event} />
+                </>
               ) : (
                 <RsvpButton
                   setRsvpStatus={setRsvpStatus}
