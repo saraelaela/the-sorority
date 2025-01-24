@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import type { Event } from '../migrations/00002-createTableEvents';
 import type {
   CreateUserRsvp,
   EventRsvp,
@@ -29,7 +30,7 @@ export const getAllRsvpInsecure = cache(async () => {
 });
 
 // eslint-disable-next-line no-restricted-syntax
-export const getEventRsvp = cache(async () => {
+export const getEventRsvp = cache(async (eventId: Event['id']) => {
   const rsvp = await sql<EventRsvp[]>`
     SELECT DISTINCT
       rsvp.id,
@@ -46,22 +47,13 @@ export const getEventRsvp = cache(async () => {
       rsvp
       JOIN users ON rsvp.user_id = users.id
       JOIN events ON rsvp.event_id = events.id
+    WHERE
+      events.id = ${eventId}
+      AND rsvp.rsvp_status IS TRUE
   `;
   console.log('rsvp with user and event', rsvp);
   return rsvp;
 });
-// sort rsvp after User
-// export const getUserRsvp = cache(async (id: Rsvp['id']) => {
-//   const [rsvp] = await sql<UserRsvp[]>`
-//     SELECT
-//       user_id,
-//       event_id,
-//       rsvp_status
-//     FROM
-//       rsvp
-//   `;
-//   return rsvp;
-// });
 
 // eslint-disable-next-line no-restricted-syntax
 export const getUserRsvp = cache(async (userId: User['id']) => {

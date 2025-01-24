@@ -14,21 +14,18 @@ type Props = {
 };
 
 export default async function Events(props: Props) {
-  const rsvp = await getEventRsvp();
-  const rsvpId = rsvp.find((rsvp) => rsvp.id)?.id;
-  if (rsvpId) {
-    const userRsvp = await getUserRsvp(rsvpId);
+  let userRsvp;
+  if (props.user?.id) {
+    userRsvp = await getUserRsvp(props.user?.id);
   }
-  console.log('update on rsvp query', rsvp);
 
   return (
     <div>
       <DisplayEvents
-        // userRsvp={userRsvp}
+        userRsvp={userRsvp}
         session={props.session}
         events={props.events}
         user={props.user}
-        rsvps={rsvp}
       />
     </div>
   );

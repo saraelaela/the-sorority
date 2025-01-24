@@ -12,7 +12,7 @@ type Props = {
   user?: User | null;
   session?: Session;
   rsvps?: EventRsvp[];
-  userRsvp?: UserRsvp;
+  userRsvp?: UserRsvp[];
 };
 
 export default function DisplayEvents(props: Props) {
@@ -67,6 +67,7 @@ export default function DisplayEvents(props: Props) {
             })}
           </div>
           <EventOverview
+            userRsvp={props.userRsvp}
             rsvps={props.rsvps}
             session={props.session}
             event={selectedEvent}

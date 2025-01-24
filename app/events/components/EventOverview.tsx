@@ -10,6 +10,7 @@ import Button from '../../components/Button';
 import RsvpButton from '../../components/RsvpButton';
 import Tags from '../../components/Tag';
 import styles from '../page.module.scss';
+import Attendees from './Attendees';
 
 type Props = {
   event: Event | undefined;
@@ -18,12 +19,13 @@ type Props = {
   mobileEvent: boolean;
   setMobileEvent: (value: boolean) => void;
   rsvps?: EventRsvp[];
-  userRsvp?: UserRsvp;
+  userRsvp?: UserRsvp[];
 };
 
 export default function EventOverview(props: Props) {
   console.log('RsvpList:', props.rsvps);
-  const firstAttendee = props.rsvps?.[0]?.firstName;
+  console.log('Event check:', props.event);
+
   if (props.event) {
     return (
       <div className={styles.eventCard}>
@@ -93,29 +95,7 @@ export default function EventOverview(props: Props) {
                   userId={props.user?.id}
                 />
               )}
-              <div className={styles.attendeeContainer}>
-                Meet {firstAttendee} & many others at this Event!
-                <div className={styles.attendeeGallery}>
-                  {props.rsvps?.map((rsvp, index: number) => (
-                    <Image
-                      key={`rsvp-${rsvp.id}`}
-                      className={styles.attendeeImage}
-                      src={
-                        rsvp.profilePicture || '/images/image-placeholder.png'
-                      }
-                      style={{
-                        width: '7%',
-                        height: 'auto',
-                        borderRadius: '30px',
-                        zIndex: props.rsvps!.length - index,
-                      }}
-                      width={50}
-                      height={50}
-                      alt="Mitglieder des Sorority-Vorstands"
-                    />
-                  ))}
-                </div>
-              </div>
+              <Attendees event={props.event} userRsvp={props.userRsvp} />
             </div>
           ) : (
             <>
@@ -140,29 +120,6 @@ export default function EventOverview(props: Props) {
                   value={'Interested? Become a Member!'}
                 />
               </Link>
-              <div className={styles.attendeeContainer}>
-                Meet {firstAttendee} & many others at this Event!
-                <div className={styles.attendeeGallery}>
-                  {props.rsvps?.map((rsvp, index: number) => (
-                    <Image
-                      key={`rsvp-${rsvp.id}`}
-                      className={styles.attendeeImage}
-                      src={
-                        rsvp.profilePicture || '/images/image-placeholder.png'
-                      }
-                      style={{
-                        width: '7%',
-                        height: 'auto',
-                        borderRadius: '30px',
-                        zIndex: props.rsvps!.length - index,
-                      }}
-                      width={50}
-                      height={50}
-                      alt="Mitglieder des Sorority-Vorstands"
-                    />
-                  ))}
-                </div>
-              </div>
             </>
           )}
         </div>

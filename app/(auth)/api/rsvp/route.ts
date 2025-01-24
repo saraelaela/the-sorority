@@ -1,13 +1,16 @@
 import { NextResponse } from 'next/server';
-import { createUserRsvp } from '../../../../database/rsvp';
-import { rsvpSchema, type UserRsvp } from '../../../../migrations/00006-rsvp';
+import { createUserRsvp, getUserRsvp } from '../../../../database/rsvp';
+import {
+  type CreateUserRsvp,
+  rsvpSchema,
+} from '../../../../migrations/00006-rsvp';
 
 export type RsvpResponseBody =
   | {
       rsvp: {
-        userId: UserRsvp['userId'];
-        eventId: UserRsvp['eventId'];
-        rsvpStatus: UserRsvp['rsvpStatus'];
+        userId: CreateUserRsvp['userId'];
+        eventId: CreateUserRsvp['eventId'];
+        rsvpStatus: CreateUserRsvp['rsvpStatus'];
       };
     }
   | {
@@ -59,4 +62,20 @@ export async function POST(
   return NextResponse.json({
     rsvp: newRsvp,
   });
+}
+
+// eslint-disable-next-line no-restricted-syntax
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const eventId = searchParams.get('eventId');
+
+  if (!eventId) {
+    return NextResponse.json(
+      { error: 'Event ID is required' },
+      { status: 400 },
+    );
+  }
+
+  const attendees = await getUserRsvp(parseInt(eventId));
+  return NextResponse.json(attendees);
 }
