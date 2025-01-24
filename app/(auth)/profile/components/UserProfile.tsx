@@ -13,7 +13,6 @@ type Props = {
 
 export default function UserProfile(props: Props) {
   const [showUserForm, setShowUserForm] = useState(false);
-  console.log('PROPS USER', props.user);
   return (
     <div className={styles.editUser}>
       {showUserForm ? (

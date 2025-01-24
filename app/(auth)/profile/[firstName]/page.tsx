@@ -1,6 +1,10 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getAllRsvpInsecure } from '../../../../database/rsvp';
+import {
+  getEventInsecure,
+  getEventsInsecure,
+} from '../../../../database/events';
+import { getUserRsvp } from '../../../../database/rsvp';
 import { getValidSessionToken } from '../../../../database/sessions';
 import { getUser, type User } from '../../../../database/users';
 import { getSafeReturnToPath } from '../../../../util/validation';
@@ -40,7 +44,7 @@ export default async function UserProfilePage(props: Props) {
 
   const user = await getUser(session.token);
 
-  const userRsvp = await getAllRsvpInsecure();
+  console.log('does the user exist:', user);
 
   // 1) sessiontoken holen 2) Userdaten holen und als Props weitergeben, schauen, ob ID mitgeschickt wird
 
@@ -57,15 +61,7 @@ export default async function UserProfilePage(props: Props) {
           <Footer customFooter="customFooterUser" customColor={'#000000'} />
         </div>
         <div>
-          {user ? (
-            <UserEventRsvp
-              firstName={firstName}
-              user={user}
-              userRsvp={userRsvp}
-            />
-          ) : (
-            ''
-          )}
+          {user ? <UserEventRsvp firstName={firstName} user={user} /> : ''}
         </div>
       </div>
     </div>

@@ -1,16 +1,14 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { type Event } from '../../../database/events';
 import type { User } from '../../../database/users';
 import type { Session } from '../../../migrations/00004-sessions';
-import type { EventRsvp, UserRsvp } from '../../../migrations/00006-rsvp';
 import Button from '../../components/Button';
 import RsvpButton from '../../components/RsvpButton';
 import Tags from '../../components/Tag';
 import styles from '../page.module.scss';
-import Attendees from './Attendees';
 
 type Props = {
   event: Event | undefined;
@@ -18,13 +16,30 @@ type Props = {
   session: Session | undefined;
   mobileEvent: boolean;
   setMobileEvent: (value: boolean) => void;
-  rsvps?: EventRsvp[];
-  userRsvp?: UserRsvp[];
+  // rsvps?: EventRsvp[];
+  // userRsvp?: UserRsvp[];
 };
 
 export default function EventOverview(props: Props) {
-  console.log('RsvpList:', props.rsvps);
-  console.log('Event check:', props.event);
+  const [rsvpStatus, setRsvpStatus] = useState<boolean | null>(null);
+  useEffect(() => {
+    async function attending() {
+      if (!props.user?.id || !props.event?.id) return;
+
+      const response = await fetch(
+        `/api/rsvp?userId=${props.user.id}&eventId=${props.event.id}`,
+      );
+      const data = await response.json();
+      console.log('RSVP response:', data);
+      setRsvpStatus(data.rsvpState);
+    }
+
+    attending();
+  }, [props.user?.id, props.event?.id]);
+
+  useEffect(() => {
+    console.log('rsvpStatus changed:', rsvpStatus);
+  }, [rsvpStatus]);
 
   if (props.event) {
     return (
@@ -86,16 +101,16 @@ export default function EventOverview(props: Props) {
 
           {props.session && props.user ? (
             <div>
-              {props.rsvps?.some((rsvp) => rsvp.eventId === props.event?.id) ? (
+              {rsvpStatus === true ? (
                 <div>You are registered for this Event, yay!</div>
               ) : (
                 <RsvpButton
+                  setRsvpStatus={setRsvpStatus}
                   value={'RSVP'}
                   eventDetails={props.event?.id}
                   userId={props.user?.id}
                 />
               )}
-              <Attendees event={props.event} userRsvp={props.userRsvp} />
             </div>
           ) : (
             <>

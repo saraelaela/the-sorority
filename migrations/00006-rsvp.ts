@@ -34,6 +34,10 @@ export type CreateUserRsvp = {
   eventId: number;
   rsvpStatus: boolean;
 };
+
+export type PreventDoubleRsvp = {
+  id: number;
+};
 export type UserRsvp = {
   id: number;
   rsvpStatus: boolean;

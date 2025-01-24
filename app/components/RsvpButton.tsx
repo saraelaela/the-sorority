@@ -3,28 +3,24 @@ import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import buttonStyles from '../(auth)/admin/dashboard/(components)/Buttons.module.scss';
 import type { RsvpResponseBody } from '../(auth)/api/rsvp/route';
-import { createUserRsvp } from '../../database/rsvp';
+import type { UserRsvp } from '../../migrations/00006-rsvp';
 import styles from '../page.module.scss';
 
 type Props = {
   userId?: number;
   eventDetails?: number;
   value: string;
+  setRsvpStatus: (rsvps: boolean) => void;
 };
 
 export default function RsvpButton(props: Props) {
   const [errors, setErrors] = useState<{ message: string }[]>([]);
-  const [rsvpStatus, setInitialRsvpStatus] = useState(false);
+
   const eventId = props.eventDetails;
   const userId = props.userId;
   const router = useRouter();
 
   const notify = () => toast('RSVP Successful! See you soon (.❛ ᴗ ❛.)');
-
-  // Log initialRsvpStatus when it changes
-  useEffect(() => {
-    console.log('Updated RsvpStatus:', rsvpStatus);
-  }, [rsvpStatus]);
 
   return (
     <div className={styles.buttonContainer}>
@@ -35,7 +31,7 @@ export default function RsvpButton(props: Props) {
         onClick={async () => {
           notify();
           // Update RsvpStatus
-          setInitialRsvpStatus(true);
+          props.setRsvpStatus(true);
 
           // Fetch request
           const response = await fetch(`/api/rsvp`, {

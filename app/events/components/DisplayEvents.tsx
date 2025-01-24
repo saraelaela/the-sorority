@@ -67,8 +67,6 @@ export default function DisplayEvents(props: Props) {
             })}
           </div>
           <EventOverview
-            userRsvp={props.userRsvp}
-            rsvps={props.rsvps}
             session={props.session}
             event={selectedEvent}
             user={props.user ?? null}
@@ -111,8 +109,6 @@ export default function DisplayEvents(props: Props) {
           {mobileEvent && (
             <div className={styles.eventOverviewContainer}>
               <EventOverview
-                userRsvp={props.userRsvp}
-                rsvps={props.rsvps}
                 session={props.session}
                 event={selectedEvent}
                 user={props.user ?? null}

@@ -1,17 +1,28 @@
+'use client';
+import { useEffect, useState } from 'react';
 import { type User } from '../../../../database/users';
-import type { Rsvp } from '../../../../migrations/00006-rsvp';
 import styles from './UserEventRsvp.module.scss';
 import UserProfile from './UserProfile';
 
 type Props = {
-  userRsvp: Rsvp[];
   user: User;
   firstName: string;
 };
 
-export default async function UserEventRsvp(props: Props) {
-  console.log('userRSVP:', props.userRsvp);
-  console.log('props user:', props.user);
+export default function UserEventRsvp(props: Props) {
+  const [eventRsvps, setEventRsvps] = useState<boolean | null>(null);
+  useEffect(() => {
+    async function showEventRsvp() {
+      const response = await fetch(`/api/rsvp?userId=${props.user.id}`);
+      const data = await response.json();
+      console.log('RSVP response:', data);
+      setEventRsvps(data.allUserRsvps);
+    }
+
+    showEventRsvp();
+  }, [props.user?.id]);
+
+  console.log('userRsvp check', eventRsvps);
   return (
     <div className={styles.eventWrapper}>
       <div className={styles.eventContainer}>
@@ -21,8 +32,8 @@ export default async function UserEventRsvp(props: Props) {
           <div className={styles.eventOverview}>
             <h3 className={styles.h3}>Your upcoming Events </h3>
 
-            {Array.isArray(props.userRsvp) && props.userRsvp.length > 0 ? (
-              props.userRsvp.map((rsvp) => {
+            {Array.isArray(eventRsvps) && eventRsvps.length > 0 ? (
+              eventRsvps.map((rsvp) => {
                 return (
                   <div
                     className={styles.eventListContainer}
@@ -49,7 +60,6 @@ export default async function UserEventRsvp(props: Props) {
           </div>
         </div>
       </div>
-      {/* <div>{props.userRsvp.eventId}</div> */}
     </div>
   );
 }

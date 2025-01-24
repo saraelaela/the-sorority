@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
-import { createUserRsvp, getUserRsvp } from '../../../../database/rsvp';
+import {
+  createUserRsvp,
+  getAllUserRsvp,
+  getUserRsvp,
+} from '../../../../database/rsvp';
 import {
   type CreateUserRsvp,
   rsvpSchema,
+  type UserRsvp,
 } from '../../../../migrations/00006-rsvp';
 
 export type RsvpResponseBody =
@@ -65,17 +70,37 @@ export async function POST(
 }
 
 // eslint-disable-next-line no-restricted-syntax
+// export async function GET(request: Request) {
+//   const { searchParams } = new URL(request.url);
+//   const eventId = searchParams.get('eventId');
+
+//   if (!eventId) {
+//     return NextResponse.json(
+//       { error: 'Event ID is required' },
+//       { status: 400 },
+//     );
+//   }
+
+//   const attendees = await getUserRsvp(parseInt(eventId));
+//   return NextResponse.json(attendees);
+// }
+
+// eslint-disable-next-line no-restricted-syntax
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
+  const userId = searchParams.get('userId');
   const eventId = searchParams.get('eventId');
 
-  if (!eventId) {
-    return NextResponse.json(
-      { error: 'Event ID is required' },
-      { status: 400 },
-    );
+  if (!userId) {
+    return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
   }
 
-  const attendees = await getUserRsvp(parseInt(eventId));
-  return NextResponse.json(attendees);
+  if (eventId) {
+    const loggedInUser = await getUserRsvp(parseInt(userId), parseInt(eventId));
+    const rsvpState = loggedInUser.length > 0;
+    return NextResponse.json({ rsvpState });
+  } else {
+    const allUserRsvps = await getAllUserRsvp(parseInt(userId));
+    return NextResponse.json({ allUserRsvps });
+  }
 }
