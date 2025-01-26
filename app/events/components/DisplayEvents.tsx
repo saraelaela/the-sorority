@@ -18,19 +18,22 @@ type Props = {
 export default function DisplayEvents(props: Props) {
   const [selectedEvent, setSelectedEvent] = useState(props.events[0]);
   const [mobileEvent, setMobileEvent] = useState<boolean>(false);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState(800);
 
   useEffect(() => {
-    // doorbell
-    const handleResize = () => {
+    if (typeof window !== 'undefined') {
       setScreenWidth(window.innerWidth);
-    };
-    // Adding the listener is like hiring someone to watch a window and tell you when its size changes
-    window.addEventListener('resize', handleResize);
-    //Cleanup is like telling that person "you can stop watching now" when you don't need them anymore. Without cleanup, you'd be hiring new watchers each time but never letting the old ones go home!
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+
+      const handleResize = () => {
+        setScreenWidth(window.innerWidth);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   return (

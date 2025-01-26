@@ -8,7 +8,6 @@ import {
 import {
   type CreateUserRsvp,
   rsvpSchema,
-  type UserRsvp,
 } from '../../../../migrations/00006-rsvp';
 
 export type RsvpResponseBody =
@@ -17,6 +16,7 @@ export type RsvpResponseBody =
         userId: CreateUserRsvp['userId'];
         eventId: CreateUserRsvp['eventId'];
         rsvpStatus: CreateUserRsvp['rsvpStatus'];
+        createdAt: CreateUserRsvp['createdAt'];
       };
     }
   | {
@@ -31,10 +31,17 @@ export async function POST(
   // 1. Get the user data from the request
   const requestBody = await request.json();
   {
-    console.log('datacheck', requestBody);
+    console.log('1. Raw request timestamp:', requestBody.createdAt);
   }
 
   const result = rsvpSchema.safeParse(requestBody);
+  console.log(
+    '2. After Zod parse timestamp:',
+    result.success ? result.data.createdAt : 'parse failed',
+  );
+
+  {
+  }
 
   if (!result.success) {
     return NextResponse.json(
@@ -49,7 +56,11 @@ export async function POST(
     result.data.userId,
     result.data.eventId,
     result.data.rsvpStatus,
+    result.data.createdAt,
   );
+
+  console.log('3. Returned from DB timestamp:', newRsvp?.createdAt);
+
   if (!newRsvp) {
     return NextResponse.json(
       {
@@ -64,33 +75,10 @@ export async function POST(
       },
     );
   }
-  console.log('newRsvp', newRsvp);
   return NextResponse.json({
     rsvp: newRsvp,
   });
 }
-
-// eslint-disable-next-line no-restricted-syntax
-// export async function GET(request: Request) {
-//   const { searchParams } = new URL(request.url);
-//   const userId = searchParams.get('userId');
-//   const eventId = searchParams.get('eventId');
-
-// if (!userId) {
-//   return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
-// }
-
-// if (eventId) {
-//   const loggedInUser = await getUserRsvp(parseInt(userId), parseInt(eventId));
-//   const rsvpState = loggedInUser.length > 0;
-//   const allEventRsvp = await getAllEventRsvp(parseInt(eventId));
-//   return NextResponse.json({ rsvpState, allEventRsvp });
-// } else {
-//   const allUserRsvps = await getAllUserRsvp(parseInt(userId));
-//   return NextResponse.json({ allUserRsvps });
-// }
-
-// }
 
 // eslint-disable-next-line no-restricted-syntax
 export async function GET(request: Request) {
@@ -98,15 +86,7 @@ export async function GET(request: Request) {
   const userId = searchParams.get('userId');
   const eventId = searchParams.get('eventId');
 
-  // Parameter validation check
-  if (!userId && !eventId) {
-    return NextResponse.json(
-      { error: 'Either userId or eventId is required' },
-      { status: 400 },
-    );
-  }
-
-  // Only userId provided
+  // If userId is provided but no eventId, fetch all RSVPs for that user
   if (userId && !eventId) {
     const userIdNumber = parseInt(userId);
     if (isNaN(userIdNumber)) {
@@ -116,23 +96,12 @@ export async function GET(request: Request) {
       );
     }
 
-    const allUserRsvps = await getAllUserRsvp(userIdNumber).catch((error) => {
-      console.error('Failed to fetch user RSVPs:', error);
-      return NextResponse.json(
-        { error: 'Unable to retrieve user RSVPs' },
-        { status: 500 },
-      );
-    });
-
-    if (allUserRsvps instanceof NextResponse) {
-      return allUserRsvps; // Return error response if that's what we got
-    }
-
+    const allUserRsvps = await getAllUserRsvp(userIdNumber);
     return NextResponse.json({ allUserRsvps });
   }
 
-  // Only eventId provided
-  if (!userId && eventId) {
+  // If eventId is provided, use existing event-specific logic
+  if (eventId) {
     const eventIdNumber = parseInt(eventId);
     if (isNaN(eventIdNumber)) {
       return NextResponse.json(
@@ -141,62 +110,35 @@ export async function GET(request: Request) {
       );
     }
 
-    const eventRsvps = await getAllEventRsvp(eventIdNumber).catch((error) => {
-      console.error('Failed to fetch event RSVPs:', error);
-      return NextResponse.json(
-        { error: 'Unable to retrieve event RSVPs' },
-        { status: 500 },
-      );
-    });
+    const eventRsvps = await getAllEventRsvp(eventIdNumber);
 
-    if (eventRsvps instanceof NextResponse) {
-      return eventRsvps;
-    }
-
-    return NextResponse.json({ eventRsvps });
-  }
-
-  // userId and eventId provided
-  if (userId && eventId) {
-    const userIdNumber = parseInt(userId);
-    const eventIdNumber = parseInt(eventId);
-
-    if (isNaN(userIdNumber) || isNaN(eventIdNumber)) {
-      return NextResponse.json(
-        { error: 'Invalid ID format provided' },
-        { status: 400 },
-      );
-    }
-
-    const loggedInUser = await getUserRsvp(userIdNumber, eventIdNumber).catch(
-      (error) => {
-        console.error('Failed to fetch user RSVP status:', error);
+    // If userId is also provided, get their RSVP status for this event
+    if (userId) {
+      const userIdNumber = parseInt(userId);
+      if (isNaN(userIdNumber)) {
         return NextResponse.json(
-          { error: 'Unable to retrieve RSVP status' },
-          { status: 500 },
+          { error: 'Invalid user ID format' },
+          { status: 400 },
         );
-      },
-    );
+      }
 
-    if (loggedInUser instanceof NextResponse) {
-      return loggedInUser;
-    }
+      const loggedInUser = await getUserRsvp(userIdNumber, eventIdNumber);
 
-    const eventRsvps = await getAllEventRsvp(eventIdNumber).catch((error) => {
-      console.error('Failed to fetch event RSVPs:', error);
-      return NextResponse.json(
-        { error: 'Unable to retrieve event RSVPs' },
-        { status: 500 },
-      );
-    });
-
-    if (eventRsvps instanceof NextResponse) {
-      return eventRsvps;
+      return NextResponse.json({
+        rsvpState: loggedInUser.length > 0,
+        eventRsvps,
+      });
     }
 
     return NextResponse.json({
-      rsvpState: loggedInUser.length > 0,
+      rsvpState: null,
       eventRsvps,
     });
   }
+
+  // If neither userId nor eventId is provided
+  return NextResponse.json(
+    { error: 'Either userId or eventId is required' },
+    { status: 400 },
+  );
 }

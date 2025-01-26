@@ -61,7 +61,10 @@ export const getEventsInsecure = cache(async () => {
       events
     ORDER BY
       event_date ASC
-  `;
+  `.catch((error) => {
+    console.error('Failed to fetch events:', error);
+    return [];
+  });
 
   return events;
 });

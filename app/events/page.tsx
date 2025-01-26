@@ -13,7 +13,10 @@ type Props = {
 };
 
 export default async function EventsPage(props: Props) {
-  const events = await getEventsInsecure();
+  const events = await getEventsInsecure().catch((error) => {
+    console.error('Error in EventsPage:', error);
+    return [];
+  });
   // 1) check if sessionToken exists
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 

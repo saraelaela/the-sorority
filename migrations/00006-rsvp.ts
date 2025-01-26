@@ -5,6 +5,7 @@ export const rsvpSchema = z.object({
   userId: z.number(),
   eventId: z.number(),
   rsvpStatus: z.boolean(),
+  createdAt: z.coerce.date(),
 });
 
 export type Rsvp = {
@@ -16,6 +17,7 @@ export type Rsvp = {
   eventTitle: string | null;
   eventDate: Date;
   eventLocation: string | null;
+  createdAt: Date;
 };
 export type EventRsvp = {
   id: number;
@@ -33,6 +35,7 @@ export type CreateUserRsvp = {
   userId: number;
   eventId: number;
   rsvpStatus: boolean;
+  createdAt: Date;
 };
 
 export type PreventDoubleRsvp = {
@@ -48,8 +51,10 @@ export type UserRsvp = {
 export type EventRsvpOverview = {
   id: number;
   rsvpStatus: boolean;
+  userId: number;
   firstName: string;
   profilePicture: string | null;
+  createdAt: Date;
 };
 
 export async function up(sql: Sql) {
@@ -62,8 +67,8 @@ export async function up(sql: Sql) {
       UNIQUE (user_id, event_id)
     )
   `;
-} //perform operation
+}
 
 export async function down(sql: Sql) {
   await sql` DROP TABLE rsvp `;
-} // reverse operation
+}

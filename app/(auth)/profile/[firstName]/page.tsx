@@ -23,6 +23,7 @@ export default async function UserProfilePage(props: Props) {
   const { returnTo } = await props.params;
   const { firstName } = await props.params;
 
+  const events = await getEventsInsecure();
   // 1) check if sessionToken exists
   const sessionTokenCookie = (await cookies()).get('sessionToken');
 
@@ -61,7 +62,11 @@ export default async function UserProfilePage(props: Props) {
           <Footer customFooter="customFooterUser" customColor={'#000000'} />
         </div>
         <div>
-          {user ? <UserEventRsvp firstName={firstName} user={user} /> : ''}
+          {user ? (
+            <UserEventRsvp events={events} firstName={firstName} user={user} />
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>

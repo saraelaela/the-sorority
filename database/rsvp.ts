@@ -19,7 +19,8 @@ export const getAllRsvpInsecure = cache(async () => {
       events.id AS event_id,
       events.event_title AS event_title,
       events.event_date AS event_date,
-      events.event_location AS event_location
+      events.event_location AS event_location,
+      rsvp.created_at
     FROM
       rsvp
       JOIN users ON rsvp.user_id = users.id
@@ -72,6 +73,8 @@ export const getAllEventRsvp = cache(async (eventId: Event['id']) => {
     SELECT
       rsvp.id,
       rsvp.rsvp_status,
+      rsvp.created_at,
+      rsvp.user_id,
       users.first_name,
       users.profile_picture
     FROM
@@ -79,6 +82,8 @@ export const getAllEventRsvp = cache(async (eventId: Event['id']) => {
       JOIN users ON rsvp.user_id = users.id
     WHERE
       rsvp.event_id = ${eventId}
+    ORDER BY
+      created_at
   `;
   return eventRsvps;
 });
@@ -89,26 +94,31 @@ export const createUserRsvp = cache(
     userId: Rsvp['userId'],
     eventId: Rsvp['eventId'],
     rsvpStatus: Rsvp['rsvpStatus'],
+    createdAt: CreateUserRsvp['createdAt'],
   ) => {
+    console.log('4. Before SQL insertion timestamp:', createdAt);
     const [rsvp] = await sql<CreateUserRsvp[]>`
       INSERT INTO
         rsvp (
           user_id,
           event_id,
-          rsvp_status
+          rsvp_status,
+          created_at
         )
       VALUES
         (
           ${userId},
           ${eventId},
-          ${rsvpStatus}
+          ${rsvpStatus},
+          ${createdAt}::timestamptz
         )
       RETURNING
         rsvp.user_id,
         rsvp.event_id,
-        rsvp.rsvp_status
+        rsvp.rsvp_status,
+        rsvp.created_at
     `;
-
+    console.log('5. After SQL insertion timestamp 4:', rsvp?.createdAt);
     return rsvp;
   },
 );

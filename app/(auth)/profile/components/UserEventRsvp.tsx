@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import type { Event } from '../../../../database/events';
 import { type User } from '../../../../database/users';
 import styles from './UserEventRsvp.module.scss';
 import UserProfile from './UserProfile';
@@ -7,6 +8,7 @@ import UserProfile from './UserProfile';
 type Props = {
   user: User;
   firstName: string;
+  events: Event[];
 };
 
 export default function UserEventRsvp(props: Props) {

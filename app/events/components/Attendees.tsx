@@ -1,63 +1,82 @@
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import type { Event } from '../../../database/events';
+import type { User } from '../../../database/users';
 import type { EventRsvpOverview } from '../../../migrations/00006-rsvp';
 import styles from '../page.module.scss';
 
 type Props = {
   event?: Event;
+  attendees: EventRsvpOverview[];
+  user: User | null;
 };
 
 export default function Attendees(props: Props) {
-  const [attendees, setAttendees] = useState<EventRsvpOverview[]>([]);
-  useEffect(() => {
-    async function fetchAttendees() {
-      console.log('Starting fetch with event ID:', props.event?.id);
-      if (!props.event?.id) return;
-      console.log('Making fetch request...');
-      const response = await fetch(`/api/rsvp?eventId=${props.event?.id}`);
-      console.log('checking out response:', response);
-      const data = await response.json();
+  console.log('Number of attendees:', props.attendees.length);
+  console.log('Attendees:', props.attendees);
+  console.log('Attendees props:', {
+    profilePictures: props.attendees.map((a) => a.profilePicture),
+  });
 
-      console.log('datafetch', data);
-
-      const { eventRsvps } = data;
-      setAttendees(eventRsvps);
+  const getAttendanceMessage = () => {
+    // Case: Single attendee (not you)
+    if (
+      props.attendees.length === 1 &&
+      props.attendees[0]?.id !== props.user?.id
+    ) {
+      return `${props.attendees[0]?.firstName} is also attending this Event.`;
     }
-    fetchAttendees();
-  }, [props.event?.id]);
 
-  useEffect(() => {
-    console.log('attendees updated:', attendees);
-  }, [attendees]);
+    // Case: Multiple attendees
+    if (props.attendees.length > 1) {
+      const otherAttendees = props.attendees.filter(
+        (attendee) => attendee.userId !== props.user?.id,
+      );
 
-  return (
+      if (otherAttendees.length === 0) {
+        return null; // Don't show any message if you're the only attendee
+      }
+
+      // If there's only one other person (total of 2 people including you)
+      if (otherAttendees.length === 1) {
+        return `${otherAttendees[0]?.firstName} is also attending this Event.`;
+      }
+
+      // Only show "Meet X and others" if there are at least 2 other people
+      if (otherAttendees.length > 2) {
+        return `Meet ${otherAttendees[0]?.firstName} and ${
+          otherAttendees.length - 1
+        } others at this Event!`;
+      }
+      console.log('otherAttendees check', otherAttendees);
+    }
+
+    return null;
+  };
+
+  const message = getAttendanceMessage();
+
+  return message ? (
     <div className={styles.attendeeContainer}>
-      {attendees.length > 0 ? (
-        <>
-          <div>Meet XXX & many others at this Event!</div>
-          <div className={styles.attendeeGallery}>
-            {attendees.map((attendee, index: number) => (
-              <Image
-                key={`attendee-${attendee.id}`}
-                className={styles.attendeeImage}
-                src={attendee.profilePicture || '/images/image-placeholder.png'}
-                style={{
-                  width: '7%',
-                  height: 'auto',
-                  borderRadius: '30px',
-                  zIndex: attendees!.length - index,
-                }}
-                width={50}
-                height={50}
-                alt="Mitglieder des Sorority-Vorstands"
-              />
-            ))}
-          </div>
-        </>
-      ) : (
-        <div>Be the first to join this event!</div>
-      )}
+      <div>{message}</div>
+      <div className={styles.attendeeGallery}>
+        {props.attendees.map((attendee, index) => (
+          <Image
+            key={`attendee-${attendee.id}`}
+            className={styles.attendeeImage}
+            src={attendee.profilePicture || '/images/image-placeholder.png'}
+            style={{
+              width: '7%',
+              height: 'auto',
+              borderRadius: '30px',
+              zIndex: props.attendees.length - index,
+            }}
+            width={50}
+            height={50}
+            alt={`Profile picture of ${attendee.firstName}`}
+          />
+        ))}
+      </div>
     </div>
-  );
+  ) : null;
 }
