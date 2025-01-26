@@ -29,7 +29,9 @@ export default function EventOverview(props: Props) {
       if (!props.event?.id) return;
 
       // Single API call that gets both RSVP status and attendees
-      const response = await fetch(`/api/rsvp?eventId=${props.event.id}${props.user?.id ? `&userId=${props.user.id}` : ''}`);
+      const response = await fetch(
+        `/api/rsvp?eventId=${props.event.id}${props.user?.id ? `&userId=${props.user.id}` : ''}`,
+      );
       const data = await response.json();
 
       setRsvpStatus(data.rsvpState);
@@ -38,7 +40,6 @@ export default function EventOverview(props: Props) {
 
     fetchEventData();
   }, [props.event?.id, props.user?.id]);
-
 
   if (props.event) {
     return (
@@ -112,14 +113,14 @@ export default function EventOverview(props: Props) {
               ) : (
                 <div>
                   {attendees.length < 1 ? (
-                    <div>
-                      <div>Be the first to join this event!</div>
+                    <div className={styles.rsvpSection}>
                       <RsvpButton
                         setRsvpStatus={setRsvpStatus}
                         value="RSVP"
                         eventDetails={props.event.id}
                         userId={props.user.id}
                       />
+                      <div>Be the first to join this event!</div>
                     </div>
                   ) : (
                     <div>

@@ -14,15 +14,14 @@ type Props = {
 export default function Attendees(props: Props) {
   console.log('Number of attendees:', props.attendees.length);
   console.log('Attendees:', props.attendees);
-  console.log('Attendees props:', {
-    profilePictures: props.attendees.map((a) => a.profilePicture),
-  });
+  console.log('first Attendee:', props.attendees[0]);
+  console.log('show user id', props.user?.id);
 
   const getAttendanceMessage = () => {
     // Case: Single attendee (not you)
     if (
       props.attendees.length === 1 &&
-      props.attendees[0]?.id !== props.user?.id
+      props.attendees[0]?.userId !== props.user?.id
     ) {
       return `${props.attendees[0]?.firstName} is also attending this Event.`;
     }
@@ -43,10 +42,10 @@ export default function Attendees(props: Props) {
       }
 
       // Only show "Meet X and others" if there are at least 2 other people
-      if (otherAttendees.length > 2) {
+      if (otherAttendees.length >= 2) {
         return `Meet ${otherAttendees[0]?.firstName} and ${
           otherAttendees.length - 1
-        } others at this Event!`;
+        } other(s) at this Event!`;
       }
       console.log('otherAttendees check', otherAttendees);
     }
