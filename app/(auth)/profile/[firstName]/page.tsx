@@ -45,10 +45,6 @@ export default async function UserProfilePage(props: Props) {
 
   const user = await getUser(session.token);
 
-  console.log('does the user exist:', user);
-
-  // 1) sessiontoken holen 2) Userdaten holen und als Props weitergeben, schauen, ob ID mitgeschickt wird
-
   return (
     <div className={styles.main}>
       <div className={styles.logoArea}>
