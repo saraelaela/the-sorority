@@ -17,6 +17,7 @@ export default function UserCard(props: Props) {
           src={props.value.profilePicture || '/images/image-placeholder.png'}
           width={280}
           height={280}
+          style={{ objectFit: 'cover' }}
           alt="Mitglieder des Sorority-Vorstands"
         />
         <div className={styles.memberName}>

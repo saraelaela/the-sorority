@@ -87,10 +87,9 @@ export default function EventOverview(props: Props) {
           <Image
             src={`${props.event.eventImage}`}
             style={{
-              width: '50%',
-              height: 'auto',
+              objectFit: 'cover',
             }}
-            width={350}
+            width={280}
             height={200}
             alt="Mitglieder des Sorority-Vorstands"
           />

@@ -64,6 +64,7 @@ export default function UserForm(props: Props) {
           src={profilePicture || '/images/image-placeholder.png'}
           width={280}
           height={280}
+          style={{ objectFit: 'cover' }}
           alt="Mitglieder des Sorority-Vorstands"
         />
         <CldUploadWidget
