@@ -22,7 +22,7 @@ export default function Navigation(props: Props) {
         <Link href="/team">Team</Link>
         <Link href="/magazine">Magazin</Link>
         {props.user ? (
-          props.user.isAdmin ? (
+          props.user.isAdmin === true ? (
             <div className={styles.userArea}>
               <Link href="/admin/dashboard">Dashboard</Link>
               <Link href={`/profile/${props.user.firstName}`}>My Account</Link>

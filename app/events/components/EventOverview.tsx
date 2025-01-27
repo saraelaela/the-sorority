@@ -41,6 +41,16 @@ export default function EventOverview(props: Props) {
     fetchEventData();
   }, [props.event?.id, props.user?.id]);
 
+  const refreshAttendees = async () => {
+    if (!props.event?.id) return;
+
+    const response = await fetch(
+      `/api/rsvp?eventId=${props.event.id}${props.user?.id ? `&userId=${props.user.id}` : ''}`,
+    );
+    const data = await response.json();
+    setAttendees(data.eventRsvps);
+  };
+
   if (props.event) {
     return (
       <div className={styles.eventCard}>
@@ -87,6 +97,7 @@ export default function EventOverview(props: Props) {
           <Image
             src={`${props.event.eventImage}`}
             style={{
+              width: '40%',
               objectFit: 'cover',
             }}
             width={280}
@@ -114,6 +125,7 @@ export default function EventOverview(props: Props) {
                   {attendees.length < 1 ? (
                     <div className={styles.rsvpSection}>
                       <RsvpButton
+                        refreshAttendees={refreshAttendees}
                         setRsvpStatus={setRsvpStatus}
                         value="RSVP"
                         eventDetails={props.event.id}
@@ -124,6 +136,7 @@ export default function EventOverview(props: Props) {
                   ) : (
                     <div>
                       <RsvpButton
+                        refreshAttendees={refreshAttendees}
                         setRsvpStatus={setRsvpStatus}
                         value="RSVP"
                         eventDetails={props.event.id}

@@ -40,7 +40,7 @@ export default function Attendees(props: Props) {
       if (otherAttendees.length >= 2) {
         return `Meet ${otherAttendees[0]?.firstName} and ${
           otherAttendees.length - 1
-        } other(s) at this Event!`;
+        } other(s) at this Event.`;
       }
     }
 
@@ -61,6 +61,7 @@ export default function Attendees(props: Props) {
             style={{
               width: '7%',
               height: 'auto',
+              objectFit: 'cover',
               borderRadius: '30px',
               zIndex: props.attendees.length - index,
             }}

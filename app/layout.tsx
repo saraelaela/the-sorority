@@ -1,10 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import Link from 'next/link';
 import { getUser } from '../database/users';
-import LogoutButton from './(auth)/logout/LogoutButton';
-import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 import styles from './page.module.scss';
 
@@ -33,7 +30,6 @@ export default async function RootLayout({
           </nav>
         </header>
         <main className={styles.main}>{children}</main>
-        {/* {customFooter && <div>{customFooter}</div>} */}
       </body>
     </html>
   );

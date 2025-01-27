@@ -51,9 +51,7 @@ export default function RegisterForm(props: Props) {
     router.refresh();
   }
 
-  // Render the form and other components
   return (
-    // <div className={styles.main}>
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <SectionTitle title={'Want to become a Sorority member?'} />
